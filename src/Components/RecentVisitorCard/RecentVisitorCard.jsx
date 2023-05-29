@@ -3,22 +3,33 @@ import React from "react";
 import img1 from "../../Assets/profile/img1.png";
 import "./RecentVisitorCard.css";
 
-const RecentVisitorCard = () => {
+const RecentVisitorCard = ({ rev }) => {
+  const data = rev?.profile?.[0];
+
+  console.log(rev.profile[0]);
+  if (!data) {
+    return null;
+  }
+
+  console.log(data.home_town);
+
   return (
     <div className="recentvisitorcard">
       <div className="recentvisitorcard_location">
         <PlaceIcon />
-        <h4>Ahmedabad</h4>
+        <h4>{data.home_town}</h4>
       </div>
       <img src={img1} alt="" />
       <div className="recentvisitorcard_intro">
         <p>
-          Jaymin k, <span className="newmatchescard_height">5’5”</span>
+          {data.user_name},{" "}
+          <span className="newmatchescard_height">{data.height}</span>
         </p>
         <p>
-          30 year, <span className="newmatchescard_language">Gujarati</span>
+          {data.age} year,{" "}
+          <span className="newmatchescard_language">{data.mother_tongue}</span>
         </p>
-        <p>Assistant professor</p>
+        <p>{data.job_title}</p>
       </div>
       <button className="recentvisitorcard_connect_button">Connect</button>
     </div>

@@ -39,18 +39,17 @@ const Profile = () => {
     //   .catch((err) => {
     //     console.log(err);
     //   });
-
-    const res = await fetch(
-      "https://metrimonial.onrender.com/api/profile/userdetails",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await res.json();
-    console.log(data);
+    // const res = await fetch(
+    //   "https://metrimonial.onrender.com/api/profile/userdetails",
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    // const data = await res.json();
+    // console.log(data);
   };
 
   return (
