@@ -3,15 +3,24 @@ import React from "react";
 import img1 from "../../Assets/profile/img1.png";
 import "./RecentVisitorCard.css";
 
-const RecentVisitorCard = ({ rev }) => {
+const RecentVisitorCard = ({ rev, inv }) => {
   const data = rev?.profile?.[0];
 
-  console.log(rev.profile[0]);
+  // console.log(rev.profile[0]);
   if (!data) {
     return null;
   }
 
-  console.log(data.home_town);
+  // console.log(data.home_town);
+
+  const data1 = inv?.profile[0];
+
+  if (!data1) {
+    return null;
+  }
+  console.log(data1);
+
+  // console.log(inv.profile[0]);
 
   return (
     <div className="recentvisitorcard">
@@ -19,7 +28,7 @@ const RecentVisitorCard = ({ rev }) => {
         <PlaceIcon />
         <h4>{data.home_town}</h4>
       </div>
-      <img src={img1} alt="" />
+      <img src={data.user_photo} alt="" className="user_image" />
       <div className="recentvisitorcard_intro">
         <p>
           {data.user_name},{" "}

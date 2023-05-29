@@ -43,7 +43,7 @@ const SelectPlan = () => {
         <p>Choose the plan that’s right for you.</p>
       </div>
       <div className="selectplan__middle">
-        <div className="selectplan_messages_search_input_wrapper">
+        {/* <div className="selectplan_messages_search_input_wrapper">
           <Search />
           <input
             placeholder="Search"
@@ -61,7 +61,7 @@ const SelectPlan = () => {
             <input type="radio" name="plan" id="" />
             <p>Silver</p>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="selectplan__lower">

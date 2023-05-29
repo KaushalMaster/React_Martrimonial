@@ -60,7 +60,6 @@ const RecentVisitors = ({ recentVisitors }) => {
           <RecentVisitorCard key={rev.id} rev={rev} />
         ))}
       </div>
-      ̥
     </div>
   );
 };

@@ -1,5 +1,8 @@
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
 import React from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+
 import InvitationCard from "../../../Components/InvitationCard/InvitationCard";
 import RecentVisitorCard from "../../../Components/RecentVisitorCard/RecentVisitorCard";
 import "./Invitations.css";
@@ -13,12 +16,35 @@ const Invitations = ({ invitations }) => {
     let box = document.querySelector(".profile__invitations_wrapper");
     box.scrollLeft = box.scrollLeft + 500;
   };
+  const [invitationsData, setInvitationsData] = useState([]);
 
+  useEffect(() => {
+    fetchInvitations();
+  }, []);
+
+  const fetchInvitations = async () => {
+    try {
+      const response = await axios.get(
+        "https://metrimonial.onrender.com/api/profile/recent_visitor",
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      const InvitationsData = response.data.data.receive_request;
+      // console.log(recentVisitorsData);
+      console.log(InvitationsData);
+      setInvitationsData(InvitationsData);
+    } catch (error) {
+      console.log("Failed !!", error);
+    }
+  };
   return (
     <div className="profile__invitations">
       <div className="profile__invitations_heading">
         <h3>
-          Invitations <span>( {invitations.length} )</span>
+          Invitations <span>( {invitationsData.length} )</span>
         </h3>
         <div className="profile__invitations_icon_wrapper">
           <NavigateBefore
@@ -32,8 +58,8 @@ const Invitations = ({ invitations }) => {
         </div>
       </div>
       <div className="profile__invitations_wrapper">
-        {invitations.map((inv) => {
-          <RecentVisitorCard inv={inv} />;
+        {invitationsData.map((inv) => {
+          <RecentVisitorCard key={inv.id} inv={inv} />;
         })}
       </div>
     </div>
