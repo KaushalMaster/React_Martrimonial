@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const ProfileDetails = () => {
   const data = JSON.parse(localStorage.getItem("user"));
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className="profile__details">

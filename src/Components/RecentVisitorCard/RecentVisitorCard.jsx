@@ -3,7 +3,7 @@ import React from "react";
 import img1 from "../../Assets/profile/img1.png";
 import "./RecentVisitorCard.css";
 
-const RecentVisitorCard = ({ rev, inv }) => {
+const RecentVisitorCard = ({ rev }) => {
   const data = rev?.profile?.[0];
 
   // console.log(rev.profile[0]);
@@ -11,14 +11,7 @@ const RecentVisitorCard = ({ rev, inv }) => {
     return null;
   }
 
-  // console.log(data.home_town);
-
-  const data1 = inv?.profile[0];
-
-  if (!data1) {
-    return null;
-  }
-  console.log(data1);
+  // console.log(data.home_town);;
 
   // console.log(inv.profile[0]);
 

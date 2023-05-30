@@ -33,8 +33,7 @@ const Invitations = ({ invitations }) => {
         }
       );
       const InvitationsData = response.data.data.receive_request;
-      // console.log(recentVisitorsData);
-      console.log(InvitationsData);
+      // console.log(InvitationsData);
       setInvitationsData(InvitationsData);
     } catch (error) {
       console.log("Failed !!", error);
@@ -58,9 +57,9 @@ const Invitations = ({ invitations }) => {
         </div>
       </div>
       <div className="profile__invitations_wrapper">
-        {invitationsData.map((inv) => {
-          <RecentVisitorCard key={inv.id} inv={inv} />;
-        })}
+        {invitationsData.map((inv, index) => (
+          <InvitationCard key={index} inv={inv} />
+        ))}
       </div>
     </div>
   );

@@ -3,7 +3,9 @@ import "./NewMatchesCard.css";
 import PlaceIcon from "@mui/icons-material/Place";
 import img1 from "../../Assets/profile/img1.png";
 
-const NewMatchesCard = () => {
+const NewMatchesCard = ({ data }) => {
+  console.log(data);
+  console.log(data.user_name);
   return (
     <div className="newmatchescard">
       <div className="newmatchescard_location">

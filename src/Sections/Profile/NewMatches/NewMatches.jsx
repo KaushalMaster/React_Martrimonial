@@ -3,6 +3,9 @@ import React from "react";
 import NewMatchesCard from "../../../Components/NewMatchesCard/NewMatchesCard";
 import RecentVisitorCard from "../../../Components/RecentVisitorCard/RecentVisitorCard";
 import "./NewMatches.css";
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 const NewMatches = ({ newMatches }) => {
   const handlePrevClick = () => {
@@ -13,6 +16,32 @@ const NewMatches = ({ newMatches }) => {
     let box = document.querySelector(".profile__newmatches_wrapper");
     box.scrollLeft = box.scrollLeft + 500;
   };
+
+  const [newMatchesData, setNewMatchesData] = useState([]);
+
+  useEffect(() => {
+    fetchInvitations();
+  }, []);
+
+  const fetchInvitations = async () => {
+    try {
+      const response = await axios.get(
+        "https://metrimonial.onrender.com/api/profile/recent_visitor",
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      const Data = response.data.data.new_matches;
+      // console.log(recentVisitorsData);
+      // console.log(Data);
+      setNewMatchesData(Data);
+    } catch (error) {
+      console.log("Failed !!", error);
+    }
+  };
+
   return (
     <div className="profile__newmatches">
       <div className="profile__newmatches_heading">
@@ -31,8 +60,8 @@ const NewMatches = ({ newMatches }) => {
         </div>
       </div>
       <div className="profile__newmatches_wrapper">
-        {newMatches.map((newm) => {
-          <NewMatchesCard newm={newm} />;
+        {newMatchesData.map((newm) => {
+          <NewMatchesCard data={newm} />;
         })}
       </div>
     </div>

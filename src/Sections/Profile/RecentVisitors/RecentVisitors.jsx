@@ -56,8 +56,8 @@ const RecentVisitors = ({ recentVisitors }) => {
         </div>
       </div>
       <div className="profile__recent_visitors_wrapper">
-        {recentVisitorsData.map((rev) => (
-          <RecentVisitorCard key={rev.id} rev={rev} />
+        {recentVisitorsData.map((rev, index) => (
+          <RecentVisitorCard key={index} rev={rev} />
         ))}
       </div>
     </div>

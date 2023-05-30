@@ -5,12 +5,18 @@ import "./InvitationCard.css";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 
-const InvitationCard = () => {
+const InvitationCard = ({ inv }) => {
+  const data = inv?.profile[0];
+  if (!data) {
+    return null;
+  }
+  console.log(data.user_name);
+  console.log(inv);
   return (
     <div className="invitationcard">
       <div className="invitationcard_intro">
-        <img src={img1} alt="" />
-        <p>Kapil Patel</p>
+        <img src={inv.user_photo} alt="" />
+        <p>{data.user_name}</p>
       </div>
       <div className="invitationcard_bottom">
         <p className="proceed_further">want to procced further</p>
