@@ -60,9 +60,9 @@ const NewMatches = ({ newMatches }) => {
         </div>
       </div>
       <div className="profile__newmatches_wrapper">
-        {newMatchesData.map((newm) => {
-          <NewMatchesCard data={newm} />;
-        })}
+        {newMatchesData.map((newm) => (
+          <NewMatchesCard data={newm} />
+        ))}
       </div>
     </div>
   );
