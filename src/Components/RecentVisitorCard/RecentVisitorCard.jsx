@@ -1,6 +1,8 @@
 import PlaceIcon from "@mui/icons-material/Place";
 import React from "react";
 import img1 from "../../Assets/profile/img1.png";
+import BoltIcon from "@mui/icons-material/Bolt";
+
 import "./RecentVisitorCard.css";
 
 const RecentVisitorCard = ({ rev }) => {
@@ -10,16 +12,12 @@ const RecentVisitorCard = ({ rev }) => {
   if (!data) {
     return null;
   }
-
-  // console.log(data.home_town);;
-
-  // console.log(inv.profile[0]);
-
   return (
     <div className="recentvisitorcard">
       <div className="recentvisitorcard_location">
         <PlaceIcon />
         <h4>{data.home_town}</h4>
+        <BoltIcon style={{ color: "#FCF204" }} />
       </div>
       <img src={data.user_photo} alt="" className="user_image" />
       <div className="recentvisitorcard_intro">

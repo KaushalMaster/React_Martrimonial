@@ -1,29 +1,18 @@
-.container {
-  overflow-x: scroll;
-}
 .recentvisitorcard {
-  max-width: 210px;
-  min-width: 210px;
-  max-height: 240px;
-  min-height: 240px;
+  max-width: 180px;
+  min-width: 180px;
+  max-height: 250px;
+  min-height: 250px;
 
   padding: 10px;
-  /* display: flex; */
-  flex-direction: row;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  /* gap: 15px; */
-
-  margin: 30px;
+  gap: 15px;
 
   background: #ffffff;
   box-shadow: 1.853971px 1.853971px 5.26986px rgba(0, 0, 0, 0.25);
   border-radius: 8.53971px;
-}
-
-.user_image {
-  margin-left: 60px;
-  margin-bottom: 12px;
 }
 
 .recentvisitorcard_location {
@@ -36,10 +25,15 @@
   font-weight: 500;
   font-size: 11.9556px;
   line-height: 18px;
+  margin-top: 10px;
 }
 .recentvisitorcard > img {
   height: 70px;
   width: 70px;
+}
+
+.recentvisitorcard_profile {
+  margin-top: -15px;
 }
 
 .recentvisitorcard_intro {
@@ -57,13 +51,16 @@
 span.recentvisitorcard_height {
   color: rgba(0, 0, 0, 0.5);
 }
+.recentvisitorcard_connect_button {
+  margin-top: -10px;
+}
 button.recentvisitorcard_connect_button {
-  background: linear-gradient(180deg, #cf166f 0%, rgba(227, 83, 63, 0.36) 100%);
+  background: white;
   border-radius: 42.6986px;
   width: 80%;
   height: 30px;
-  border: none;
-  margin-left: 20px;
+  border: 1px solid rgba(207, 22, 111, 0.5);
+  border-top: 2px solid rgba(207, 22, 111, 0.5);
 }
 button.recentvisitorcard_connect_button:hover {
   cursor: pointer;

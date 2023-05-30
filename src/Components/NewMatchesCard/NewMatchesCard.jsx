@@ -4,25 +4,28 @@ import PlaceIcon from "@mui/icons-material/Place";
 import img1 from "../../Assets/profile/img1.png";
 
 const NewMatchesCard = ({ data }) => {
-  console.log(data);
-  console.log(data.user_name);
+  // console.log(data);
+  // console.log(data.user_name);
+  // console.log(data.age);
   return (
     <div className="newmatchescard">
       <div className="newmatchescard_location">
         <PlaceIcon />
-        <h4>Ahmedabad</h4>
+        <h4>{data.home_town}</h4>
       </div>
-      <img src={img1} alt="" />
+      <img src={data.user_photo} alt="" className="newmatches_profile" />
       <div className="newmatchescard_intro">
         <p>
-          Jaymin k, <span className="newmatchescard_height">5’5”</span>
+          {data.user_name}{" "}
+          <span className="newmatchescard_height">{data.height}</span>
         </p>
         <p>
-          30 year, <span className="newmatchescard_language">Gujarati</span>
+          {data.age} year,{" "}
+          <span className="newmatchescard_language">{data.mother_tongue}</span>
         </p>
-        <p>Assistant professor</p>
+        <p>{data.job_title}</p>
       </div>
-      <button className="newmatchescard_connect_button">Connect now</button>
+      <button className="newmatchescard_connect_button">Connect</button>
     </div>
   );
 };

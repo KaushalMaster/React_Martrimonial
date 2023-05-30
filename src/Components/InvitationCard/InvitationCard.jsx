@@ -10,8 +10,8 @@ const InvitationCard = ({ inv }) => {
   if (!data) {
     return null;
   }
-  console.log(data.user_name);
-  console.log(inv);
+  // console.log(data.user_name);
+  // console.log(inv);
   return (
     <div className="invitationcard">
       <div className="invitationcard_intro">
