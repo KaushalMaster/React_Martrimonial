@@ -41,7 +41,7 @@
 
 .profile__recent_visitors_wrapper {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   overflow-x: scroll;
   gap: 20px;
   scroll-behavior: smooth;

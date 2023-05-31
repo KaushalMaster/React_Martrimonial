@@ -27,6 +27,7 @@ import Login from "./Pages/Login/Login";
 import NewUSER from "./Pages/NewUser/NewUSER";
 import Otp from "./Pages/Otp/Otp";
 import Registration1 from "./Pages/Registration1/Registration1";
+import Registration2 from "./Pages/Registration2/Registration2";
 
 function App() {
   useEffect(() => {
@@ -61,6 +62,7 @@ function App() {
         <Route path="/newuser" element={<NewUSER />} />
         <Route path="/Otp" element={<Otp />} />
         <Route path="/Registration1" element={<Registration1 />} />
+        <Route path="/Registration2" element={<Registration2 />} />
         <Route path="/userprofile" element={<UserProfile />} />
       </Routes>
 

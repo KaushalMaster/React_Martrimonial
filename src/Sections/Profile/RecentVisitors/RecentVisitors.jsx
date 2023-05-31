@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RecentVisitorCard from "../../../Components/RecentVisitorCard/RecentVisitorCard";
 import { NavigateBefore, NavigateNext } from "@mui/icons-material";
+import "./RecentVisitors.css";
 
 const RecentVisitors = ({ recentVisitors }) => {
   const handlePrevClick = () => {
@@ -44,7 +45,7 @@ const RecentVisitors = ({ recentVisitors }) => {
         <h3>
           Recent Visitors <span>({recentVisitorsData.length})</span>
         </h3>
-        <div className="profile__recent_visitors_icon_wrapper">
+        {/* <div className="profile__recent_visitors_icon_wrapper">
           <NavigateBefore
             className="profile__recent_visitors_icon"
             onClick={handlePrevClick}
@@ -53,9 +54,9 @@ const RecentVisitors = ({ recentVisitors }) => {
             className="profile__recent_visitors_icon"
             onClick={handleNextClick}
           />
-        </div>
+        </div> */}
       </div>
-      <div className="profile__recent_visitors_wrapper">
+      <div className="profile__recent_visitors_wrapper my_class">
         {recentVisitorsData.map((rev, index) => (
           <RecentVisitorCard key={index} rev={rev} />
         ))}
