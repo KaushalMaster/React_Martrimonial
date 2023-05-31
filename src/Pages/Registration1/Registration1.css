@@ -4,12 +4,15 @@
 .gender_state {
   width: 70%;
 }
+.personal_details {
+  margin-top: 10px;
+}
 
-#form_container {
+/* #form_container {
   margin-top: 50px;
   margin-bottom: 50px;
-  margin-left: 150px;
-}
+  margin-left: 250px;
+} */
 
 /* .login__wrapepr {
   height: 550px;

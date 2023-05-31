@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import SignUpJourneyCard from "../../Components/SignUpJourneyCard/SignUpJourneyCard";
 import axios from "axios";
 import "./Registration1.css";
+import "../Login/Login.css";
 import { useNavigate } from "react-router-dom";
 
 const Registration1 = () => {
@@ -18,6 +19,7 @@ const Registration1 = () => {
   const [smokePreference, setSmokePreference] = useState([]);
   const [drinkPreference, setDrinkPreference] = useState([]);
   const [religion, setReligion] = useState([]);
+  const [settleDown, setSettleDown] = useState([]);
 
   useEffect(() => {
     const fetchMotherTongues = async () => {
@@ -120,9 +122,9 @@ const Registration1 = () => {
         const response = await axios.get(
           "https://metrimonial.onrender.com/api/religion"
         );
-        console.log(response);
-        console.log(response.data);
-        console.log(response.data.data[0].religious_name);
+        // console.log(response);
+        // console.log(response.data);
+        // console.log(response.data.data[0].religious_name);
 
         if (Array.isArray(response.data.data)) {
           setReligion(response.data.data);
@@ -134,19 +136,39 @@ const Registration1 = () => {
       }
     };
 
+    const fetchSettleDown = async () => {
+      try {
+        const response = await axios.get(
+          "https://metrimonial.onrender.com/api/settle_down_value"
+        );
+        // console.log(response);
+        // console.log(response.data);
+        // console.log(response.data.data[0].settle_down_value);
+
+        if (Array.isArray(response.data.data)) {
+          setSettleDown(response.data.data);
+        } else {
+          setSettleDown([response.data.data]);
+        }
+      } catch (error) {
+        console.error("Error fetching Settle Down Status:", error);
+      }
+    };
+
     fetchMotherTongues();
     fetchMaritalStatus();
     fetchFoodPreference();
     fetchSmokePreference();
     fetchDrinkPreference();
     fetchReligionPreference();
+    fetchSettleDown();
   }, []);
 
   return (
     <div>
-      <div className="login__wrapper">
-        <div className="login login-padding" id="form_container">
-          <h2>Personal Details</h2>
+      <div className="login__wrapper1">
+        <div className="login">
+          <h2 className="personal_details">Personal Details</h2>
           <div className="gender_state">
             <select className="gender">
               <option value="">Gender</option>
@@ -158,7 +180,17 @@ const Registration1 = () => {
           <input placeholder="Height" type="text" />
           <input placeholder="Weight" type="text" />
           <input placeholder="City" type="text" />
-          <input placeholder="Settle Down" type="text" />
+          <div className="gender_state">
+            <select className="gender">
+              <option value="">Settle Down</option>
+              {settleDown &&
+                settleDown.map((settleDown, index) => (
+                  <option key={index} value={settleDown.settle_down_value}>
+                    {settleDown.settle_down_value}
+                  </option>
+                ))}
+            </select>
+          </div>
           <div className="gender_state">
             <select className="gender">
               <option value="">Religion</option>
@@ -170,7 +202,6 @@ const Registration1 = () => {
                 ))}
             </select>
           </div>
-
           <input placeholder="Community" type="text" />
           <div className="gender_state">
             <select className="gender">
@@ -183,7 +214,6 @@ const Registration1 = () => {
                 ))}
             </select>
           </div>
-
           <div className="gender_state">
             <select className="gender">
               <option value="">Marital Status</option>
@@ -195,7 +225,6 @@ const Registration1 = () => {
                 ))}
             </select>
           </div>
-
           <div className="gender_state">
             <select className="gender">
               <option value="">Food Preference</option>
@@ -207,7 +236,6 @@ const Registration1 = () => {
                 ))}
             </select>
           </div>
-
           <div className="gender_state">
             <select className="gender">
               <option value="">Smoke</option>
@@ -219,7 +247,6 @@ const Registration1 = () => {
                 ))}
             </select>
           </div>
-
           <div className="gender_state">
             <select className="gender">
               <option value="">Drink</option>
@@ -231,7 +258,6 @@ const Registration1 = () => {
                 ))}
             </select>
           </div>
-
           <div id="recaptcha"></div>
           <button className="text-light" onClick={routeChange}>
             Next
