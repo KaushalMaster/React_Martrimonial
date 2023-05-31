@@ -6,7 +6,7 @@ function Registration2() {
     <div>
       <div className="login__wrapepr">
         <div className="login login-padding">
-          <h2>User Details</h2>
+          <h2>Education/Carrer Details</h2>
           <input
             placeholder="Higher Qualification"
             type="text"
@@ -42,6 +42,7 @@ function Registration2() {
             type="text"
             // onChange={(e) => setuser_name(e.target.value)}
           />
+
           <div id="recaptcha"></div>
           {/* onClick={handleSubmit} */}
           <button className="text-light">Next</button>

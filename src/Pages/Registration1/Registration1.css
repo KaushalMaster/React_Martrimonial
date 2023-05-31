@@ -1,10 +1,19 @@
 .title {
   margin-top: 60px;
 }
-.gender {
+.gender_state {
   width: 70%;
 }
 
-.login {
-  max-height: 900px;
+/* .login__wrapepr {
+  height: 550px;
+  margin-top: -60px;
 }
+
+.login {
+  margin-top: 50px;
+}
+.login-padding {
+  height: 670px;
+}
+ */
