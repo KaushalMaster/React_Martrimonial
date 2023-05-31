@@ -6,16 +6,146 @@ import "./Registration1.css";
 import { useNavigate } from "react-router-dom";
 
 const Registration1 = () => {
-  let NAvigate = useNavigate();
+  let navigate = useNavigate();
   const routeChange = () => {
     let path = `/Profile`;
-    NAvigate(path);
+    navigate(path);
   };
+
+  const [motherTongues, setMotherTongues] = useState([]);
+  const [maritalStatus, setMaritalStatus] = useState([]);
+  const [foodPreference, setFoodPreference] = useState([]);
+  const [smokePreference, setSmokePreference] = useState([]);
+  const [drinkPreference, setDrinkPreference] = useState([]);
+  const [religion, setReligion] = useState([]);
+
+  useEffect(() => {
+    const fetchMotherTongues = async () => {
+      try {
+        const response = await axios.get(
+          "https://metrimonial.onrender.com/api/mother_tongue"
+        );
+        // console.log(response);
+        // console.log(response.data);
+        // console.log(response.data.data[0]);
+
+        if (Array.isArray(response.data.data)) {
+          setMotherTongues(response.data.data);
+        } else {
+          setMotherTongues([response.data.data]);
+        }
+      } catch (error) {
+        console.error("Error fetching mother tongues:", error);
+      }
+    };
+
+    const fetchMaritalStatus = async () => {
+      try {
+        const response = await axios.get(
+          "https://metrimonial.onrender.com/api/marital_status"
+        );
+        // console.log(response);
+        // console.log(response.data);
+        // console.log(response.data.data[0].status);
+
+        if (Array.isArray(response.data.data)) {
+          setMaritalStatus(response.data.data);
+        } else {
+          setMaritalStatus([response.data.data]);
+        }
+      } catch (error) {
+        console.error("Error fetching Marital Status:", error);
+      }
+    };
+
+    const fetchFoodPreference = async () => {
+      try {
+        const response = await axios.get(
+          "https://metrimonial.onrender.com/api/food_preference"
+        );
+        // console.log(response);
+        // console.log(response.data);
+        // console.log(response.data.data[0].fp_name);
+
+        if (Array.isArray(response.data.data)) {
+          setFoodPreference(response.data.data);
+        } else {
+          setFoodPreference([response.data.data]);
+        }
+      } catch (error) {
+        console.error("Error fetching Food Preference:", error);
+      }
+    };
+
+    const fetchSmokePreference = async () => {
+      try {
+        const response = await axios.get(
+          "https://metrimonial.onrender.com/api/smoke_status"
+        );
+        // console.log(response);
+        // console.log(response.data);
+        // console.log(response.data.data[0].smoke_value);
+
+        if (Array.isArray(response.data.data)) {
+          setSmokePreference(response.data.data);
+        } else {
+          setSmokePreference([response.data.data]);
+        }
+      } catch (error) {
+        console.error("Error fetching Smoke Status:", error);
+      }
+    };
+
+    const fetchDrinkPreference = async () => {
+      try {
+        const response = await axios.get(
+          "https://metrimonial.onrender.com/api/drink_status"
+        );
+        // console.log(response);
+        // console.log(response.data);
+        // console.log(response.data.data[0].drink_value);
+
+        if (Array.isArray(response.data.data)) {
+          setDrinkPreference(response.data.data);
+        } else {
+          setDrinkPreference([response.data.data]);
+        }
+      } catch (error) {
+        console.error("Error fetching Drink Status:", error);
+      }
+    };
+
+    const fetchReligionPreference = async () => {
+      try {
+        const response = await axios.get(
+          "https://metrimonial.onrender.com/api/religion"
+        );
+        console.log(response);
+        console.log(response.data);
+        console.log(response.data.data[0].religious_name);
+
+        if (Array.isArray(response.data.data)) {
+          setReligion(response.data.data);
+        } else {
+          setReligion([response.data.data]);
+        }
+      } catch (error) {
+        console.error("Error fetching Religion Status:", error);
+      }
+    };
+
+    fetchMotherTongues();
+    fetchMaritalStatus();
+    fetchFoodPreference();
+    fetchSmokePreference();
+    fetchDrinkPreference();
+    fetchReligionPreference();
+  }, []);
 
   return (
     <div>
-      <div className="login__wrapepr">
-        <div className="login login-padding">
+      <div className="login__wrapper">
+        <div className="login login-padding" id="form_container">
           <h2>Personal Details</h2>
           <div className="gender_state">
             <select className="gender">
@@ -24,212 +154,92 @@ const Registration1 = () => {
               <option value="Female">Female</option>
             </select>
           </div>
-          <input
-            placeholder="DOB"
-            type="Date"
-            className="dob"
-            // onChange={(e) => setuser_name(e.target.value)}
-          />
-          <input
-            placeholder="Height"
-            type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
-          />
-          <input
-            placeholder="Weight"
-            type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
-          />
-          <input
-            placeholder="City"
-            type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
-          />
-          <input
-            placeholder="Settle Down"
-            type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
-          />
-          <input
-            placeholder="Community"
-            type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
-          />
-          <select className="gender_state">
-            <option value="">Mothers Tongue</option>
-            <option value="Hindi">Hindi</option>
-            <option value="Gujarti">Gujarati</option>
-            <option value="Marathi">Marathi</option>
-            <option value="Bengali">Bengali</option>
-          </select>
-          <select className="gender_state">
-            <option value="">Marital Status</option>
-            <option value="Married">Married</option>
-            <option value="Un_Married">Un-Married</option>
-          </select>
+          <input placeholder="DOB" type="Date" className="dob" />
+          <input placeholder="Height" type="text" />
+          <input placeholder="Weight" type="text" />
+          <input placeholder="City" type="text" />
+          <input placeholder="Settle Down" type="text" />
+          <div className="gender_state">
+            <select className="gender">
+              <option value="">Religion</option>
+              {religion &&
+                religion.map((religion, index) => (
+                  <option key={index} value={religion.religious_name}>
+                    {religion.religious_name}
+                  </option>
+                ))}
+            </select>
+          </div>
 
-          <select className="gender_state">
-            <option value="">Food Preference</option>
-            <option value="Vegeterian">Vegeterian</option>
-            <option value="Non_Vegeterian">Non-Vegeterian</option>
-          </select>
+          <input placeholder="Community" type="text" />
+          <div className="gender_state">
+            <select className="gender">
+              <option value="">Mothers Tongue</option>
+              {motherTongues &&
+                motherTongues.map((tongue, index) => (
+                  <option key={index} value={tongue.mt_name}>
+                    {tongue.mt_name}
+                  </option>
+                ))}
+            </select>
+          </div>
 
-          <select className="gender_state">
-            <option value="">Smoke</option>
-            <option value="Ocassionally">Occasionally</option>
-            <option value="Never">Never</option>
-            <option value="Sometimes">Sometimes</option>
-          </select>
+          <div className="gender_state">
+            <select className="gender">
+              <option value="">Marital Status</option>
+              {maritalStatus &&
+                maritalStatus.map((marital, index) => (
+                  <option key={index} value={marital.status}>
+                    {marital.status}
+                  </option>
+                ))}
+            </select>
+          </div>
 
-          <select className="gender_state">
-            <option value="">Drink</option>
-            <option value="Ocassionally">Occasionally</option>
-            <option value="Never">Never</option>
-            <option value="Sometimes">Sometimes</option>
-          </select>
+          <div className="gender_state">
+            <select className="gender">
+              <option value="">Food Preference</option>
+              {foodPreference &&
+                foodPreference.map((foodPreference, index) => (
+                  <option key={index} value={foodPreference.fp_name}>
+                    {foodPreference.fp_name}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          <div className="gender_state">
+            <select className="gender">
+              <option value="">Smoke</option>
+              {smokePreference &&
+                smokePreference.map((smokePreference, index) => (
+                  <option key={index} value={smokePreference.smoke_value}>
+                    {smokePreference.smoke_value}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          <div className="gender_state">
+            <select className="gender">
+              <option value="">Drink</option>
+              {drinkPreference &&
+                drinkPreference.map((drinkPreference, index) => (
+                  <option key={index} value={drinkPreference.drink_value}>
+                    {drinkPreference.drink_value}
+                  </option>
+                ))}
+            </select>
+          </div>
+
           <div id="recaptcha"></div>
-          {/* onClick={handleSubmit} */}
-          <button className="text-light">Next</button>
+          <button className="text-light" onClick={routeChange}>
+            Next
+          </button>
         </div>
       </div>
     </div>
   );
-  // <div className="signup">
-  //   <div className="signup__top">
-  //     <div className="signup__left">
-  //       <SignUpJourneyCard />
-  //     </div>
-  //     <div className="signup__right ">
-  //       <div className="signup__right_top">
-  //         <h3 className="signup__inpput_heading">Basic Detail</h3>
-  //         <div className="signup__basic_details">
-  //           <select
-  //             name="drink"
-  //             id=""
-  //             className="advancedsearch__element_select"
-  //           >
-  //             <option value="null">select gender</option>
-  //             <option value="Male">Male</option>
-  //             <option value="Female">Female</option>
-  //             <option value="Other">Other</option>
-  //           </select>
-  //           {/* <input type="text" placeholder="Last Name" /> */}
-  //           {/* <input type="text" placeholder="@Email" /> */}
-  //           {/* <input type="text" placeholder="Enter your mobile number" /> */}
-  //           {/* <input type="text" placeholder="Last Name" /> */}
-  //           <input type="date" name="dob" id="dob" placeholder="Enter DOB" />
-
-  //           <input type="text" placeholder="Age" />
-  //           <input type="text" placeholder="Height" />
-  //           <input type="text" placeholder="Weight" />
-  //           <input type="text" placeholder="City" />
-  //           <input type="text" placeholder="Settle Down" />
-  //         </div>
-  //       </div>
-  //       <div className="signup__right_bottom ">
-  //         <div className="signup__right_left  ">
-  //           <div className="signup__education_details ">
-  //             <h3 className="signup__inpput_heading">Education Detail</h3>
-  //             <input type="text" placeholder="Higher Qualification" />
-  //             <input type="text" placeholder="Highest Qualification" />
-  //             <input type="text" placeholder="College" />
-  //           </div>
-  //           <div className="signup__occupation_details ">
-  //             <h3 className="signup__inpput_heading">Occupation Detail</h3>
-  //             <input type="text" placeholder="Job title" />
-  //             <input type="text" placeholder="Company name" />
-  //             <input type="text" placeholder="Company description" />
-  //             <input type="text" placeholder="Salary Range" />
-  //             <input type="text" placeholder="Designation" />
-  //           </div>
-  //           <div className="signup__diet_prefference  ">
-  //             <h3 className="signup__inpput_heading">Diet Preference</h3>
-  //             <select
-  //               name="age"
-  //               id=""
-  //               className="advancedsearch__element_select"
-  //             >
-  //               <option value="">Food Preference</option>
-  //               <option value="Vegetarian">Vegetarian</option>
-  //               <option value="Nonvegetarian">Nonvegetarian</option>
-  //               <option value="Eggetarian">Eggetarian</option>
-  //             </select>
-  //             <select
-  //               name="drink"
-  //               id=""
-  //               className="advancedsearch__element_select"
-  //             >
-  //               <option value="">Drink</option>
-  //               <option value="Yes">Yes</option>
-  //               <option value="Occasionally">Occasionally</option>
-  //               <option value="Never">Never</option>
-  //             </select>
-  //             <select
-  //               name="age"
-  //               id=""
-  //               className="advancedsearch__element_select"
-  //             >
-  //               <option value="">Smoke</option>
-  //               <option value="Yes">Yes</option>
-  //               <option value="Occasionally">Occasionally</option>
-  //               <option value="Never">Never</option>
-  //             </select>
-  //           </div>
-  //         </div>
-  //         <div className="signup__right_right ">
-  //           <div className="signup__home_town ">
-  //             <h3 className="signup__inpput_heading">Home Town</h3>
-
-  //             <select placeholder="Home town" name="country" id="">
-  //               <option value="">Select your country:</option>
-  //             </select>
-
-  //             <select placeholder="Home town" name="country" id="">
-  //               <option value="">Select your State:</option>
-  //             </select>
-
-  //             <select placeholder="Home town" name="country" id="">
-  //               <option value="">Select your Home Town:</option>
-  //             </select>
-
-  //             <select name="religion" id="">
-  //               <option value="">Religion</option>
-  //               <option value="Hindu">Hindu</option>
-  //               <option value="Muslim">Muslim</option>
-  //             </select>
-  //             <select name="maritalStatus" id="">
-  //               <option value="">MaritalStatus</option>
-  //               <option value="Married">Married</option>
-  //               <option value="UnMarried">Un married</option>
-  //             </select>
-  //             <select name="community" id="">
-  //               <option value="">Community</option>
-  //               <option value="General">General</option>
-  //               <option value="OBC">OBC</option>
-  //             </select>
-  //             <select name="motherTongue" id="">
-  //               <option value="">motherTongue</option>
-  //               <option value="Gujarati">Gujarati</option>
-  //               <option value="Hindi">Hindi</option>
-  //             </select>
-  //           </div>
-  //           <div>
-  //             <h3 className="signup__inpput_heading">Bio</h3>
-  //             <textarea
-  //               className="signup__bio"
-  //               name=""
-  //               id=""
-  //               cols="55"
-  //               rows="5"
-  //             ></textarea>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-
-  //   <button onClick={routeChange}>Submit</button>
-  // </div>
 };
 
 export default Registration1;

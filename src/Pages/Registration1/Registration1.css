@@ -5,6 +5,12 @@
   width: 70%;
 }
 
+#form_container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: 150px;
+}
+
 /* .login__wrapepr {
   height: 550px;
   margin-top: -60px;
