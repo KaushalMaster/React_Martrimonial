@@ -291,7 +291,14 @@ const Registration1 = () => {
                 ))}
             </select>
           </div>
-          <textarea name="bio" id="bio" cols="30" rows="30"></textarea>
+          <textarea
+            name="bio"
+            id="bio"
+            cols="30"
+            rows="5"
+            className="bio"
+            placeholder="Enter BIO"
+          ></textarea>
           <div id="recaptcha"></div>
           <button className="text-light" onClick={routeChange}>
             Next
