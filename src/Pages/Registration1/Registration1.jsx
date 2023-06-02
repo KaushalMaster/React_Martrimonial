@@ -19,6 +19,8 @@ const Registration1 = () => {
   const [smokePreference, setSmokePreference] = useState([]);
   const [drinkPreference, setDrinkPreference] = useState([]);
   const [religion, setReligion] = useState([]);
+  const [communities, setCommunities] = useState([]);
+
   const [settleDown, setSettleDown] = useState([]);
 
   useEffect(() => {
@@ -125,7 +127,7 @@ const Registration1 = () => {
         // console.log(response);
         // console.log(response.data);
         // console.log(response.data.data[0].religious_name);
-
+        fetchCommunities(response.data.data[0].religious_name);
         if (Array.isArray(response.data.data)) {
           setReligion(response.data.data);
         } else {
@@ -133,6 +135,27 @@ const Registration1 = () => {
         }
       } catch (error) {
         console.error("Error fetching Religion Status:", error);
+      }
+    };
+
+    const fetchCommunities = async (religiousName) => {
+      try {
+        const response = await axios.get(
+          `https://metrimonial.onrender.com/api/community?religious_name=${religiousName}`
+        );
+
+        // console.log(response);
+        // console.log(response.data);
+        // console.log(response.data.data[0]);
+        // console.log(response.data.data[0].community_name);
+
+        if (Array.isArray(response.data.data)) {
+          setCommunities(response.data.data);
+        } else {
+          setCommunities([response.data.data]);
+        }
+      } catch (error) {
+        console.error("Error fetching Communities:", error);
       }
     };
 
@@ -202,7 +225,17 @@ const Registration1 = () => {
                 ))}
             </select>
           </div>
-          <input placeholder="Community" type="text" />
+          <div className="gender_state">
+            <select className="gender">
+              <option value="">Community</option>
+              {communities &&
+                communities.map((communities, index) => (
+                  <option key={index} value={communities.religious_name}>
+                    {communities.community_name}
+                  </option>
+                ))}
+            </select>
+          </div>
           <div className="gender_state">
             <select className="gender">
               <option value="">Mothers Tongue</option>
@@ -258,6 +291,7 @@ const Registration1 = () => {
                 ))}
             </select>
           </div>
+          <textarea name="bio" id="bio" cols="30" rows="30"></textarea>
           <div id="recaptcha"></div>
           <button className="text-light" onClick={routeChange}>
             Next

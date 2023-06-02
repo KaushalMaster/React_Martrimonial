@@ -111,7 +111,43 @@ const UserProfile = () => {
 
   useEffect(() => {
     userDetails();
+    updateUserProfile();
   }, []);
+
+  const updateUserProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      // // const userId = "user-id"; // Replace with the actual user ID
+      const url = `https://metrimonial.onrender.com/api/profile`;
+
+      // const data = {
+      //   // Replace with the updated user profile data
+      //   name: "John Doe",
+      //   age: 30,
+      //   // Include other fields you want to update
+      // };
+
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        // User profile updated successfully
+        console.log(response);
+        console.log("User profile updated");
+      } else {
+        // Handle the error case
+        console.log("Failed to update user profile");
+      }
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+    }
+  };
 
   return (
     <div className="userprofile">
