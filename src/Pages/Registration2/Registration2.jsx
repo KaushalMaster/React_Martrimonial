@@ -56,7 +56,7 @@ function Registration2() {
           <h2>Education/Carrer Details</h2>
           <div className="gender_state">
             <select className="gender">
-              <option value="">Higher Qualification</option>
+              <option value="">Highest Qualification</option>
               {higherQualification &&
                 higherQualification.map((higherQualification, index) => (
                   <option key={index} value={higherQualification.hq_name}>
@@ -65,11 +65,11 @@ function Registration2() {
                 ))}
             </select>
           </div>
-          <input
+          {/* <input
             placeholder="Highest Qualification"
             type="text"
             // onChange={(e) => setuser_name(e.target.value)}
-          />
+          /> */}
           <input
             placeholder="Colledge Name"
             type="text"

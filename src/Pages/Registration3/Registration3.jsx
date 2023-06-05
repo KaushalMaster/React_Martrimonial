@@ -1,34 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Registration3.css";
 
 function Registration3() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://metrimonial.onrender.com/api/family",
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
+        setData(response.data.data);
+        // console.log(response.data);
+        // console.log(response.data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const token = localStorage.getItem("token");
+
   const handleSubmit = async () => {
     try {
-      const response = await axios.put(
-        "https://metrimonial.onrender.com/api/family",
-        {
-          fatherOccupation: selectedFatherOccupation,
-          motherOccupation: selectedMotherOccupation,
-          numberOfBrothers: selectedNumberOfBrothers,
-          numberOfSisters: selectedNumberOfSisters,
-          numberOfMarriedBrothers: selectedNumberOfMarriedBrothers,
-          numberOfMarriedSisters: selectedNumberOfMarriedSisters,
-        },
-        {
-          headers: {
-            Authorization: token,
+      if (selectedFatherOccupation === data.father_occupation) {
+        // If the selected father's occupation is equal to the fetched value, make a PUT request
+        console.log("PUT API CALLED !!!");
+        const response = await axios.put(
+          "https://metrimonial.onrender.com/api/family",
+          {
+            fatherOccupation: selectedFatherOccupation,
+            motherOccupation: selectedMotherOccupation,
+            numberOfBrothers: selectedNumberOfBrothers,
+            numberOfSisters: selectedNumberOfSisters,
+            numberOfMarriedBrothers: selectedNumberOfMarriedBrothers,
+            numberOfMarriedSisters: selectedNumberOfMarriedSisters,
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
 
-      // Handle the response as needed (e.g., show success message, navigate to the next page)
-      console.log(response);
-      console.log(response.data);
-      console.log(response.data.data[0]);
-      console.log("Family data updated:", response.data);
-      // Add your desired actions here, such as navigating to the next page
+        console.log(response);
+        console.log(response.data);
+        console.log(response.data.data[0]);
+        console.log("Family data updated:", response.data);
+        // Add your desired actions here, such as navigating to the next page
+      } else {
+        // If the selected father's occupation is different, make a POST request
+        console.log("POST API CALLED");
+        const response = await axios.post(
+          "https://metrimonial.onrender.com/api/family",
+          {
+            fatherOccupation: selectedFatherOccupation,
+            motherOccupation: selectedMotherOccupation,
+            numberOfBrothers: selectedNumberOfBrothers,
+            numberOfSisters: selectedNumberOfSisters,
+            numberOfMarriedBrothers: selectedNumberOfMarriedBrothers,
+            numberOfMarriedSisters: selectedNumberOfMarriedSisters,
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+
+        console.log(response);
+        console.log(response.data);
+        console.log(response.data.data[0]);
+        console.log("Family data updated:", response.data);
+        // Add your desired actions here, such as navigating to the next page
+      }
     } catch (error) {
       console.error("Error updating family data:", error);
       // Handle the error as needed (e.g., show error message)
@@ -43,34 +96,28 @@ function Registration3() {
     useState("");
   const [selectedNumberOfMarriedSisters, setSelectedNumberOfMarriedSisters] =
     useState("");
-
   return (
     <div>
       <div className="my_login__wrapepr">
         <div className="my_login my_login-padding">
           <h2>Family Details</h2>
           <div className="gender_state">
-            <select
-              className="gender"
-              onChange={(e) => setSelectedFatherOccupation(e.target.value)}
-            >
-              <option value="">Father's Occupation</option>
-              <option value="Service">Service</option>
-              <option value="Job">Job</option>
-              <option value="Business">Business</option>
-            </select>
+            <input
+              type="text"
+              name="father_occupation"
+              id="father_occupation"
+              placeholder="Father's Occupation"
+              value={data ? data.father_occupation : ""}
+            />
           </div>
           <div className="gender_state">
-            <select
-              className="gender"
-              onChange={(e) => setSelectedMotherOccupation(e.target.value)}
-            >
-              <option value="">Mother's Occupation</option>
-              <option value="HouseWife">HouseWife</option>
-              <option value="Service">Service</option>
-              <option value="Job">Job</option>
-              <option value="Business">Business</option>
-            </select>
+            <input
+              type="text"
+              name="mother_occupation"
+              id="mother_occuption"
+              placeholder="Mother's Occupation"
+              value={data ? data.mother_occupation : ""}
+            />
           </div>
           <div className="gender_state">
             <select
