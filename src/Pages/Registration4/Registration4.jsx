@@ -11,6 +11,10 @@ function Registration4() {
   const [foodPreference, setFoodPreference] = useState([]);
   const [drinkPreference, setDrinkPreference] = useState([]);
   const [smokePreference, setSmokePreference] = useState([]);
+  const [ageValue, setAgeValue] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [startAgeValue, setStartAgeValue] = useState(0);
+  const [endAgeValue, setEndAgeValue] = useState(70);
 
   useEffect(() => {
     loadPreference();
@@ -48,7 +52,6 @@ function Registration4() {
 
   const [countryid, setCountryid] = useState("");
   const [state, setState] = useState([]);
-  const [stateid, setStateid] = useState("");
 
   const handlecounty = (e) => {
     const getcountryId = e.target.value;
@@ -57,13 +60,45 @@ function Registration4() {
     ).states;
     setState(getStatedata);
     setCountryid(getcountryId);
-    //console.log(getcountryId);
   };
 
   const handlestate = (e) => {
     const stateid = e.target.value;
-    //console.log(stateid);
-    setStateid(stateid);
+    // console.log(stateid);
+  };
+
+  // const handleAgeHover = (e) => {
+  //   const ageInput = e.target;
+  //   const ageTooltip = ageInput.nextElementSibling;
+  //   const currentValue = ageInput.value;
+  //   ageTooltip.textContent = currentValue;
+  //   ageTooltip.style.display = "inline";
+  // };
+
+  // const handleAgeLeave = (e) => {
+  //   const ageInput = e.target;
+  //   const ageTooltip = ageInput.nextElementSibling;
+  //   ageTooltip.style.display = "none";
+  // };
+
+  const handleStartAgeChange = (e) => {
+    setStartAgeValue(e.target.value);
+  };
+
+  const handleEndAgeChange = (e) => {
+    setEndAgeValue(e.target.value);
+  };
+
+  const handleAgeChange = (e) => {
+    setAgeValue(e.target.value);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   return (
@@ -72,21 +107,85 @@ function Registration4() {
         <div className="p_login p_login-padding">
           <h2 className="title_partnerpreference">Partner Preference</h2>
 
-          <input
-            placeholder="Age"
-            type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
-          />
-          <input
-            placeholder="Height"
-            type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
-          />
-          <input
-            placeholder="Weight"
-            type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
-          />
+          <div className="range-container">
+            Age:
+            <div className="age_from"></div>
+            From:
+            <input
+              type="range"
+              id="Age"
+              name="Age"
+              min="0"
+              max="70"
+              placeholder="Start Age"
+              className="age_scroll"
+              value={startAgeValue}
+              onChange={handleStartAgeChange}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            />
+            <div className="age_to">
+              TO:
+              <input
+                type="range"
+                id="Age1"
+                name="Age1"
+                min="0"
+                max="70"
+                placeholder="End Age"
+                className="age_scroll"
+                value={endAgeValue}
+                onChange={handleEndAgeChange}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+            </div>
+          </div>
+          {isHovered && (
+            <span id="age-tooltip">
+              {startAgeValue} - {endAgeValue}
+            </span>
+          )}
+
+          {/* <input placeholder="Height" type="text" /> */}
+          <div className="range-container">
+            Height:
+            <div className="age_from"></div>
+            From:
+            <input
+              type="range"
+              id="height"
+              name="height"
+              min="0"
+              max="7"
+              className="age_scroll"
+              value={startAgeValue}
+              onChange={handleStartAgeChange}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            />
+            <div className="age_to">
+              TO:
+              <input
+                type="range"
+                id="height1"
+                name="height1"
+                min="0"
+                max="7"
+                className="age_scroll"
+                value={endAgeValue}
+                onChange={handleEndAgeChange}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+            </div>
+          </div>
+          {isHovered && (
+            <span id="age-tooltip">
+              {startAgeValue} - {endAgeValue}
+            </span>
+          )}
+          <input placeholder="Weight" type="text" />
           <div className="gender_state">
             <select className="gender">
               <option value="">Marital Status</option>
@@ -100,7 +199,7 @@ function Registration4() {
           </div>
           <div className="gender_state">
             <select className="gender">
-              <option value="">Relegion</option>
+              <option value="">Religion</option>
               {religion &&
                 religion.map((religion, index) => (
                   <option key={index} value={religion.religious_name}>
@@ -146,38 +245,29 @@ function Registration4() {
           </div>
 
           <div className="gender_state">
-            <select className="gender" onChange={(e) => handlecounty(e)}>
+            <select className="gender" onChange={handlecounty}>
               <option value="">Country</option>
-              {country.map((country, index) => {
-                return (
-                  <option value={country.country_id} key={index}>
-                    {country.country_name}
-                  </option>
-                );
-              })}
+              {country.map((country, index) => (
+                <option value={country.country_id} key={index}>
+                  {country.country_name}
+                </option>
+              ))}
               <option value="USA">USA</option>
             </select>
           </div>
 
           <div className="gender_state">
-            <select className="gender" onChange={(e) => handlestate}>
+            <select className="gender" onChange={handlestate}>
               <option value="">State</option>
               {state.map((getstate, index) => (
                 <option value={getstate.state_id} key={index}>
                   {getstate.state_name}
                 </option>
               ))}
-              {/* <option value="Ahmedabad">Ahmedabad</option> */}
             </select>
           </div>
 
-          <div className="gender_state">
-            <select className="gender">
-              <option value="">City</option>
-              <option value="Gujarat">Gujarat</option>
-              <option value="Ahmedabad">Ahmedabad</option>
-            </select>
-          </div>
+          <input type="text" name="city" id="city" placeholder="City" />
 
           <div className="gender_state">
             <select className="gender">
