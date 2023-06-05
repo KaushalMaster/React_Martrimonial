@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./Registration3.css";
 
 function Registration3() {
   const token = localStorage.getItem("token");
@@ -45,8 +46,8 @@ function Registration3() {
 
   return (
     <div>
-      <div className="login__wrapepr">
-        <div className="login login-padding">
+      <div className="my_login__wrapepr">
+        <div className="my_login my_login-padding">
           <h2>Family Details</h2>
           <div className="gender_state">
             <select

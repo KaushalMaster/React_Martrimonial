@@ -51,8 +51,8 @@ function Registration2() {
 
   return (
     <div>
-      <div className="login__wrapepr">
-        <div className="login login-padding">
+      <div className="m_login__wrapepr">
+        <div className="m_login m_login-padding">
           <h2>Education/Carrer Details</h2>
           <div className="gender_state">
             <select className="gender">
