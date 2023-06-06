@@ -3,6 +3,57 @@ import "./Registration4.css";
 import country from "../../country.json";
 
 function Registration4() {
+  const Height = [
+    "4’0”",
+    "4’1”",
+    "4’2”",
+    "4’3”",
+    "4’4”",
+    "4’5”",
+    "4’6”",
+    "4’7”",
+    "4’8”",
+    "4’9”",
+    "4’10”",
+    "4’11”",
+    "5’0”",
+    "5’1”",
+    "5’2”",
+    "5’3”",
+    "5’4”",
+    "5’5”",
+    "5’6”",
+    "5’7”",
+    "5’8”",
+    "5’9”",
+    "5’10”",
+    "5’11”",
+    "6’0”",
+    "6’1”",
+    "6’2”",
+    "6’3”",
+    "6’4”",
+    "6’5”",
+    "6’6”",
+    "6’7”",
+    "6’8”",
+    "6’9”",
+    "6’10”",
+    "6’11”",
+    "7’0”",
+    "7’1”",
+    "7’2”",
+    "7’3”",
+    "7’4”",
+    "7’5”",
+    "7’6”",
+    "7’7”",
+    "7’8”",
+    "7’9”",
+    "7’10”",
+    "7’11”",
+  ];
+
   const [maritalStatus, setMaritalStatus] = useState([]);
   const [religion, setReligion] = useState([]);
   const [motherTongues, setMotherTongues] = useState([]);
@@ -148,43 +199,16 @@ function Registration4() {
           )}
 
           {/* <input placeholder="Height" type="text" /> */}
-          <div className="range-container">
-            Height:
-            <div className="age_from"></div>
-            From:
-            <input
-              type="range"
-              id="height"
-              name="height"
-              min="0"
-              max="7"
-              className="age_scroll"
-              value={startAgeValue}
-              onChange={handleStartAgeChange}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
-            <div className="age_to">
-              TO:
-              <input
-                type="range"
-                id="height1"
-                name="height1"
-                min="0"
-                max="7"
-                className="age_scroll"
-                value={endAgeValue}
-                onChange={handleEndAgeChange}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              />
-            </div>
+          <div className="gender_state">
+            <select className="gender">
+              <option value="">Height</option>
+              {Height.map((height, index) => (
+                <option key={index} value={height}>
+                  {height}
+                </option>
+              ))}
+            </select>
           </div>
-          {isHovered && (
-            <span id="age-tooltip">
-              {startAgeValue} - {endAgeValue}
-            </span>
-          )}
           <input placeholder="Weight" type="text" />
           <div className="gender_state">
             <select className="gender">
