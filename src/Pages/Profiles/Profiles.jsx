@@ -19,9 +19,9 @@ function Profiles({ horizontal, setValue }) {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "https://metrimonial.onrender.com/api/profile",
+        "https://metrimonial.onrender.com/api/profile/userlist",
         {
-          method: "GET",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
@@ -40,11 +40,12 @@ function Profiles({ horizontal, setValue }) {
   };
   return (
     <div className="profile_received_requests_wrapper">
-      <div className="profile_received_requests_wrapper_top">
-        <h3 className="profile_requests_title">
-          Received Request <span>( {profileData.length} )</span>
+      <div className="profile_received_requests_wrapper_top" id="my_title">
+        <h3 className="title" id="match_title">
+          ALL Profiles <span>( {profileData.length} )</span>
         </h3>
         <p
+          className="view_data"
           onClick={() => {
             setValue("2");
           }}

@@ -41,6 +41,11 @@ function ProfileCard({ data }) {
             {data.age}
           </p>
           <p>
+            <HeightIcon sx={{ height: "15px" }} />
+            {/* B.E./B.Tech */}
+            {data.height}
+          </p>
+          <p>
             <LanguageIcon sx={{ height: "15px" }} />
             {/* Gujarati, Ahir */}
             {data.mother_tongue}
@@ -48,12 +53,7 @@ function ProfileCard({ data }) {
           <p>
             <PlaceIcon sx={{ height: "15px" }} />
             {/* Surat, Gujarat */}
-            {data.state}
-          </p>
-          <p>
-            <HeightIcon sx={{ height: "15px" }} />
-            {/* B.E./B.Tech */}
-            {data.height}
+            {data.home_town}
           </p>
 
           <p>

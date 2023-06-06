@@ -59,9 +59,25 @@ const Registration1 = () => {
   ];
 
   let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `/Profile`;
-    navigate(path);
+  const handleNext = () => {
+    const data = {
+      gender: document.querySelector(".gender").value,
+      dob: document.querySelector(".dob").value,
+      height: document.querySelector(".height").value,
+      weight: document.querySelector(".weight").value,
+      city: document.querySelector(".city").value,
+      settle_down: document.querySelector(".settle-down").value,
+      religion: document.querySelector(".religion").value,
+      community: document.querySelector(".community").value,
+      mother_tongue: document.querySelector(".mother-tongue").value,
+      marital_status: document.querySelector(".marital-status").value,
+      food_preference: document.querySelector(".food-preference").value,
+      smoke: document.querySelector(".smoke").value,
+      drink: document.querySelector(".drink").value,
+      bio: document.querySelector("#bio").value,
+    };
+    let path = `/Registration2`;
+    navigate(path, { data: { data } });
   };
 
   const [motherTongues, setMotherTongues] = useState([]);
@@ -244,7 +260,7 @@ const Registration1 = () => {
         <div className="login">
           <h2 className="personal_details">Personal Details</h2>
           <div className="gender_state">
-            <select className="gender">
+            <select className="gender" required>
               <option value="">Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -252,7 +268,7 @@ const Registration1 = () => {
           </div>
           <input placeholder="DOB" type="Date" className="dob" />
           <div className="gender_state">
-            <select className="gender">
+            <select className="height" required>
               <option value="">Height</option>
               {Height.map((height, index) => (
                 <option key={index} value={height}>
@@ -261,10 +277,10 @@ const Registration1 = () => {
               ))}
             </select>
           </div>
-          <input placeholder="Weight" type="text" />
-          <input placeholder="City" type="text" />
+          <input placeholder="Weight" type="text" className="weight" />
+          <input placeholder="City" type="text" className="city" />
           <div className="gender_state">
-            <select className="gender">
+            <select className="settle-down" required>
               <option value="">Settle Down</option>
               {settleDown &&
                 settleDown.map((settleDown, index) => (
@@ -275,7 +291,7 @@ const Registration1 = () => {
             </select>
           </div>
           <div className="gender_state">
-            <select className="gender">
+            <select className="religion" required>
               <option value="">Religion</option>
               {religion &&
                 religion.map((religion, index) => (
@@ -286,7 +302,7 @@ const Registration1 = () => {
             </select>
           </div>
           <div className="gender_state">
-            <select className="gender">
+            <select className="community" required>
               <option value="">Community</option>
               {communities &&
                 communities.map((communities, index) => (
@@ -297,7 +313,7 @@ const Registration1 = () => {
             </select>
           </div>
           <div className="gender_state">
-            <select className="gender">
+            <select className="mother-tongue" required>
               <option value="">Mothers Tongue</option>
               {motherTongues &&
                 motherTongues.map((tongue, index) => (
@@ -308,7 +324,7 @@ const Registration1 = () => {
             </select>
           </div>
           <div className="gender_state">
-            <select className="gender">
+            <select className="marital-status" required>
               <option value="">Marital Status</option>
               {maritalStatus &&
                 maritalStatus.map((marital, index) => (
@@ -319,7 +335,7 @@ const Registration1 = () => {
             </select>
           </div>
           <div className="gender_state">
-            <select className="gender">
+            <select className="food-preference" required>
               <option value="">Food Preference</option>
               {foodPreference &&
                 foodPreference.map((foodPreference, index) => (
@@ -330,7 +346,7 @@ const Registration1 = () => {
             </select>
           </div>
           <div className="gender_state">
-            <select className="gender">
+            <select className="smoke" required>
               <option value="">Smoke</option>
               {smokePreference &&
                 smokePreference.map((smokePreference, index) => (
@@ -341,7 +357,7 @@ const Registration1 = () => {
             </select>
           </div>
           <div className="gender_state">
-            <select className="gender">
+            <select className="drink" required>
               <option value="">Drink</option>
               {drinkPreference &&
                 drinkPreference.map((drinkPreference, index) => (
@@ -358,9 +374,10 @@ const Registration1 = () => {
             rows="5"
             className="bio"
             placeholder="Enter BIO"
+            required
           ></textarea>
           <div id="recaptcha"></div>
-          <button className="text-light" onClick={routeChange}>
+          <button className="text-light" onClick={handleNext}>
             Next
           </button>
         </div>

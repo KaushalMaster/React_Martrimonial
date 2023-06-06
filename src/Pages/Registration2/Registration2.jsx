@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLocation } from "react";
 import "./Registration2.css";
 import axios from "axios";
 
 function Registration2() {
+  const location = useLocation();
+  const data = location.data?.data;
+  console.log(data);
   const [higherQualification, setHigherQualification] = useState([]);
   const [salaryRange, setSalaryRange] = useState([]);
 

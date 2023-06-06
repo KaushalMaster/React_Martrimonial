@@ -27,7 +27,8 @@ import ReceivedRequests from "../../Sections/Profile2/ReceivedRequests/ReceivedR
 import AcceptedRequests from "../../Sections/Profile2/AcceptedRequests/AcceptedRequests";
 import DeclinedRequests from "../../Sections/Profile2/DeclinedRequests/DeclinedRequests";
 import SentRequests from "../../Sections/Profile2/SentRequests/SentRequests";
-import Profiles from "../Profiles/Profiles";
+
+import Profiles from "../Profiles/Profiles.jsx";
 
 const Profile2 = () => {
   const [value, setValue] = useState("1");
