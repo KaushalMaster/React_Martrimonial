@@ -80,7 +80,7 @@ const Profile2 = () => {
                   gap: "30px",
                 }}
               >
-                <Tab label="All" value="1" style={{ minWidth: "150px" }} />
+                <Tab label="Matches" value="1" style={{ minWidth: "150px" }} />
                 <Tab
                   label="Received request"
                   value="2"
