@@ -1,6 +1,6 @@
 import React from "react";
-import "./ReceivedRequestCard.css";
-import img1 from "../../../Assets/profile2/img1.jpg";
+import "./Profiles.css";
+// import img1 from "../../../Assets/profile2/img1.jpg";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import LanguageIcon from "@mui/icons-material/Language";
 import PlaceIcon from "@mui/icons-material/Place";
@@ -10,19 +10,18 @@ import PersonIcon from "@mui/icons-material/Person";
 import BoltIcon from "@mui/icons-material/Bolt";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import HeightIcon from "@mui/icons-material/Height";
-import TempleHinduIcon from "@mui/icons-material/TempleHindu";
+// import TempleHinduIcon from "@mui/icons-material/TempleHindu";
 
-const ReceivedRequestCard = ({ data }) => {
-  // console.log(data);
-  // console.log(data.profile[0].age);
+function ProfileCard({ data }) {
+  //   console.log(data);
   return (
     <div className="received_request_card">
       <div className="received_request_card_left">
         <div className="left_intro_group">
-          <img src={img1} alt="" />
+          <img src={data.user_photo} alt="" />
           <div className="received_request_card_name">
             <PersonIcon sx={{ height: "15px" }} />
-            {data && data.profile[0].user_name}
+            {data.user_name}
             <BoltIcon style={{ color: "#FCF204", height: "15px" }} />
           </div>
           {/* {data && data[0]?.profile && data[0].profile[0]?.user_name} */}
@@ -39,33 +38,28 @@ const ReceivedRequestCard = ({ data }) => {
           <p>
             <TrendingUpIcon sx={{ height: "15px" }} />
             {/* 23 yrs, 5’8” */}
-            {data && data.profile[0].age}
+            {data.age}
           </p>
           <p>
             <LanguageIcon sx={{ height: "15px" }} />
             {/* Gujarati, Ahir */}
-            {data && data.profile[0].mother_tongue}
+            {data.mother_tongue}
           </p>
           <p>
             <PlaceIcon sx={{ height: "15px" }} />
             {/* Surat, Gujarat */}
-            {data && data.profile[0].state}
+            {data.state}
           </p>
-
           <p>
             <HeightIcon sx={{ height: "15px" }} />
             {/* B.E./B.Tech */}
-            {data && data.profile[0].height}
+            {data.height}
           </p>
-          <p>
-            <TempleHinduIcon sx={{ height: "15px" }} />
-            {/* B.E./B.Tech */}
-            {data && data.profile[0].religion}
-          </p>
+
           <p>
             <WorkOutlineIcon sx={{ height: "15px" }} />
             {/* Software Developer / Programmar */}
-            {data && data.profile[0].job_title}
+            {data.designation}
           </p>
         </div>
         <p className="received_request_card_more_details">
@@ -76,6 +70,6 @@ const ReceivedRequestCard = ({ data }) => {
       </div>
     </div>
   );
-};
+}
 
-export default ReceivedRequestCard;
+export default ProfileCard;

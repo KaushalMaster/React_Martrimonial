@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile2.css";
 import {
   Alarm,
@@ -27,6 +27,7 @@ import ReceivedRequests from "../../Sections/Profile2/ReceivedRequests/ReceivedR
 import AcceptedRequests from "../../Sections/Profile2/AcceptedRequests/AcceptedRequests";
 import DeclinedRequests from "../../Sections/Profile2/DeclinedRequests/DeclinedRequests";
 import SentRequests from "../../Sections/Profile2/SentRequests/SentRequests";
+import Profiles from "../Profiles/Profiles";
 
 const Profile2 = () => {
   const [value, setValue] = useState("1");
@@ -104,6 +105,7 @@ const Profile2 = () => {
                 />
               </TabList>
             </Box>
+            <Profiles horizontal={true} setValue={setValue} />
             <TabPanel value="1">
               <ReceivedRequests horizontal={true} setValue={setValue} />
               <AcceptedRequests horizontal={true} setValue={setValue} />
