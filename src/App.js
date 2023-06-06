@@ -30,6 +30,12 @@ import Registration1 from "./Pages/Registration1/Registration1";
 import Registration2 from "./Pages/Registration2/Registration2";
 import Registration3 from "./Pages/Registration3/Registration3";
 import Registration4 from "./Pages/Registration4/Registration4";
+import VendorSignIn from "./Pages/Vendor/VandorSignIn/VandorSignIn";
+import VendorForgotPassEmail from "./Pages/Vendor/VandorForgotPassEmail/VandorForgotPassEmail";
+import VendorOtp from "./Pages/Vendor/VandorOtp/VandorOtp";
+import VendorPasswordReset from "./Pages/Vendor/VandorPasswordReset/VandorPasswordReset";
+import VendorSuccess from "./Pages/Vendor/VandorSuccess/VandorSuccess";
+import BidDetails from "./Pages/Vendor/Big Details/BidDetails";
 
 function App() {
   useEffect(() => {
@@ -68,6 +74,18 @@ function App() {
         <Route path="/Registration3" element={<Registration3 />} />
         <Route path="/Registration4" element={<Registration4 />} />
         <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/vandor/signin" element={<VendorSignIn />} />
+        <Route
+          path="/vandor/passwordreset/e-mail"
+          element={<VendorForgotPassEmail />}
+        />
+        <Route path="/vandor/passwordreset/otp" element={<VendorOtp />} />
+        <Route path="/vandor/passwordreset" element={<VendorPasswordReset />} />
+        <Route
+          path="/vandor/passwordreset/successfull"
+          element={<VendorSuccess />}
+        />
+        <Route path="/vandor/bid-details" element={<BidDetails />} />
       </Routes>
 
       <Footer />
