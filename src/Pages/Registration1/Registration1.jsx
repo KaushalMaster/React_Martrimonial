@@ -363,7 +363,7 @@ const Registration1 = () => {
                 drinkPreference.map((drinkPreference, index) => (
                   <option key={index} value={drinkPreference.drink_value}>
                     {drinkPreference.drink_value}
-                  </option>
+                  </option> 
                 ))}
             </select>
           </div>
