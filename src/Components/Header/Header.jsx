@@ -60,7 +60,7 @@ const Header = () => {
           <span>Up</span>
         </h2>
       </Link>
-      <div className="header__links">
+      <div className="header__links"> 
         <a href="/">Home</a>
         <a href="/services">Our Services</a>
         <a href="/SelectPlan">Our Plans</a>

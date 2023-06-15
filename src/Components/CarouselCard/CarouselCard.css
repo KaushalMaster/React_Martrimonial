@@ -1,6 +1,5 @@
 .carousel__card {
   margin: 17.5px;
-
   min-width: 300px;
   max-width: 300px;
   height: 470px;
@@ -12,6 +11,15 @@
   padding: 0 40px;
 
   letter-spacing: 0.1em;
+}
+
+#card__height {
+  height: 490px;
+  margin-bottom: 200px;
+}
+
+.btns {
+  margin: 120px 0px 0px 0px;
 }
 
 .active {
@@ -81,6 +89,10 @@ img.card__logo {
     line-height: 25px;
   }
 
+  #card__height {
+    height: 350px;
+  }
+
   img.card__logo {
     margin-top: 20px;
     width: 40px;
@@ -129,6 +141,15 @@ img.card__logo {
     line-height: 20px;
   }
 
+  #card__height {
+    height: 360px;
+    margin-bottom: 200px;
+  }
+
+  .btns {
+    margin-top: 250px;
+  }
+
   img.card__logo {
     margin-top: 15px;
     width: 30px;
@@ -159,6 +180,7 @@ img.card__logo {
     bottom: 10%;
     height: 40px;
     width: 40px;
+    top: 320px;
   }
 
   .btn_right {

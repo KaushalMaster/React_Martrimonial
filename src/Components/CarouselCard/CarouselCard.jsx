@@ -15,29 +15,31 @@ const CarouselCard = ({
 }) => {
   let classes = active == cardno ? "carousel__card active" : "carousel__card";
   return (
-    <div className={classes}>
+    <div className={classes} id="card__height">
       <img className="card__logo" src={logo} />
       <h4>{heading}</h4>
-      <p>{content}</p>
+      <p className="content">{content}</p>
 
-      {cardno == active + 1 ? (
-        <>
-          <img
-            className="btn btn_left"
-            src={leftbtn}
-            onClick={btnpressprev}
-            alt=""
-          />
-          <img
-            className="btn btn_right"
-            src={rightbtn}
-            onClick={btnpressnext}
-            alt=""
-          />
-        </>
-      ) : (
-        ""
-      )}
+      <div className="btns">
+        {cardno == active + 1 ? (
+          <>
+            <img
+              className="btn btn_left"
+              src={leftbtn}
+              onClick={btnpressprev}
+              alt=""
+            />
+            <img
+              className="btn btn_right"
+              src={rightbtn}
+              onClick={btnpressnext}
+              alt=""
+            />
+          </>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 };
