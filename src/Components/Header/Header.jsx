@@ -52,6 +52,16 @@ const Header = () => {
     setShowDropdown((prevValue) => !prevValue);
   };
 
+  const hamburgerMenu = () => {
+    if (window.innerWidth < 768) {
+      return (
+        <button className="header__hamburger" onClick={toggleDropdown}>
+          <i class="fa fa-bars"></i>
+        </button>
+      );
+    }
+  };
+
   return (
     <div className="header">
       <Link to="/" className="h2__link">
@@ -60,7 +70,7 @@ const Header = () => {
           <span>Up</span>
         </h2>
       </Link>
-      <div className="header__links"> 
+      <div className="header__links">
         <a href="/">Home</a>
         <a href="/services">Our Services</a>
         <a href="/SelectPlan">Our Plans</a>
@@ -83,6 +93,7 @@ const Header = () => {
         ) : (
           <Link to="/login">Login</Link>
         )}
+        {hamburgerMenu()}
       </div>
     </div>
   );
