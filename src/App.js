@@ -46,6 +46,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      {/* <Navbar /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/comunity-guidelines" element={<Community />} />

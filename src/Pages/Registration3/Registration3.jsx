@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Registration3.css";
+import { useNavigate } from "react-router-dom";
 
 function Registration3() {
   const [data, setData] = useState(null);
@@ -28,6 +29,8 @@ function Registration3() {
   }, []);
 
   const token = localStorage.getItem("token");
+
+  let navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -86,6 +89,9 @@ function Registration3() {
       console.error("Error updating family data:", error);
       // Handle the error as needed (e.g., show error message)
     }
+
+    let path = `/Registration4`;
+    navigate(path);
   };
 
   const [selectedFatherOccupation, setSelectedFatherOccupation] = useState("");
