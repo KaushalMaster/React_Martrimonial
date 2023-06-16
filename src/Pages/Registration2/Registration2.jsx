@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useLocation } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./Registration2.css";
 import axios from "axios";
 

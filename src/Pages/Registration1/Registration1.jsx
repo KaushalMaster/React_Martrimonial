@@ -76,6 +76,7 @@ const Registration1 = () => {
       drink: document.querySelector(".drink").value,
       bio: document.querySelector("#bio").value,
     };
+    console.log(data);
     let path = `/Registration2`;
     navigate(path, { data: { data } });
   };
@@ -363,7 +364,7 @@ const Registration1 = () => {
                 drinkPreference.map((drinkPreference, index) => (
                   <option key={index} value={drinkPreference.drink_value}>
                     {drinkPreference.drink_value}
-                  </option> 
+                  </option>
                 ))}
             </select>
           </div>

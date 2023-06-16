@@ -115,7 +115,7 @@ function Registration4() {
 
   const handlestate = (e) => {
     const stateid = e.target.value;
-    // console.log(stateid);
+    console.log(stateid);
   };
 
   // const handleAgeHover = (e) => {
@@ -284,7 +284,7 @@ function Registration4() {
             <select className="gender" onChange={handlestate}>
               <option value="">State</option>
               {state.map((getstate, index) => (
-                <option value={getstate.state_id} key={index}>
+                <option value={getstate.stateid} key={index}>
                   {getstate.state_name}
                 </option>
               ))}
