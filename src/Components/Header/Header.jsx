@@ -27,6 +27,7 @@ const Header = () => {
 
       const data = await response.json();
       const userName = data?.data?.UserDetails[0]?.user_name || "";
+      console.log(userName);
       setName(userName);
     } catch (error) {
       console.error(error);

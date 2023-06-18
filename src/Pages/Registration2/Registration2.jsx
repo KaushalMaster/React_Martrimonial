@@ -5,10 +5,18 @@ import axios from "axios";
 
 function Registration2() {
   const location = useLocation();
-  const data = location.data?.data;
+  const data = location.state?.data;
   console.log(data);
   const [higherQualification, setHigherQualification] = useState([]);
   const [salaryRange, setSalaryRange] = useState([]);
+  const [formData, setFormData] = useState({
+    highestQualification: "",
+    collegeName: "",
+    jobTitle: "",
+    companyName: "",
+    salaryRange: "",
+    designation: "",
+  });
 
   useEffect(() => {
     fetchHighestQualification();
@@ -20,9 +28,6 @@ function Registration2() {
       const response = await axios.get(
         "https://metrimonial.onrender.com/api/highest_qualification"
       );
-      // console.log(response);
-      // console.log(response.data);
-      // console.log(response.data.data[0].hq_name);
 
       if (Array.isArray(response.data.data)) {
         setHigherQualification(response.data.data);
@@ -39,9 +44,6 @@ function Registration2() {
       const response = await axios.get(
         "https://metrimonial.onrender.com/api/salary"
       );
-      // console.log(response);
-      // console.log(response.data);
-      // console.log(response.data.data[0].salary_value);
 
       if (Array.isArray(response.data.data)) {
         setSalaryRange(response.data.data);
@@ -53,49 +55,102 @@ function Registration2() {
     }
   };
 
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "https://metrimonial.onrender.com/api/registration",
+        formData
+      );
+
+      if (response.status === 200) {
+        // Data stored successfully
+        console.log("Data stored successfully");
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        // Data already exists, make a PUT request instead
+        try {
+          const response = await axios.put(
+            "https://metrimonial.onrender.com/api/registration",
+            formData
+          );
+
+          if (response.status === 200) {
+            // Data updated successfully
+            console.log("Data updated successfully");
+          }
+        } catch (error) {
+          console.error("Error updating data:", error);
+        }
+      } else {
+        console.error("Error storing data:", error);
+      }
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return (
     <div>
       <div className="m_login__wrapepr">
         <div className="m_login m_login-padding">
-          <h2>Education/Carrer Details</h2>
+          <h2>Education/Career Details</h2>
           <div className="gender_state">
-            <select className="gender">
+            <select
+              className="gender"
+              name="highestQualification"
+              value={formData.highestQualification}
+              onChange={handleChange}
+              required
+            >
               <option value="">Highest Qualification</option>
               {higherQualification &&
-                higherQualification.map((higherQualification, index) => (
-                  <option key={index} value={higherQualification.hq_name}>
-                    {higherQualification.hq_name}
+                higherQualification.map((item, index) => (
+                  <option key={index} value={item.hq_name}>
+                    {item.hq_name}
                   </option>
                 ))}
             </select>
           </div>
-          {/* <input
-            placeholder="Highest Qualification"
-            type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
-          /> */}
           <input
-            placeholder="Colledge Name"
+            placeholder="College Name"
             type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
+            name="collegeName"
+            value={formData.collegeName}
+            onChange={handleChange}
+            required
           />
           <input
             placeholder="Job Title"
             type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
+            name="jobTitle"
+            value={formData.jobTitle}
+            onChange={handleChange}
+            required
           />
           <input
             placeholder="Company Name"
             type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
+            name="companyName"
+            value={formData.companyName}
+            onChange={handleChange}
+            required
           />
           <div className="gender_state">
-            <select className="gender">
+            <select
+              className="gender"
+              name="salaryRange"
+              value={formData.salaryRange}
+              onChange={handleChange}
+              required
+            >
               <option value="">Salary Range</option>
               {salaryRange &&
-                salaryRange.map((salaryRange, index) => (
-                  <option key={index} value={salaryRange.salary_value}>
-                    {salaryRange.salary_value}
+                salaryRange.map((item, index) => (
+                  <option key={index} value={item.salary_value}>
+                    {item.salary_value}
                   </option>
                 ))}
             </select>
@@ -103,12 +158,16 @@ function Registration2() {
           <input
             placeholder="Designation"
             type="text"
-            // onChange={(e) => setuser_name(e.target.value)}
+            name="designation"
+            value={formData.designation}
+            onChange={handleChange}
+            required
           />
 
           <div id="recaptcha"></div>
-          {/* onClick={handleSubmit} */}
-          <button className="text-light">Next</button>
+          <button className="text-light" onClick={handleSubmit}>
+            Next
+          </button>
         </div>
       </div>
     </div>

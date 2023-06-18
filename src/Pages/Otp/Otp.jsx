@@ -46,6 +46,7 @@ const Otp = () => {
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
             className="OTP_input"
+            required
           />
           <button onClick={handleOtpVerification}>Submit</button>
         </div>
