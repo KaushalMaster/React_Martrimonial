@@ -1,8 +1,8 @@
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 91px;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  /* height: 91px; */
   background: transparent;
   width: 100%;
 }
@@ -134,4 +134,3 @@ p.header__button {
     display: none;
   }
 }
-

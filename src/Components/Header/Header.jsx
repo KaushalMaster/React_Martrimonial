@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Offcanvas from "react-bootstrap/Offcanvas";
+import Button from "react-bootstrap/Button";
 
 const Header = () => {
   const [name, setName] = useState("");
@@ -64,8 +71,8 @@ const Header = () => {
   };
 
   return (
-    <div className="header">
-      <Link to="/" className="h2__link">
+    <div>
+      {/* <Link to="/" className="h2__link">
         <h2 className="header__h2">
           Meet
           <span>Up</span>
@@ -95,7 +102,54 @@ const Header = () => {
           <Link to="/login">Login</Link>
         )}
         {hamburgerMenu()}
-      </div>
+      </div> */}
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        bg="light"
+        variant="light"
+        width="100"
+        className="nav"
+      >
+        <Container>
+          <Navbar.Brand href="#home" className="h2__link">
+            Meet Up
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto"></Nav>
+            <Nav>
+              {/* <Nav.Link href="#deets">More deets</Nav.Link> */}
+              {/* <Nav.Link eventKey={2} href="#memes">
+                Dank memes
+              </Nav.Link> */}
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/services">Services</Nav.Link>
+
+              <Nav.Link href="/SelectPlan">Plans</Nav.Link>
+
+              <Nav.Link href="/contactus">Contact</Nav.Link>
+            </Nav>
+            {token ? (
+              <NavDropdown title={name} id="collasible-nav-dropdown">
+                <NavDropdown.Item href="/profile" onClick={handleProfile}>
+                  Profile
+                </NavDropdown.Item>
+                <NavDropdown.Item href="" onClick={handleLogout}>
+                  Logout
+                </NavDropdown.Item>
+                {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">
+                Separated link
+              </NavDropdown.Item> */}
+              </NavDropdown>
+            ) : (
+              <Nav.Link href="/login">Login</Nav.Link>
+            )}
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </div>
   );
 };
