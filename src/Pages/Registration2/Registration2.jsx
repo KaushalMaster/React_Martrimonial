@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Registration2.css";
 import axios from "axios";
 
 function Registration2() {
+  let navigate = useNavigate();
+  const token = localStorage.getItem("token");
   const location = useLocation();
-  const data = location.state?.data;
+  const data = location.state;
   console.log(data);
   const [higherQualification, setHigherQualification] = useState([]);
   const [salaryRange, setSalaryRange] = useState([]);
   const [formData, setFormData] = useState({
-    highestQualification: "",
-    collegeName: "",
-    jobTitle: "",
-    companyName: "",
-    salaryRange: "",
+    highest_qualification: "",
+    college: "",
+    job_title: "",
+    company_name: "",
+    salary: "",
     designation: "",
   });
+
+  console.log(formData);
 
   useEffect(() => {
     fetchHighestQualification();
@@ -57,39 +61,39 @@ function Registration2() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        "https://metrimonial.onrender.com/api/registration",
-        formData
+      // Combine the data and form data
+      const combinedData = {
+        ...data,
+        ...formData,
+      };
+
+      console.log(combinedData);
+
+      const response = await axios.put(
+        "https://metrimonial.onrender.com/api/profile",
+        combinedData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
       );
 
       if (response.status === 200) {
-        // Data stored successfully
-        console.log("Data stored successfully");
+        // Data stored or updated successfully
+        console.log("Data stored or updated successfully");
+        navigate("/Registration3");
       }
     } catch (error) {
-      if (error.response && error.response.status === 409) {
-        // Data already exists, make a PUT request instead
-        try {
-          const response = await axios.put(
-            "https://metrimonial.onrender.com/api/registration",
-            formData
-          );
-
-          if (response.status === 200) {
-            // Data updated successfully
-            console.log("Data updated successfully");
-          }
-        } catch (error) {
-          console.error("Error updating data:", error);
-        }
-      } else {
-        console.error("Error storing data:", error);
-      }
+      console.error("Error storing or updating data:", error);
     }
   };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   return (
@@ -100,8 +104,8 @@ function Registration2() {
           <div className="gender_state">
             <select
               className="gender"
-              name="highestQualification"
-              value={formData.highestQualification}
+              name="highest_qualification"
+              value={formData.highest_qualification}
               onChange={handleChange}
               required
             >
@@ -117,32 +121,32 @@ function Registration2() {
           <input
             placeholder="College Name"
             type="text"
-            name="collegeName"
-            value={formData.collegeName}
+            name="college"
+            value={formData.college}
             onChange={handleChange}
             required
           />
           <input
             placeholder="Job Title"
             type="text"
-            name="jobTitle"
-            value={formData.jobTitle}
+            name="job_title"
+            value={formData.job_title}
             onChange={handleChange}
             required
           />
           <input
             placeholder="Company Name"
             type="text"
-            name="companyName"
-            value={formData.companyName}
+            name="company_name"
+            value={formData.company_name}
             onChange={handleChange}
             required
           />
           <div className="gender_state">
             <select
               className="gender"
-              name="salaryRange"
-              value={formData.salaryRange}
+              name="salary"
+              value={formData.salary}
               onChange={handleChange}
               required
             >

@@ -78,7 +78,7 @@ const Registration1 = () => {
     };
     console.log(data);
     let path = `/Registration2`;
-    navigate(path, { data: { data } });
+    navigate(path, { state: data });
   };
 
   const [motherTongues, setMotherTongues] = useState([]);
