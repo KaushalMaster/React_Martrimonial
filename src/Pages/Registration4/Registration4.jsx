@@ -1,58 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Registration4.css";
 import country from "../../country.json";
+import { faHandFist } from "@fortawesome/free-solid-svg-icons";
 
 function Registration4() {
-  const Height = [
-    "4’0”",
-    "4’1”",
-    "4’2”",
-    "4’3”",
-    "4’4”",
-    "4’5”",
-    "4’6”",
-    "4’7”",
-    "4’8”",
-    "4’9”",
-    "4’10”",
-    "4’11”",
-    "5’0”",
-    "5’1”",
-    "5’2”",
-    "5’3”",
-    "5’4”",
-    "5’5”",
-    "5’6”",
-    "5’7”",
-    "5’8”",
-    "5’9”",
-    "5’10”",
-    "5’11”",
-    "6’0”",
-    "6’1”",
-    "6’2”",
-    "6’3”",
-    "6’4”",
-    "6’5”",
-    "6’6”",
-    "6’7”",
-    "6’8”",
-    "6’9”",
-    "6’10”",
-    "6’11”",
-    "7’0”",
-    "7’1”",
-    "7’2”",
-    "7’3”",
-    "7’4”",
-    "7’5”",
-    "7’6”",
-    "7’7”",
-    "7’8”",
-    "7’9”",
-    "7’10”",
-    "7’11”",
-  ];
+  const navigate = useNavigate();
 
   const [maritalStatus, setMaritalStatus] = useState([]);
   const [religion, setReligion] = useState([]);
@@ -62,10 +15,8 @@ function Registration4() {
   const [foodPreference, setFoodPreference] = useState([]);
   const [drinkPreference, setDrinkPreference] = useState([]);
   const [smokePreference, setSmokePreference] = useState([]);
-  const [ageValue, setAgeValue] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
   const [startAgeValue, setStartAgeValue] = useState(0);
-  const [endAgeValue, setEndAgeValue] = useState(70);
+
   const [city, setCity] = useState("");
   const [isPreferenceExist, setIsPreferenceExist] = useState(false);
   const [height, setHeight] = useState([]);
@@ -130,38 +81,24 @@ function Registration4() {
     setCity(stateid); // Set the value of city
   };
 
-  // const handleAgeHover = (e) => {
-  //   const ageInput = e.target;
-  //   const ageTooltip = ageInput.nextElementSibling;
-  //   const currentValue = ageInput.value;
-  //   ageTooltip.textContent = currentValue;
-  //   ageTooltip.style.display = "inline";
-  // };
+  const [minAge, setMinAge] = useState("");
+  const [maxAge, setMaxAge] = useState("");
 
-  // const handleAgeLeave = (e) => {
-  //   const ageInput = e.target;
-  //   const ageTooltip = ageInput.nextElementSibling;
-  //   ageTooltip.style.display = "none";
-  // };
+  const ageOptions = [];
+  for (let age = 18; age <= 100; age++) {
+    ageOptions.push(
+      <option key={age} value={age}>
+        {age}
+      </option>
+    );
+  }
 
-  const handleStartAgeChange = (e) => {
-    setStartAgeValue(e.target.value);
+  const handleMinAgeChange = (e) => {
+    setMinAge(e.target.value);
   };
 
-  const handleEndAgeChange = (e) => {
-    setEndAgeValue(e.target.value);
-  };
-
-  const handleAgeChange = (e) => {
-    setAgeValue(e.target.value);
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
+  const handleMaxAgeChange = (e) => {
+    setMaxAge(e.target.value);
   };
 
   const [minHeightInput, setMinHeightInput] = useState("");
@@ -175,77 +112,152 @@ function Registration4() {
     setMaxHeightInput(e.target.value);
   };
 
+  const maritalStatusOptions = [
+    { _id: "62bc3", marital_status: "Single" },
+    { _id: "62bc4", marital_status: "Married" },
+    { _id: "62bc5", marital_status: "Divorced" },
+  ];
+
+  const handleMaritalStatusChange = (e) => {
+    setMaritalStatus([e.target.value]);
+  };
+
+  const handleSalaryChange = (e) => {
+    setSalary([e.target.value]);
+  };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     if (isPreferenceExist) {
+  //       // Preference already exists, make a PUT request to update
+  //       const updateResponse = await fetch(
+  //         "https://metrimonial.onrender.com/api/preference",
+  //         {
+  //           method: "PUT",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: Token,
+  //           },
+  //           body: JSON.stringify({
+  //             marital_status: maritalStatus,
+  //             religion: religion,
+  //             mother_tongue: motherTongues,
+  //             min_height: minHeightInput,
+  //             max_height: maxHeightInput,
+  //             age_from: minAge,
+  //             age_to: maxAge,
+  //             highest_qualification: highestQualification,
+  //             annual_income: salary,
+  //             food_preference: foodPreference,
+  //             drink: drinkPreference,
+  //             smoke: smokePreference,
+  //             country: countryid,
+  //             state: state,
+  //             city: city,
+  //           }),
+  //         }
+  //       );
+
+  //       const updateData = await updateResponse.json();
+  //       console.log(updateData);
+  //       // Handle the update response as needed
+  //     } else {
+  //       // Preference doesn't exist, make a POST request to create
+  //       const createResponse = await fetch(
+  //         "https://metrimonial.onrender.com/api/preference",
+  //         {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: Token,
+  //           },
+  //           body: JSON.stringify({
+  //             marital_status: maritalStatus,
+  //             religion: religion,
+  //             mother_tongue: motherTongues,
+  //             min_height: minHeightInput,
+  //             max_height: maxHeightInput,
+  //             age_from: minAge,
+  //             age_to: maxAge,
+  //             highest_qualification: highestQualification,
+  //             annual_income: salary,
+  //             food_preference: foodPreference,
+  //             drink: drinkPreference,
+  //             smoke: smokePreference,
+  //             country: countryid,
+  //             state: state,
+  //             city: city,
+  //           }),
+  //         }
+  //       );
+
+  //       const createData = await createResponse.json();
+  //       console.log(createData);
+  //       // Handle the create response as needed
+  //     }
+  //   } catch (error) {
+  //     console.log("ERROR: ", error);
+  //   }
+  // };
+
+  const handleHighestQualification = (e) => {
+    setHighestQualification([e.target.value]);
+  };
+
+  const handleStateChange = (e) => {
+    setState([e.target.value]);
+  };
+
+  const handleDrinkChange = (e) => {
+    setDrinkPreference([e.target.value]);
+  };
+
+  const handleSmokeChange = (e) => {
+    setSmokePreference([e.target.value]);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      if (isPreferenceExist) {
-        // Preference already exists, make a PUT request to update
-        const updateResponse = await fetch(
-          "https://metrimonial.onrender.com/api/preference",
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: Token,
-            },
-            body: JSON.stringify({
-              marital_status: maritalStatus,
-              religion: religion,
-              mother_tongue: motherTongues,
-              min_height: minHeightInput,
-              max_height: maxHeightInput,
-              age_from: startAgeValue,
-              age_to: endAgeValue,
-              highest_qualification: highestQualification,
-              annual_income: salary,
-              food_preference: foodPreference,
-              drink: drinkPreference,
-              smoke: smokePreference,
-              country: countryid,
-              state: state,
-              city: city,
-            }),
-          }
-        );
+      const formData = {
+        marital_status: JSON.stringify(maritalStatus),
+        religion: religion,
+        mother_tongue: motherTongues,
+        min_height: minHeightInput,
+        max_height: maxHeightInput,
+        age_from: minAge,
+        age_to: maxAge,
+        highest_qualification: JSON.stringify(highestQualification),
+        annual_income: JSON.stringify(salary),
+        food_preference: foodPreference,
+        drink: JSON.stringify(drinkPreference),
+        smoke: JSON.stringify(smokePreference),
+        country: countryid,
+        state: JSON.stringify(state),
+        city: city,
+      };
 
-        const updateData = await updateResponse.json();
-        console.log(updateData);
-        // Handle the update response as needed
-      } else {
-        // Preference doesn't exist, make a POST request to create
-        const createResponse = await fetch(
-          "https://metrimonial.onrender.com/api/preference",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: Token,
-            },
-            body: JSON.stringify({
-              marital_status: maritalStatus,
-              religion: religion,
-              mother_tongue: motherTongues,
-              min_height: minHeightInput,
-              max_height: maxHeightInput,
-              age_from: startAgeValue,
-              age_to: endAgeValue,
-              highest_qualification: highestQualification,
-              annual_income: salary,
-              food_preference: foodPreference,
-              drink: drinkPreference,
-              smoke: smokePreference,
-              country: countryid,
-              state: state,
-              city: city,
-            }),
-          }
-        );
+      const requestOptions = {
+        method: isPreferenceExist ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: Token,
+        },
+        body: JSON.stringify(formData),
+      };
 
-        const createData = await createResponse.json();
-        console.log(createData);
-        // Handle the create response as needed
-      }
+      const endpoint = isPreferenceExist
+        ? "https://metrimonial.onrender.com/api/preference"
+        : "https://metrimonial.onrender.com/api/preference/preferencedata";
+
+      const response = await fetch(endpoint, requestOptions);
+      const responseData = await response.json();
+
+      console.log(responseData);
+      navigate("/uploadphotos");
+      // Handle the response as needed
     } catch (error) {
       console.log("ERROR: ", error);
     }
@@ -257,7 +269,7 @@ function Registration4() {
         <div className="p_login p_login-padding">
           <h2 className="title_partnerpreference">Partner Preference</h2>
 
-          <div className="range-container">
+          {/* <div className="range-container">
             Age:
             <div className="age_from"></div>
             From:
@@ -295,7 +307,28 @@ function Registration4() {
             <span id="age-tooltip">
               {startAgeValue} - {endAgeValue}
             </span>
-          )}
+          )} */}
+
+          <div className="gender_state">
+            <select
+              className="gender"
+              value={minAge}
+              onChange={handleMinAgeChange}
+            >
+              <option value="">Min Age</option>
+              {ageOptions}
+            </select>
+          </div>
+          <div className="gender_state">
+            <select
+              className="gender"
+              value={maxAge}
+              onChange={handleMaxAgeChange}
+            >
+              <option value="">Max Age</option>
+              {ageOptions}
+            </select>
+          </div>
 
           {/* <input placeholder="Height" type="text" /> */}
           <div className="gender_state">
@@ -320,14 +353,17 @@ function Registration4() {
           </div>
           <input placeholder="Weight" type="text" />
           <div className="gender_state">
-            <select className="gender">
+            <select
+              className="gender"
+              value={maritalStatus}
+              onChange={handleMaritalStatusChange}
+            >
               <option value="">Marital Status</option>
-              {maritalStatus &&
-                maritalStatus.map((maritalStatus, index) => (
-                  <option key={index} value={maritalStatus.status}>
-                    {maritalStatus.status}
-                  </option>
-                ))}
+              {maritalStatusOptions.map((option) => (
+                <option key={option._id} value={option._id}>
+                  {option.marital_status}
+                </option>
+              ))}
             </select>
           </div>
           <div className="gender_state">
@@ -354,7 +390,11 @@ function Registration4() {
           </div>
 
           <div className="gender_state">
-            <select className="gender">
+            <select
+              className="gender"
+              value={highestQualification}
+              onChange={handleHighestQualification}
+            >
               <option value="">Highest Qualification</option>
               {highestQualification &&
                 highestQualification.map((highestQualification, index) => (
@@ -366,8 +406,10 @@ function Registration4() {
           </div>
 
           <div className="gender_state">
-            <select className="gender">
-              <option value="">Salary</option>
+            <select className="gender" name="SelectSalary">
+              <option value={salary} onChange={handleSalaryChange}>
+                Salary
+              </option>
               {salary &&
                 salary.map((salary, index) => (
                   <option key={index} value={salary.salary_value}>
