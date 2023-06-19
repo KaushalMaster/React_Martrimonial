@@ -66,6 +66,9 @@ function Registration4() {
   const [isHovered, setIsHovered] = useState(false);
   const [startAgeValue, setStartAgeValue] = useState(0);
   const [endAgeValue, setEndAgeValue] = useState(70);
+  const [city, setCity] = useState("");
+  const [isPreferenceExist, setIsPreferenceExist] = useState(false);
+  const [height, setHeight] = useState([]);
 
   useEffect(() => {
     loadPreference();
@@ -88,14 +91,22 @@ function Registration4() {
       const responseData = await response.json();
       console.log(responseData);
       console.log(responseData.data);
-      setMaritalStatus(responseData.data.marital_status);
-      setReligion(responseData.data.religion);
-      setMotherTongues(responseData.data.mother_tongue);
-      setHighestQualification(responseData.data.highest_qualification);
-      setSalary(responseData.data.salary);
-      setFoodPreference(responseData.data.food_preference);
-      setDrinkPreference(responseData.data.drink);
-      setSmokePreference(responseData.data.smoke);
+      setHeight(responseData.data.height);
+      console.log(height);
+
+      const preferenceData = responseData.data;
+
+      setMaritalStatus(preferenceData.marital_status);
+      setReligion(preferenceData.religion);
+      setMotherTongues(preferenceData.mother_tongue);
+      setHighestQualification(preferenceData.highest_qualification);
+      setSalary(preferenceData.salary);
+      setFoodPreference(preferenceData.food_preference);
+      setDrinkPreference(preferenceData.drink);
+      setSmokePreference(preferenceData.smoke);
+
+      // Check if preference exists
+      setIsPreferenceExist(Object.keys(preferenceData).length > 0);
     } catch (error) {
       console.log("ERROR: ", error);
     }
@@ -116,6 +127,7 @@ function Registration4() {
   const handlestate = (e) => {
     const stateid = e.target.value;
     console.log(stateid);
+    setCity(stateid); // Set the value of city
   };
 
   // const handleAgeHover = (e) => {
@@ -152,6 +164,93 @@ function Registration4() {
     setIsHovered(false);
   };
 
+  const [minHeightInput, setMinHeightInput] = useState("");
+  const [maxHeightInput, setMaxHeightInput] = useState("");
+
+  const handleMinHeightChange = (e) => {
+    setMinHeightInput(e.target.value);
+  };
+
+  const handleMaxHeightChange = (e) => {
+    setMaxHeightInput(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (isPreferenceExist) {
+        // Preference already exists, make a PUT request to update
+        const updateResponse = await fetch(
+          "https://metrimonial.onrender.com/api/preference",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: Token,
+            },
+            body: JSON.stringify({
+              marital_status: maritalStatus,
+              religion: religion,
+              mother_tongue: motherTongues,
+              min_height: minHeightInput,
+              max_height: maxHeightInput,
+              age_from: startAgeValue,
+              age_to: endAgeValue,
+              highest_qualification: highestQualification,
+              annual_income: salary,
+              food_preference: foodPreference,
+              drink: drinkPreference,
+              smoke: smokePreference,
+              country: countryid,
+              state: state,
+              city: city,
+            }),
+          }
+        );
+
+        const updateData = await updateResponse.json();
+        console.log(updateData);
+        // Handle the update response as needed
+      } else {
+        // Preference doesn't exist, make a POST request to create
+        const createResponse = await fetch(
+          "https://metrimonial.onrender.com/api/preference",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: Token,
+            },
+            body: JSON.stringify({
+              marital_status: maritalStatus,
+              religion: religion,
+              mother_tongue: motherTongues,
+              min_height: minHeightInput,
+              max_height: maxHeightInput,
+              age_from: startAgeValue,
+              age_to: endAgeValue,
+              highest_qualification: highestQualification,
+              annual_income: salary,
+              food_preference: foodPreference,
+              drink: drinkPreference,
+              smoke: smokePreference,
+              country: countryid,
+              state: state,
+              city: city,
+            }),
+          }
+        );
+
+        const createData = await createResponse.json();
+        console.log(createData);
+        // Handle the create response as needed
+      }
+    } catch (error) {
+      console.log("ERROR: ", error);
+    }
+  };
+
   return (
     <div>
       <div className="p_login__wrapepr">
@@ -165,7 +264,7 @@ function Registration4() {
             <input
               type="range"
               id="Age"
-              name="Age"
+              name="min_age"
               min="0"
               max="70"
               placeholder="Start Age"
@@ -180,7 +279,7 @@ function Registration4() {
               <input
                 type="range"
                 id="Age1"
-                name="Age1"
+                name="max_age"
                 min="0"
                 max="70"
                 placeholder="End Age"
@@ -201,10 +300,20 @@ function Registration4() {
           {/* <input placeholder="Height" type="text" /> */}
           <div className="gender_state">
             <select className="gender">
-              <option value="">Height</option>
-              {Height.map((height, index) => (
-                <option key={index} value={height}>
-                  {height}
+              <option value="">min Height</option>
+              {height.map((ele, index) => (
+                <option key={index} value={ele}>
+                  {ele.height_value}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="gender_state">
+            <select className="gender">
+              <option value="">max Height</option>
+              {height.map((ele, index) => (
+                <option key={index} value={ele}>
+                  {ele.height_value}
                 </option>
               ))}
             </select>
@@ -329,7 +438,9 @@ function Registration4() {
           </div>
           <div id="recaptcha"></div>
           {/* onClick={handleSubmit} */}
-          <button className="text-light">Next</button>
+          <button className="text-light" onClick={handleSubmit}>
+            Next
+          </button>
         </div>
       </div>
     </div>
