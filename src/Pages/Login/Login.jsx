@@ -5,6 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import axios from "axios";
 import firebase from "../../firebase";
+import { NavigationRounded } from "@mui/icons-material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ReactDOM from "react-dom";
 
 const Login = () => {
   const [dell, setDell] = useState({
@@ -41,42 +45,30 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    // await axios
-    //   .post(
-    //     "https://metrimonial.onrender.com/api/profile/login",
-    //     { contact_no: phone },
-    //     { password: pass },
-    //     {
-    //       headers: { "Content-Type": "application/json" },
-    //     }
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data.data);
-    //     localStorage.clear();
-    //     localStorage.setItem("user", JSON.stringify(res.data.data.user[0]));
-    //     localStorage.setItem("token", res.data.data.token);
-    //     alert("Register success");
-    //     navigate("/profile");
-    //   })
-    //   .catch((err) => alert(err));
     const { contact_no, password } = dell;
-    // if (contact_no !== 10) {
-    //   alert("Enter valid number");
-    //   return;
-    // }
-    const res = await fetch(
-      "https://metrimonial.onrender.com/api/profile/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contact_no,
-          password,
-        }),
-      }
-    );
+    const formattedContactNo = "+91" + contact_no;
+    console.log(formattedContactNo);
+    if (formattedContactNo.length !== 13) {
+      // Display error message using Bootstrap alert
+      alert("Invalid Mobile Number");
+      return;
+    } else {
+      navigate("/");
+    }
+    // Rest of your code...
+
+    let LURL = process.env.LURL;
+    const res = await fetch("${LURL}/api/profile/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contact_no,
+        password,
+      }),
+    });
+
     const abc = await res.json();
     console.log(abc);
 
@@ -104,8 +96,11 @@ const Login = () => {
           name="password"
         />
         <div id="recaptcha"></div>
+        <div id="error-container"></div>
+
         <Link to="/NewUSER">New user ?</Link>
         <button onClick={handleSubmit}>Login</button>
+        <ToastContainer />
       </div>
     </div>
   );
