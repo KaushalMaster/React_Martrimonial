@@ -67,7 +67,7 @@ img.card__logo {
 .btn {
   position: absolute;
   right: 50px;
-  bottom: 10%;
+  bottom: 20%;
 }
 
 .btn_right {
@@ -120,16 +120,15 @@ img.card__logo {
     letter-spacing: 0em;
   }
   .btn {
-    position: absolute;
-    right: 50px;
-    bottom: 10%;
+    right: 0px;
+    bottom: 0px !important;
   }
 
   .btn_right {
-    margin-left: 30px;
+    margin-left: 0px !important;
   }
   .btn_left {
-    right: 150px;
+    right: 50px !important;
   }
 }
 
@@ -175,18 +174,22 @@ img.card__logo {
     letter-spacing: 0em;
   }
   .btn {
-    position: absolute;
-    right: 50px;
-    bottom: 10%;
+    right: 10px !important;
+    bottom: -6% !important;
     height: 40px;
     width: 40px;
-    top: 320px;
   }
 
   .btn_right {
-    margin-left: 30px;
+    margin-left: 70px;
   }
   .btn_left {
-    right: 120px;
+    right: 28px !important;
+  }
+}
+
+@media (min-width: 425px) {
+  .active {
+    width: 50%;
   }
 }

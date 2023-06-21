@@ -384,7 +384,7 @@ h3.hero__img__tag {
 
   .hero__message {
     margin-left: -40px;
-    margin-top: -60px;
+    margin-top: -30px;
   }
 
   .hero__pizza {
@@ -399,7 +399,16 @@ h3.hero__img__tag {
   }
 
   .hero__pizza {
-    margin-left: 40px;
+    margin-left: -200px;
     margin-top: 60px;
+  }
+
+  .hero__message {
+    margin-left: 50px;
+    margin-top: -30px;
+  }
+
+  .text {
+    margin-left: -10px;
   }
 }

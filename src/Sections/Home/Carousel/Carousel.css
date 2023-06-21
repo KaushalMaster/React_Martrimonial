@@ -30,3 +30,39 @@
     height: 350px;
   }
 }
+
+@media (min-width: 425px) {
+  .carousel {
+    height: 70vh;
+  }
+
+  .carousel__card {
+    width: 50%;
+    /* height: 40vh; */
+  }
+
+  #card__height {
+    width: 300px;
+  }
+
+  .btns {
+    background-color: black;
+    margin-top: 500px;
+  }
+
+  /* .carousel_container {
+    margin-top: -100px;
+  } */
+}
+
+@media (min-width: 1024px) {
+  .carousel {
+    height: 100vh;
+  }
+}
+
+@media (min-width: 768px) {
+  #btn {
+    top: -1000px !important;
+  }
+}

@@ -20,7 +20,7 @@ const CarouselCard = ({
       <h4>{heading}</h4>
       <p className="content">{content}</p>
 
-      <div className="btns">
+      <div className="btns" id="btn">
         {cardno == active + 1 ? (
           <>
             <img
