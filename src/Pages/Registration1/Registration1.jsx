@@ -378,7 +378,7 @@ const Registration1 = () => {
             required
           ></textarea>
           <div id="recaptcha"></div>
-          <button className="text-light" onClick={handleNext}>
+          <button className="btn__next" onClick={handleNext}>
             Next
           </button>
         </div>
