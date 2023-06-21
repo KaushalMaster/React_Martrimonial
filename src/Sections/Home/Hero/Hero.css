@@ -279,7 +279,7 @@ h3.hero__img__tag {
     align-items: center;
     gap: 5rem;
   }
-  h2.hero__h2 {
+  .hero__h2 {
     font-size: 50px;
   }
 
@@ -373,5 +373,18 @@ h3.hero__img__tag {
   }
   .hero__images {
     margin: 0;
+  }
+}
+
+@media (min-width: 425px) {
+  .text {
+    /* position: absolute; */
+    margin-left: -100px;
+  }
+}
+
+@media (min-width: 1024px){
+  .text{
+    margin-left: 100px;
   }
 }

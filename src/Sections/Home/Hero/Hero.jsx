@@ -14,8 +14,10 @@ const Hero = () => {
     <div className="hero">
       <div className="hero__intro">
         <h3>Find Your Love</h3>
-        <h2 className="hero__h2">By being</h2>
-        <h1>YOURSELF</h1>
+        <div className="text">
+          <h2 className="hero__h2">By being</h2>
+          <h1>YOURSELF</h1>
+        </div>
 
         <div className="hero__groups">
           <div className="hero__group">
