@@ -60,6 +60,10 @@ const Login = () => {
     //   })
     //   .catch((err) => alert(err));
     const { contact_no, password } = dell;
+    if (contact_no !== 10) {
+      alert("Enter valid number");
+      return;
+    }
     const res = await fetch(
       "https://metrimonial.onrender.com/api/profile/login",
       {

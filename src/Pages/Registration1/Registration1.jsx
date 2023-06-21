@@ -257,8 +257,8 @@ const Registration1 = () => {
 
   return (
     <div>
-      <div className="login__wrapper1">
-        <div className="login">
+      <div className="r_login__wrapper1">
+        <div className="r_login">
           <h2 className="personal_details">Personal Details</h2>
           <div className="gender_state">
             <select className="gender" required>
