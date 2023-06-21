@@ -381,10 +381,25 @@ h3.hero__img__tag {
     /* position: absolute; */
     margin-left: -100px;
   }
+
+  .hero__message {
+    margin-left: -40px;
+    margin-top: -60px;
+  }
+
+  .hero__pizza {
+    margin-left: -40px;
+    margin-top: -60px;
+  }
 }
 
-@media (min-width: 1024px){
-  .text{
+@media (min-width: 1024px) {
+  .text {
     margin-left: 100px;
+  }
+
+  .hero__pizza {
+    margin-left: 40px;
+    margin-top: 60px;
   }
 }
