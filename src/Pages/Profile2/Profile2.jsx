@@ -42,9 +42,9 @@ const Profile2 = () => {
   const FetchRequest = async (event) => {
     // fetch("https://metrimonial.onrender.com/api/request")
     try {
-      const response = await fetch(
-        "https://metrimonial.onrender.com/api/request"
-      );
+      const LURL = process.env.LURL;
+      // fetch("${LURL}/api/term_and_condition");
+      const response = await fetch("${LURL}/api/request");
       if (!response.ok) {
         throw new Error("Request failed");
       }

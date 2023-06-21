@@ -6,7 +6,8 @@ import { useState } from "react";
 const TermsAndConditions = () => {
   const [data, setData] = useState();
   useEffect(() => {
-    fetch("https://metrimonial.onrender.com/api/term_and_condition")
+    const LURL = process.env.LURL;
+    fetch("${LURL}/api/term_and_condition")
       .then((response) => {
         if (response.ok) {
           return response.json();
