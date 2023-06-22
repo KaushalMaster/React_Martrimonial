@@ -33,6 +33,7 @@ const NewMatches = ({ newMatches }) => {
           },
         }
       );
+      console.log(response);
       const Data = response.data.data.new_matches;
       // console.log(recentVisitorsData);
       // console.log(Data);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ProfileDetails.css";
 import img1 from "../../../Assets/signup/img1.png";
 import EditIcon from "@mui/icons-material/Edit";
@@ -6,6 +6,68 @@ import googleAds from "../../../Assets/googleads.png";
 import { Link } from "react-router-dom";
 
 const ProfileDetails = () => {
+  const [user_id, setUser_Id] = useState("");
+  const [profile__photo, setProfile_Photo] = useState("");
+  const token = localStorage.getItem("token");
+  // console.log(token);
+
+  useEffect(() => {
+    fetchUser();
+    // fetchProfileData();
+  }, []);
+
+  const fetchUser = async () => {
+    try {
+      const r = await fetch(
+        "https://metrimonial.onrender.com/api/profile/userdetails",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      if (!r.ok) {
+        throw new Error("Request failed");
+      }
+
+      const data = await r.json();
+      // const userName = data?.data?.UserDetails[0]?.user_name || "";
+      const user_id = data?.data?.UserDetails[0]?._id;
+      // console.log(userName);
+      // console.log(user_id);
+      setUser_Id(user_id);
+      // setName(userName);
+      // console.log(user_id);
+      const profilePhoto = data?.data?.UserDetails[0]?.profile_photo;
+      console.log(profilePhoto);
+      setProfile_Photo(profilePhoto);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // call this api to view the photos in recent visitors, premium matches and new matches
+  // always use backticks when you want to pass custom variable in the api such as id
+  // const fetchProfileData = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://metrimonial.onrender.com/api/profile/userdetails?user_id=${user_id}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           Authorization: token,
+  //         },
+  //       }
+  //     );
+  //     // console.log(response);
+  //   } catch (error) {
+  //     console.log("Error:", error);
+  //   }
+  // };
+
   const data = JSON.parse(localStorage.getItem("user"));
   // console.log(data);
 
@@ -14,7 +76,7 @@ const ProfileDetails = () => {
       <div>
         <div className="profile__card">
           <div className="profile__card_user">
-            <img src={img1} alt="" />
+            <img src={profile__photo} alt="" />
             <div className="profile__card_name">
               <h3>{data.user_name}</h3>
               <p>{data.contact_no}</p>

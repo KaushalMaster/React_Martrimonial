@@ -4,9 +4,33 @@ import PlaceIcon from "@mui/icons-material/Place";
 import img1 from "../../Assets/profile/img1.png";
 
 const NewMatchesCard = ({ data }) => {
-  // console.log(data);
+  console.log(data._id);
   // console.log(data.user_name);
   // console.log(data.age);
+
+  const SendRequest = async () => {
+    console.log(data._id);
+    const response = await fetch(
+      "https://metrimonial.onrender.com/api/request",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          receiver_id: data._id,
+          request_status: "pending",
+          request_type: "request",
+        }),
+      }
+    );
+    console.log(response);
+    if (response.status == 200) {
+      alert("Request Send Successfully");
+    }
+  };
+
   return (
     <div className="newmatchescard">
       <div className="newmatchescard_location">
@@ -25,7 +49,9 @@ const NewMatchesCard = ({ data }) => {
         </p>
         <p>{data.job_title}</p>
       </div>
-      <button className="newmatchescard_connect_button">Connect</button>
+      <button className="newmatchescard_connect_button" onClick={SendRequest}>
+        Connect
+      </button>
     </div>
   );
 };
