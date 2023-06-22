@@ -11,6 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 import ReactDOM from "react-dom";
 
 const Login = () => {
+  const url = process.env.LURL;
+  console.log(url);
+
   const [dell, setDell] = useState({
     contact_no: "",
     password: "",
@@ -24,23 +27,6 @@ const Login = () => {
   console.log(dell);
 
   const handleSubmit = async () => {
-    // dispatch(loginUser(phone));
-    // let recaptcha = new firebase.auth.RecaptchaVerifier("recaptcha");
-    // let number = phone;
-
-    // firebase
-    //   .auth()
-    //   .signInWithPhoneNumber(number, recaptcha)
-    //   .then(function (e) {
-    //     let code = prompt("Enter the otp", "");
-    //     if (code == null) return;
-    //     e.confirm(code)
-    //       .then(function (result) {
-    //         alert("Number Varified");
-    //         handleLogin();
-    //       })
-    //       .catch((err) => console.log(err));
-    //   });
     handleLogin();
   };
 
@@ -49,30 +35,35 @@ const Login = () => {
     const formattedContactNo = "+91" + contact_no;
     console.log(formattedContactNo);
     if (formattedContactNo.length !== 13) {
-      // Display error message using Bootstrap alert
       alert("Invalid Mobile Number");
       return;
     } else {
-      navigate("/");
+      // navigate("/");
     }
     // Rest of your code...
 
-    let LURL = process.env.LURL;
-    const res = await fetch("${LURL}/api/profile/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        contact_no,
-        password,
-      }),
-    });
+    const res = await fetch(
+      "https://metrimonial.onrender.com/api/profile/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contact_no: formattedContactNo,
+          password: password,
+        }),
+      }
+    );
 
     const abc = await res.json();
     console.log(abc);
 
     if (abc.code == 200) {
+      // const token = response.data.token;
+
+      // Store the token in localStorage
+      // localStorage.setItem("token", token);
       navigate("/profile");
       // localStorage.clear();
       localStorage.setItem("user", JSON.stringify(abc.data));
@@ -96,11 +87,9 @@ const Login = () => {
           name="password"
         />
         <div id="recaptcha"></div>
-        <div id="error-container"></div>
 
         <Link to="/NewUSER">New user ?</Link>
         <button onClick={handleSubmit}>Login</button>
-        <ToastContainer />
       </div>
     </div>
   );
