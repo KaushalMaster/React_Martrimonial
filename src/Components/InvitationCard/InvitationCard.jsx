@@ -12,6 +12,15 @@ const InvitationCard = ({ inv }) => {
   }
   // console.log(data.user_name);
   // console.log(inv);
+
+  const acceptRequest = () => {
+    console.log("acceptRequest");
+  };
+
+  const declineRequest = () => {
+    console.log("Decline Request");
+  };
+
   return (
     <div className="invitationcard">
       <div className="invitationcard_intro">
@@ -23,10 +32,16 @@ const InvitationCard = ({ inv }) => {
         <button className="invitationcard_upgrade_button">Upgrade</button>
       </div>
       <div className="invitationcard__buttons">
-        <button className="invitationcard_button invitationcard_reject">
+        <button
+          className="invitationcard_button invitationcard_reject"
+          onClick={declineRequest}
+        >
           <CloseIcon />
         </button>
-        <button className="invitationcard_button invitationcard_accept">
+        <button
+          className="invitationcard_button invitationcard_accept"
+          onClick={acceptRequest}
+        >
           <CheckIcon style={{ color: "#22B00B" }} />
         </button>
       </div>

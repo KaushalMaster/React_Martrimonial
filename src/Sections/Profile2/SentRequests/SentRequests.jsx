@@ -32,7 +32,7 @@ const SentRequests = ({ horizontal, setValue }) => {
 
       const responseData = await response.json();
       setRequestData(responseData.data[0]?.sent || []);
-      // console.log(responseData);
+      console.log(responseData);
       // console.log(responseData.data[0].sent);
     } catch (error) {
       setError(error.message);
