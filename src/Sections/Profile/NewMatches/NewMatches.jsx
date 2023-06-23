@@ -18,6 +18,7 @@ const NewMatches = ({ newMatches }) => {
   };
 
   const [newMatchesData, setNewMatchesData] = useState([]);
+  const [dataLength, setDataLength] = useState();
 
   useEffect(() => {
     fetchInvitations();
@@ -35,9 +36,12 @@ const NewMatches = ({ newMatches }) => {
       );
       console.log(response);
       const Data = response.data.data.new_matches;
+      const DataLength = response.data.data.new_matches.length;
       // console.log(recentVisitorsData);
-      // console.log(Data);
+      // console.log(Data.length);
       setNewMatchesData(Data);
+      console.log(DataLength);
+      setDataLength(DataLength);
     } catch (error) {
       console.log("Failed !!", error);
     }
@@ -47,7 +51,7 @@ const NewMatches = ({ newMatches }) => {
     <div className="profile__newmatches">
       <div className="profile__newmatches_heading">
         <h3>
-          New matches for you <span>( {newMatches.length} )</span>
+          New matches for you <span>( {dataLength} )</span>
         </h3>
         <div className="profile__newmatches_icon_wrapper">
           <NavigateBefore

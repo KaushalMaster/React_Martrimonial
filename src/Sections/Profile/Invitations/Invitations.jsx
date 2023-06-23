@@ -17,6 +17,7 @@ const Invitations = ({ invitations }) => {
     box.scrollLeft = box.scrollLeft + 500;
   };
   const [invitationsData, setInvitationsData] = useState([]);
+  const [data, setData] = useState();
 
   useEffect(() => {
     fetchInvitations();
@@ -35,6 +36,9 @@ const Invitations = ({ invitations }) => {
       const InvitationsData = response.data.data.receive_request;
       // console.log(InvitationsData);
       setInvitationsData(InvitationsData);
+      const Data = response.data.data.receive_request.length;
+      setData(Data);
+      console.log(Data);
     } catch (error) {
       console.log("Failed !!", error);
     }
@@ -43,7 +47,7 @@ const Invitations = ({ invitations }) => {
     <div className="profile__invitations">
       <div className="profile__invitations_heading">
         <h3>
-          Invitations <span>( {invitationsData.length} )</span>
+          Invitations <span>( {data} )</span>
         </h3>
         <div className="profile__invitations_icon_wrapper">
           <NavigateBefore

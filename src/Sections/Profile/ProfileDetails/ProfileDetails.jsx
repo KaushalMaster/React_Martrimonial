@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 const ProfileDetails = () => {
   const [user_id, setUser_Id] = useState("");
   const [profile__photo, setProfile_Photo] = useState("");
+  const [profileData, setProfileData] = useState("");
+  const [name, setName] = useState("");
   const token = localStorage.getItem("token");
   // console.log(token);
 
@@ -35,12 +37,15 @@ const ProfileDetails = () => {
 
       const data = await r.json();
       console.log(data);
-      // const userName = data?.data?.UserDetails[0]?.user_name || "";
+      const my_data = data.data.UserDetails;
+      setProfileData(my_data);
+      console.log(my_data);
+      const userName = data?.data?.UserDetails?.user_name || "";
       const user_id = data?.data?.UserDetails[0]?._id;
       // console.log(userName);
       // console.log(user_id);
       setUser_Id(user_id);
-      // setName(userName);
+      setName(userName);
       // console.log(user_id);
       const profilePhoto = data?.data?.UserDetails[0]?.profile_photo;
       console.log(profilePhoto);
@@ -76,23 +81,26 @@ const ProfileDetails = () => {
     <div className="profile__details">
       <div>
         <div className="profile__card">
+          <div className="user_data mt-5">
+            <h3>{name}</h3>
+            <p>{profileData.contact_no}</p>
+          </div>
           <div className="profile__card_user">
-            <img src={profile__photo} alt="" />
-            <div className="profile__card_name">
-              <h3>{data.user_name}</h3>
-              <p>{data.contact_no}</p>
+            {/* <div className="profile__card_name"></div> */}
+            <div className="test">
+              <img src={profileData.user_photo} alt="profile_photo" />
+              <p className="profile__card_status_status mt-2">status</p>
             </div>
-
-            <EditIcon className="editIcon" />
+            <div className="edit_pencil">
+              <EditIcon className="editIcon" />
+              <p className="profile__card_status_value">
+                {profileData.member_type} user
+              </p>
+            </div>
           </div>
-          <div className="profile__card_status">
-            <p className="profile__card_status_status">status</p>
-            <p className="profile__card_status_value">
-              {data.member_type} user
-            </p>
-          </div>
+          <div className="profile__card_status"></div>
           <button className="profile__get_premium">
-            <Link to="/selectplans">Get Premium</Link>
+            <Link to="/selectplan">Get Premium</Link>
           </button>
         </div>
         <div className="profile__counts">

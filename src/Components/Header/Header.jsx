@@ -122,19 +122,19 @@ const Header = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
             <Nav>
-              <Nav.Link className="nhy mb-4" to="/">
+              <Nav.Link className="nhy " to="/">
                 Home
               </Nav.Link>
-              <Nav.Link href="/services" className="nhy mb-4">
+              <Nav.Link href="/services" className="nhy ">
                 Services
               </Nav.Link>
 
-              <Nav.Link href="/SelectPlan" className="nhy mb-4">
+              <Nav.Link href="/SelectPlan" className="nhy ">
                 {" "}
                 Plans
               </Nav.Link>
 
-              <Nav.Link href="/contactus" className="nhy mb-4">
+              <Nav.Link href="/contactus" className="nhy ">
                 Contact
               </Nav.Link>
             </Nav>
@@ -148,7 +148,9 @@ const Header = () => {
                 </NavDropdown.Item>
               </NavDropdown>
             ) : (
-              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/login" className="btn_login">
+                Login
+              </Nav.Link>
             )}
           </Navbar.Collapse>
         </Container>

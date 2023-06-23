@@ -4,6 +4,28 @@ import "./UploadPhotograph.css";
 import img1 from "../../Assets/profile2/img1.jpg";
 
 const UploadPhotograph = () => {
+  const [userPhoto, setUserPhoto] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
+
+  const uploadPhotos = async () => {
+    try {
+      const response = await fetch("http://15.206.91.12:4000/api/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          profile_photo: profilePhoto,
+          user_photo: userPhoto,
+        }),
+      });
+      // Handle the response as needed
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="upload_photographs">
       <h2>Upload Your Photo</h2>
@@ -73,7 +95,9 @@ const UploadPhotograph = () => {
         </div>
       </div>
 
-      <button className="upload_photographs_save">Save</button>
+      <button className="upload_photographs_save" onClick={PhotographData}>
+        Save
+      </button>
     </div>
   );
 };

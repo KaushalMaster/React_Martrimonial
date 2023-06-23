@@ -10,6 +10,10 @@
 .me-auto {
   float: right;
 }
+
+.btn_login {
+  margin-top: -100px;
+}
 .h2__link {
   text-decoration: none;
 
@@ -132,6 +136,8 @@ p.header__button {
   }
 }
 
+
+
 @media only screen and (max-width: 800px) {
   .header__links {
     display: none;
@@ -144,5 +150,6 @@ p.header__button {
     max-width: 0px !important;
     height: 0px !important;
     box-shadow: none;
+    margin-bottom: 20px;
   }
 }

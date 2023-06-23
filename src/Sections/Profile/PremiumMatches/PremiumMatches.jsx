@@ -17,6 +17,7 @@ const PremiumMatches = ({ premiumMatches }) => {
   };
 
   const [premiumMatchesData, setPremiumMatchesData] = useState([]);
+  const [dataLength, setDataLength] = useState("");
 
   useEffect(() => {
     fetchInvitations();
@@ -33,8 +34,11 @@ const PremiumMatches = ({ premiumMatches }) => {
         }
       );
       const Data = response.data.data.premium_matches;
-      console.log(Data);
+      const DataLength = response.data.data.premium_matches.length;
+      // console.log(Data);
       setPremiumMatchesData(Data);
+      console.log(DataLength);
+      setDataLength(DataLength);
     } catch (error) {
       console.log("Failed !!", error);
     }
@@ -44,7 +48,7 @@ const PremiumMatches = ({ premiumMatches }) => {
     <div className="profile__premium_matches">
       <div className="profile__premium_matches_heading">
         <h3>
-          Premium Matches <span>( {premiumMatches.length} )</span>
+          Premium Matches <span>( {dataLength} )</span>
         </h3>
         <div className="profile__premium_matches_icon_wrapper">
           <NavigateBefore

@@ -16,6 +16,7 @@ const RecentVisitors = ({ recentVisitors }) => {
   };
 
   const [recentVisitorsData, setRecentVisitorsData] = useState([]);
+  const [data, setData] = useState("");
 
   useEffect(() => {
     fetchRecentVisitors();
@@ -31,9 +32,13 @@ const RecentVisitors = ({ recentVisitors }) => {
           },
         }
       );
+      console.log(response);
       const recentVisitorsData = response.data.data.recent_visitors;
-      // console.log(recentVisitorsData);
+      // console.log(recentVisitorsData.length);
       setRecentVisitorsData(recentVisitorsData);
+      const Data = response.data.data.recent_visitors.length;
+      setData(Data);
+      console.log(Data);
     } catch (error) {
       console.log("Failed !!", error);
     }
@@ -41,9 +46,9 @@ const RecentVisitors = ({ recentVisitors }) => {
 
   return (
     <div className="profile__recent_visitors">
-      <div className="profile__recent_visitors_heading">
+      <div className="profile__recent_visitors_heading mt-3">
         <h3>
-          Recent Visitors <span>({recentVisitorsData.length})</span>
+          Recent Visitors <span>({data})</span>
         </h3>
         {/* <div className="profile__recent_visitors_icon_wrapper">
           <NavigateBefore

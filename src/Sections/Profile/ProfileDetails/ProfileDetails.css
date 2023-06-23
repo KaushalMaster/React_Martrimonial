@@ -18,7 +18,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
   padding: 30px;
   background: #ffffff;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
@@ -78,7 +78,7 @@ button.profile__get_premium {
   margin-bottom: -5px;
 }
 .profile__details > img {
-  margin-top: 20px;
+  /* margin-top: 10px; */
   width: 480px;
   height: 340px;
 }
@@ -108,7 +108,34 @@ button.profile__get_premium {
   }
 }
 
+@media only screen and (max-width: 1024px) {
+  .edit_pencil {
+    display: grid;
+    place-items: center;
+    margin-top: 32px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .edit_pencil {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 425px) {
+  .test {
+    margin-top: 30px;
+  }
+}
+
 .editIcon:hover {
   color: red;
   cursor: pointer;
 }
+
+/* .test {
+  margin-top: 50px;
+} */
