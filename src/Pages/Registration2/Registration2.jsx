@@ -61,6 +61,17 @@ function Registration2() {
 
   const handleSubmit = async () => {
     try {
+      if (
+        !formData.highest_qualification ||
+        !formData.college ||
+        !formData.job_title ||
+        !formData.company_name ||
+        !formData.salary ||
+        !formData.designation
+      ) {
+        alert("Please fill in all the fields.");
+        return;
+      }
       // Combine the data and form data
       const combinedData = {
         ...data,

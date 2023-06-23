@@ -77,6 +77,13 @@ const Registration1 = () => {
       bio: document.querySelector("#bio").value,
     };
     console.log(data);
+    // Check if any field is empty
+    for (const key in data) {
+      if (data[key] === "") {
+        alert("Please fill in all fields.");
+        return;
+      }
+    }
     let path = `/Registration2`;
     navigate(path, { state: data });
   };

@@ -3,71 +3,119 @@ import "./NewMatchesCard.css";
 import PlaceIcon from "@mui/icons-material/Place";
 import img1 from "../../Assets/profile/img1.png";
 import { useState } from "react";
+import axios from "axios";
 
 const NewMatchesCard = ({ data }) => {
   // console.log(data);
   // console.log(data.user_name);
   // console.log(data.age);
+  // console.log(data._id);
   const [isRequestSent, setIsRequestSent] = useState(false);
+  // sent request ids
   const [ids, setIds] = useState([]);
+  // user card ids that are displayed in the new_matches section in the profile
+  const [userids, setUserIds] = useState([]);
+
   const [error, setError] = useState();
+  const [matchesData, setMatchesData] = useState([]);
+  const [matchedArray, setMatchedArray] = useState([]);
 
-  // useEffect(() => {
-  //   FetchData();
-  // }, []);
-  // const FetchData = async () => {
-  //   try {
-  //     const requests = await fetch(
-  //       "https://metrimonial.onrender.com/api/request/pending",
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: localStorage.getItem("token"), // Include the token in the Authorization header
-  //         },
-  //       }
-  //     );
+  useEffect(() => {
+    FetchCardData();
+    FetchDataSentRequest();
+  }, []);
 
-  //     if (!requests.ok) {
-  //       throw new Error("Request failed");
-  //     }
+  const FetchCardData = async () => {
+    try {
+      const cardData = await axios.get(
+        "https://metrimonial.onrender.com/api/profile/recent_visitor",
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
 
-  //     const responseData = await requests.json();
-  //     setRequest_Data(responseData.data[0]?.sent || []);
-  //     console.log(responseData);
-  //     console.log(responseData.data[0]?.sent._id);
-  //     // console.log(responseData.data[0].sent);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // };
+      console.log(cardData);
+      const userData = cardData.data.data.new_matches;
+      // console.log(recentVisitorsData);
+      // console.log(Data);
+      setMatchesData(userData);
+      // console.log(matchesData);
 
-  // const FetchData = async () => {
-  //   try {
-  //     const requests = await fetch(
-  //       "https://metrimonial.onrender.com/api/request/pending",
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: localStorage.getItem("token"), // Include the token in the Authorization header
-  //         },
-  //       }
-  //     );
+      const user_ids = matchesData.map((item) => item._id);
+      setUserIds([...user_ids]);
+      // console.log(userids);
+      // console.log(ids);
 
-  //     if (!requests.ok) {
-  //       throw new Error("Request failed");
-  //     }
+      Similiarity();
+    } catch (error) {
+      console.log("Failed !!", error);
+    }
+  };
 
-  //     const responseData = await requests.json();
-  //     console.log(responseData);
-  //     const extractedIds = responseData.map((item) => item._id);
-  //     setIds(extractedIds);
-  //     console.log(extractedIds);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  // };
+  const Similiarity = () => {
+    // const arr1 = ids;
+    // const arr2 = userids;
+
+    // console.log(arr1);
+    // console.log(arr2);
+    // const matchedIDS = [];
+
+    // for (let i = 0; i < arr1.length; i++) {
+    //   for (let j = 0; j < arr2.length; j++) {
+    //     if (arr1[i] === arr2[j]) {
+    //       matchedIDS.push(arr1[i]);
+    //     }
+    //   }
+    // }
+
+    // console.log(matchedIDS);
+
+    console.log(ids);
+    console.log(userids);
+    const matched = ids.map((item, index) => {
+      return item === userids[index] ? "Match" : "Mismatch";
+      setMatchedArray(matched);
+    });
+
+    console.log(matchedArray);
+  };
+
+  const FetchDataSentRequest = async () => {
+    try {
+      const requests = await fetch(
+        "https://metrimonial.onrender.com/api/request/pending",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"), // Include the token in the Authorization header
+          },
+        }
+      );
+
+      if (!requests.ok) {
+        throw new Error("Request failed");
+      }
+
+      const responseData = await requests.json();
+      // console.log(responseData);
+      // console.log(responseData.data[0].sent[0]._id);
+      const extractedIds = responseData.data[0].sent.map((item) => item._id);
+      setIds([...extractedIds]);
+      // console.log(extractedIds);
+
+      // user id
+      // const user_sent_request_id = ;
+
+      // checks if the user_id exits in the sent request ids
+      const result = ids.find(data._id);
+      console.log(result);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   const SendRequest = async () => {
     console.log(data._id);
@@ -86,23 +134,20 @@ const NewMatchesCard = ({ data }) => {
         }),
       }
     );
-    console.log(response);
+    // console.log(response);
     if (response.status == 200) {
       setIsRequestSent(true);
 
       alert("Request Send Successfully");
-
-      // const user_sent_request_id = data._id;
-      // const send_request_id = ids;
-      // console.log(user_sent_request_id);
-      // console.log(send_request_id);
-
-      // if (user_sent_request_id == send_request_id) {
-      // }
+      // Update the button's innerHTML to "Sent" if the ID is already in the sent requests
+      const connectBtn = document.getElementById("connect_btn");
+      if (ids.includes(data._id)) {
+        connectBtn.innerHTML = "Sent";
+      }
     } else {
-      const connectbtn = document.getElementById("connect_btn").value;
-      console.log(connectbtn);
-      connectbtn.innerHTML = "Sent";
+      // const connectbtn = document.getElementById("connect_btn").value;
+      // console.log(connectbtn);
+      // connectbtn.innerHTML = "Sent";
     }
   };
 
@@ -137,7 +182,8 @@ const NewMatchesCard = ({ data }) => {
         onClick={SendRequest}
         disabled={isRequestSent}
       >
-        {isRequestSent ? "Sent" : "Connect"}
+        Connect
+        {/* {ids.includes(data._id) ? "Sent" : "Connect"} */}
       </button>
     </div>
   );

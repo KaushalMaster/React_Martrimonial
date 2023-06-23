@@ -87,6 +87,19 @@ function Registration3() {
   // };
   const handleSubmit = async () => {
     try {
+      // Check for empty form fields
+      if (
+        !selectedFatherOccupation ||
+        !selectedMotherOccupation ||
+        !selectedNumberOfBrothers ||
+        !selectedNumberOfSisters ||
+        !selectedNumberOfMarriedBrothers ||
+        !selectedNumberOfMarriedSisters
+      ) {
+        alert("Please fill in all the fields.");
+        return;
+      }
+
       const response = await axios.post(
         "https://metrimonial.onrender.com/api/family",
         {
