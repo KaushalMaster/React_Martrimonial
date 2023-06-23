@@ -67,7 +67,7 @@ function App() {
         <Route path="/uploadphotos" element={<UploadPhotograph />} />
         <Route path="/selectplan" element={<SelectPlan />} />
         <Route path="/plandetails" element={<PlanDetails />} />
-        <Route path="/advancedsearch" element={<AdvancedSearch />} />
+        {/* <Route path="/advancedsearch" element={<AdvancedSearch />} /> */}
         <Route path="/newuser" element={<NewUSER />} />
         <Route path="/Otp" element={<Otp />} />
         <Route path="/Registration1" element={<Registration1 />} />

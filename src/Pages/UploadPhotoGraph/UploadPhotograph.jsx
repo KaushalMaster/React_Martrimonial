@@ -1,11 +1,28 @@
 import { Close, FileUploadOutlined } from "@mui/icons-material";
 import React from "react";
 import "./UploadPhotograph.css";
+import { useNavigate } from "react-router-dom";
 import img1 from "../../Assets/profile2/img1.jpg";
+import { useState } from "react";
 
 const UploadPhotograph = () => {
-  const [userPhoto, setUserPhoto] = useState("");
-  const [profilePhoto, setProfilePhoto] = useState("");
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const [userPhotos, setUserPhotos] = useState([]);
+
+  const handleBrowse = (event) => {
+    const files = event.target.files;
+    const selectedPhotos = Array.from(files).map((file) =>
+      URL.createObjectURL(file)
+    );
+    setUserPhotos(selectedPhotos);
+  };
+
+  const handleRemovePhoto = (index) => {
+    const updatedPhotos = [...userPhotos];
+    updatedPhotos.splice(index, 1);
+    setUserPhotos(updatedPhotos);
+  };
 
   const uploadPhotos = async () => {
     try {
@@ -16,10 +33,15 @@ const UploadPhotograph = () => {
           Authorization: token,
         },
         body: JSON.stringify({
-          profile_photo: profilePhoto,
-          user_photo: userPhoto,
+          // profile_photo: profilePhoto,
+          // user_photo: userPhoto,
         }),
       });
+      if (response == 200) {
+        navigate("/");
+      } else {
+        alert("Something went wrong");
+      }
       // Handle the response as needed
       console.log(response);
     } catch (error) {
@@ -34,68 +56,68 @@ const UploadPhotograph = () => {
           <FileUploadOutlined />
           <p>Upload your photographs here</p>
           <div className="signup__upload_button__wrapper">
-            <button className="signup__upload_button">Browse</button>
-            <p>supported files : png, jpg, jepg</p>
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              id="browse-input"
+              style={{ display: "none" }}
+              onChange={handleBrowse}
+            />
+            <label htmlFor="browse-input">
+              <button className="signup__upload_button">Browse</button>
+            </label>
+            <p>Supported files: png, jpg, jpeg</p>
           </div>
         </div>
         <div className="upload_photographs_selected_photos">
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
+          {userPhotos.map((photo, index) => (
+            <div
+              className="upload_photographs_uploaded_image_wrapper"
+              key={index}
+            >
+              <img
+                src={photo}
+                alt=""
+                className="upload_photographs_uploaded_image"
+              />
+              <Close
+                className="upload_photographs_uploaded_image_close_icon"
+                onClick={() => handleRemovePhoto(index)}
+              />
+            </div>
+          ))}
         </div>
+        {/* <div className="upload_photographs_uploaded_image_wrapper">
+            <img
+              src={img1}
+              alt=""
+              className="upload_photographs_uploaded_image"
+            />
+            <Close className="upload_photographs_uploaded_image_close_icon" />
+          </div>
+
+          <div className="upload_photographs_uploaded_image_wrapper">
+            <img
+              src={img1}
+              alt=""
+              className="upload_photographs_uploaded_image"
+            />
+            <Close className="upload_photographs_uploaded_image_close_icon" />
+          </div>
+
+          <div className="upload_photographs_uploaded_image_wrapper">
+            <img
+              src={img1}
+              alt=""
+              className="upload_photographs_uploaded_image"
+            />
+            <Close className="upload_photographs_uploaded_image_close_icon" />
+          </div>
+        </div> */}
       </div>
 
-      <button className="upload_photographs_save" onClick={PhotographData}>
+      <button className="upload_photographs_save" onClick={uploadPhotos}>
         Save
       </button>
     </div>

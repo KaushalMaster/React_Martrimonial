@@ -2,18 +2,25 @@ import PlaceIcon from "@mui/icons-material/Place";
 import React from "react";
 import img1 from "../../Assets/profile/img1.png";
 import BoltIcon from "@mui/icons-material/Bolt";
+import { useNavigate } from "react-router-dom";
 
 import "./RecentVisitorCard.css";
 
 const RecentVisitorCard = ({ rev }) => {
   const data = rev?.profile?.[0];
 
-  // console.log(rev.profile[0]);
+  const navigate = useNavigate(); // Move the useNavigate hook to the top level
+
   if (!data) {
     return null;
   }
+
+  const redirectUser = () => {
+    navigate("/userprofile");
+  };
+
   return (
-    <div className="recentvisitorcard">
+    <div className="recentvisitorcard" onClick={redirectUser}>
       <div className="recentvisitorcard_location">
         <PlaceIcon />
         <h4>{data.home_town}</h4>

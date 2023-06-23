@@ -3,7 +3,7 @@ import "./ProfileDetails.css";
 import img1 from "../../../Assets/signup/img1.png";
 import EditIcon from "@mui/icons-material/Edit";
 import googleAds from "../../../Assets/googleads.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProfileDetails = () => {
   const [user_id, setUser_Id] = useState("");
@@ -77,6 +77,11 @@ const ProfileDetails = () => {
   const data = JSON.parse(localStorage.getItem("user"));
   // console.log(data);
 
+  const navigate = useNavigate();
+  const EditProfile = () => {
+    navigate("/registration1");
+  };
+
   return (
     <div className="profile__details">
       <div>
@@ -92,7 +97,7 @@ const ProfileDetails = () => {
               <p className="profile__card_status_status mt-2">status</p>
             </div>
             <div className="edit_pencil">
-              <EditIcon className="editIcon" />
+              <EditIcon className="editIcon" onClick={EditProfile} />
               <p className="profile__card_status_value">
                 {profileData.member_type} user
               </p>
