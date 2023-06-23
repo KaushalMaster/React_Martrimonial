@@ -221,6 +221,22 @@ function Registration4() {
     e.preventDefault();
 
     try {
+      // Perform form validation
+      if (
+        !minAge ||
+        !maxAge ||
+        !minHeightInput ||
+        !maxHeightInput ||
+        !maritalStatus ||
+        !salary ||
+        !highestQualification ||
+        !drinkPreference ||
+        !smokePreference ||
+        !city
+      ) {
+        alert("Please fill in all required fields");
+        return;
+      }
       const formData = {
         marital_status: JSON.stringify(maritalStatus),
         religion: religion,

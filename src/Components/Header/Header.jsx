@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import "./Header.css";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -33,8 +33,9 @@ const Header = () => {
       }
 
       const data = await response.json();
-      const userName = data?.data?.UserDetails[0]?.user_name || "";
-      const user_id = data?.data?.UserDetails[0]?._id;
+      console.log(data);
+      const userName = data?.data?.UserDetails?.user_name || "";
+      const user_id = data?.data?.UserDetails?._id;
       console.log(userName);
       console.log(user_id);
       setName(userName);
@@ -103,8 +104,8 @@ const Header = () => {
         ) : (
           <Link to="/login">Login</Link>
         )}
-        {hamburgerMenu()}
-      </div> */}
+        {hamburgerMenu()} */}
+      {/* </div> */}
       <Navbar
         collapseOnSelect
         expand="lg"
@@ -121,16 +122,21 @@ const Header = () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto"></Nav>
             <Nav>
-              {/* <Nav.Link href="#deets">More deets</Nav.Link> */}
-              {/* <Nav.Link eventKey={2} href="#memes">
-                Dank memes
-              </Nav.Link> */}
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/services">Services</Nav.Link>
+              <Nav.Link className="nhy mb-4" to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link href="/services" className="nhy mb-4">
+                Services
+              </Nav.Link>
 
-              <Nav.Link href="/SelectPlan">Plans</Nav.Link>
+              <Nav.Link href="/SelectPlan" className="nhy mb-4">
+                {" "}
+                Plans
+              </Nav.Link>
 
-              <Nav.Link href="/contactus">Contact</Nav.Link>
+              <Nav.Link href="/contactus" className="nhy mb-4">
+                Contact
+              </Nav.Link>
             </Nav>
             {token ? (
               <NavDropdown title={name} id="collasible-nav-dropdown">
@@ -140,11 +146,6 @@ const Header = () => {
                 <NavDropdown.Item href="" onClick={handleLogout}>
                   Logout
                 </NavDropdown.Item>
-                {/* <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item> */}
               </NavDropdown>
             ) : (
               <Nav.Link href="/login">Login</Nav.Link>

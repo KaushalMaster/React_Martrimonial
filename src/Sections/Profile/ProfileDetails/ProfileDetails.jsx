@@ -34,6 +34,7 @@ const ProfileDetails = () => {
       }
 
       const data = await r.json();
+      console.log(data);
       // const userName = data?.data?.UserDetails[0]?.user_name || "";
       const user_id = data?.data?.UserDetails[0]?._id;
       // console.log(userName);
@@ -81,7 +82,8 @@ const ProfileDetails = () => {
               <h3>{data.user_name}</h3>
               <p>{data.contact_no}</p>
             </div>
-            <EditIcon />
+
+            <EditIcon className="editIcon" />
           </div>
           <div className="profile__card_status">
             <p className="profile__card_status_status">status</p>

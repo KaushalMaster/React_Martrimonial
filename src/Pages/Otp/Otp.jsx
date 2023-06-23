@@ -6,7 +6,7 @@ const Otp = () => {
   const saveUserData = async (userData) => {
     try {
       const response = await axios.post(
-        "https://metrimonial.onrender.com/api/profile",
+        "http://15.206.91.12:4000/api/profile",
         userData
       );
       // Handle the response if needed

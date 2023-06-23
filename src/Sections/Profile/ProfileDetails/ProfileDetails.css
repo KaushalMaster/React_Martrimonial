@@ -107,3 +107,8 @@ button.profile__get_premium {
     width: 90%;
   }
 }
+
+.editIcon:hover {
+  color: red;
+  cursor: pointer;
+}
