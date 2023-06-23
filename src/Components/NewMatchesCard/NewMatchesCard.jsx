@@ -36,7 +36,7 @@ const NewMatchesCard = ({ data }) => {
         }
       );
 
-      console.log(cardData);
+      // console.log(cardData);
       const userData = cardData.data.data.new_matches;
       // console.log(recentVisitorsData);
       // console.log(Data);
@@ -100,7 +100,7 @@ const NewMatchesCard = ({ data }) => {
       }
 
       const responseData = await requests.json();
-      // console.log(responseData);
+      console.log(responseData);
       // console.log(responseData.data[0].sent[0]._id);
       const extractedIds = responseData.data[0].sent.map((item) => item._id);
       setIds([...extractedIds]);

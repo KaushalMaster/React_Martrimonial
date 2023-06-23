@@ -24,9 +24,10 @@
 }
 .profile__recent_visitors_icon {
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 50%;
   border: 1px solid #cf166f;
+  box-sizing: content-box;
 }
 
 .profile__recent_visitors_icon:hover {
