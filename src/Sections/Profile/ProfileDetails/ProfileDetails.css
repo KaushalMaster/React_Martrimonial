@@ -44,6 +44,10 @@
   gap: 30px;
 }
 
+.user_data {
+  margin-bottom: -25px;
+}
+
 button.profile__get_premium {
   background: #cf166f;
   border-radius: 50px;

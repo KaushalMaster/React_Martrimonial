@@ -86,7 +86,7 @@ const ProfileDetails = () => {
     <div className="profile__details">
       <div>
         <div className="profile__card">
-          <div className="user_data mt-5">
+          <div className="user_data mt-2">
             <h3>{name}</h3>
             <p>{profileData.contact_no}</p>
           </div>
