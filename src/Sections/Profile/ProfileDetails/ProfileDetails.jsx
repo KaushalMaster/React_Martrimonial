@@ -105,7 +105,14 @@ const ProfileDetails = () => {
           </div>
           <div className="profile__card_status"></div>
           <button className="profile__get_premium">
-            <Link to="/selectplan">Get Premium</Link>
+            <Link to="/selectplan" className="btn_get_premium">
+              Get Premium
+            </Link>
+          </button>
+          <button className="profile__get_premium">
+            <Link to="/requests" className="btn_get_requests">
+              View Requests
+            </Link>
           </button>
         </div>
         <div className="profile__counts">

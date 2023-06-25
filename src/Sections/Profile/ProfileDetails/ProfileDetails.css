@@ -50,6 +50,14 @@ button.profile__get_premium {
   width: 80%;
   height: 40px;
 }
+
+.btn_get_premium,
+.btn_get_requests {
+  text-decoration: none;
+  color: white;
+  border: none;
+}
+
 .profile__counts {
   display: flex;
   gap: 10px;
