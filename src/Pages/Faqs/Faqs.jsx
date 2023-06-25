@@ -16,7 +16,7 @@ const Faqs = () => {
   useEffect(() => {
     fetchFaqs();
   }, []);
-  
+
   const fetchFaqs = async () => {
     // await axios
     //   .get("https://matrimonial-8jdx.onrender.com/api/FAQS")
@@ -25,12 +25,12 @@ const Faqs = () => {
     //     console.log(res.data.data);
     //   })
     //   .catch((err) => console.log(err));
-    const res = await fetch("https://metrimonial.onrender.com/api/FAQS",{
-      method:"GET",
-      headers:{
-        "Content-Type":"application/json",
+    const res = await fetch("https://metrimonial.onrender.com/api/FAQS", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-    })
+    });
     const data = await res.json();
     setFaqs(data.data);
   };
