@@ -1,7 +1,7 @@
 import React from "react";
 import "./Message.css";
 
-const Message = ({ myMessage, message }) => {
+const Message = ({ myMessage, message,time }) => {
   return (
     <div
       className={
@@ -23,7 +23,7 @@ const Message = ({ myMessage, message }) => {
               : "message__time other_message__time"
           }
         >
-          07:10
+          {time}
         </p>
       </div>
     </div>

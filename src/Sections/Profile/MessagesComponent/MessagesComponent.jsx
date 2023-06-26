@@ -1,15 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileMessageCard from "../../../Components/ProfileMessageCard/ProfileMessageCard";
 import "./MessagesComponent.css";
+import { addDoc, collection, getDocs } from "@firebase/firestore";
+import { db } from "../../../firebase";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
 
 const MessagesComponent = () => {
+  // console.log(db);
+
   const [openMessages, setOpenMessages] = useState(false);
   const [messagesClasses, setMessagesClasses] = useState(
     "profile__messages_wrapper"
   );
+
+  const [users, setUsers] = useState([]);
+
+  const getUserData = async () => {
+    const chats = collection(db, "chats");
+    const chatSnapshot = await getDocs(chats);
+    const userList = []
+	for (let i = 0; i < chatSnapshot.docs.length; i++) {
+		const user = chatSnapshot.docs[i].data();
+		const id = chatSnapshot.docs[i].id;
+		user.id = id;
+		userList.push(user);
+	}
+    setUsers(userList);
+    return userList;
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   const handleViewAll = () => {
     if (!openMessages) {
@@ -38,23 +62,23 @@ const MessagesComponent = () => {
         </button>
       </div>
       <div className={messagesClasses}>
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
-        <ProfileMessageCard />
+        {users.map((user, index) => {
+          return (
+            <ProfileMessageCard
+              key={index}
+			  id = {user.id}
+              name={user.name}
+              message={
+                JSON.parse(user.messages[user.messages.length - 1]).message
+              }
+              time={JSON.parse(user.messages[user.messages.length - 1]).time}
+              length={user.messages.length}
+            />
+          );
+        })}
+        {/* <ProfileMessageCard />
+         <ProfileMessageCard />
+         <ProfileMessageCard /> */}
       </div>
     </div>
   );
