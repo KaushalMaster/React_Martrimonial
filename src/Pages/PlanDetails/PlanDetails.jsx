@@ -1,34 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./PlanDetails.css";
 import PlanCard from "../../Components/PlanCard/PlanCard";
 import { useParams } from "react-router-dom";
+import PlanDetailsCard from "../../Components/PlanDetailsCard/PlanDetailsCard";
 
 const PlanDetails = () => {
-  // const { id } = useParams();
-  // const membershipPlan = async () => {
-  //   console.log(id);
-  //   try {
-  //     const response = await fetch(
-  //       `https://metrimonial.onrender.com//api/membership_plan/displayplan?_id=${id}`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-type": "application/json",
-  //           Authorization: localStorage.getItem("token"),
-  //         },
-  //       }
-  //     );
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log("ERROR: ", error);
-  //   }
-  // };
+  const [membershipdata, setMembershipData] = useState();
+  const { id } = useParams();
+
+  const membershipPlan = async () => {
+    try {
+      const response = await fetch(
+        `https://metrimonial.onrender.com/api/membership_plan/displayplan?_id=${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      setMembershipData(data);
+    } catch (error) {
+      console.log("ERROR: ", error);
+    }
+  };
+
+  useEffect(() => {
+    membershipPlan();
+  }, [id]);
 
   return (
     <div className="plandetails">
       <div className="plandetails__left">
         <p>You are getting</p>
-        <PlanCard />
+        <PlanDetailsCard data={membershipdata} />
       </div>
       <div className="plandetails__right">
         <p>Payment Information</p>
@@ -80,7 +88,9 @@ const PlanDetails = () => {
                 />
               </div>
             </div>
-            <button className="payment">Pay 4,000/-</button>
+            <button className="payment">
+              Pay {membershipdata?.data[0]?.plan_original_price}/-
+            </button>
             <p className="payment_safty">
               Your payments are 100% safe and secure
             </p>
