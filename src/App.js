@@ -66,7 +66,7 @@ function App() {
         <Route path="/viewedprofile" element={<ViewedProfile />} />
         <Route path="/uploadphotos" element={<UploadPhotograph />} />
         <Route path="/selectplan" element={<SelectPlan />} />
-        <Route path="/plandetails" element={<PlanDetails />} />
+        <Route path="/plandetails/:displayplan?_id" element={<PlanDetails />} />
         {/* <Route path="/advancedsearch" element={<AdvancedSearch />} /> */}
         <Route path="/newuser" element={<NewUSER />} />
         <Route path="/Otp" element={<Otp />} />

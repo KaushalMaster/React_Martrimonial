@@ -4,8 +4,10 @@ import img1 from "../../Assets/profile/img1.png";
 import "./InvitationCard.css";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
 const InvitationCard = ({ inv }) => {
+  const navigate = useNavigate();
   const data = inv?.profile[0];
   if (!data) {
     return null;
@@ -21,8 +23,15 @@ const InvitationCard = ({ inv }) => {
     console.log("Decline Request");
   };
 
+  const redirectUser = () => {
+    const user_id = data._id;
+    console.log(user_id);
+    navigate(`/userprofile/${user_id}`);
+    // console.log(data);
+  };
+
   return (
-    <div className="invitationcard">
+    <div className="invitationcard" onClick={redirectUser}>
       <div className="invitationcard_intro">
         <img src={inv.user_photo} alt="" />
         <p>{data.user_name}</p>

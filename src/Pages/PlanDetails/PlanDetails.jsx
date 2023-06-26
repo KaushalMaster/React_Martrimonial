@@ -1,8 +1,29 @@
 import React from "react";
 import "./PlanDetails.css";
 import PlanCard from "../../Components/PlanCard/PlanCard";
+import { useParams } from "react-router-dom";
 
 const PlanDetails = () => {
+  // const { id } = useParams();
+  // const membershipPlan = async () => {
+  //   console.log(id);
+  //   try {
+  //     const response = await fetch(
+  //       `https://metrimonial.onrender.com//api/membership_plan/displayplan?_id=${id}`,
+  //       {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-type": "application/json",
+  //           Authorization: localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log("ERROR: ", error);
+  //   }
+  // };
+
   return (
     <div className="plandetails">
       <div className="plandetails__left">

@@ -4,12 +4,14 @@ import PlaceIcon from "@mui/icons-material/Place";
 import img1 from "../../Assets/profile/img1.png";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const NewMatchesCard = ({ data }) => {
+  const navigate = useNavigate();
   // console.log(data);
   // console.log(data.user_name);
   // console.log(data.age);
-  // console.log(data._id);
+  console.log(data._id);
   const [isRequestSent, setIsRequestSent] = useState(false);
   // sent request ids
   const [ids, setIds] = useState([]);
@@ -151,9 +153,17 @@ const NewMatchesCard = ({ data }) => {
     }
   };
 
+  const redirectUser = () => {
+    const user_id = data._id;
+    console.log(user_id);
+    navigate(`/userprofile/${user_id}`);
+    // console.log(data);
+  };
+
   return (
-    <div className="newmatchescard">
+    <div className="newmatchescard" onClick={redirectUser}>
       <div className="newmatchescard_location">
+        ;
         <PlaceIcon />
         <h4>{data.home_town}</h4>
       </div>
