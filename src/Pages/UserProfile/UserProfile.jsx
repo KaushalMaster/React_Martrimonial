@@ -41,6 +41,7 @@ import drink from "../../Assets/userprofile/drink.png";
 import smoke from "../../Assets/userprofile/smoke.png";
 
 import SchoolIcon from "@mui/icons-material/School";
+import { useParams } from "react-router-dom";
 
 function MyVerticallyCenteredModal(props) {
   return (
@@ -89,9 +90,11 @@ const UserProfile = () => {
   const [modalShow, setModalShow] = React.useState(false);
 
   const token = localStorage.getItem("token");
+  const { id } = useParams();
+  console.log(id);
   const userDetails = async () => {
     const res = await fetch(
-      "https://metrimonial.onrender.com/api/profile/userdetails",
+      `https://metrimonial.onrender.com/api/profile/userdetails/user_id=${id}`,
       {
         method: "GET",
         headers: {
@@ -101,6 +104,8 @@ const UserProfile = () => {
       }
     );
     const data = await res.json();
+    console.log(data);
+    console.log(id);
     setDetails(data.data.UserDetails[0]);
     setFamily(data.data.UserDetails[0].family[0]);
     setPreference(data.data.UserDetails[0].preference[0]);

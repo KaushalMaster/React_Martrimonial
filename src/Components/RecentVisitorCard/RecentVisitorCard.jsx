@@ -7,16 +7,19 @@ import { useNavigate } from "react-router-dom";
 import "./RecentVisitorCard.css";
 
 const RecentVisitorCard = ({ rev }) => {
-  const data = rev?.profile?.[0];
-
   const navigate = useNavigate(); // Move the useNavigate hook to the top level
 
+  const data = rev?.profile?.[0];
+  console.log(data?._id);
   if (!data) {
     return null;
   }
 
   const redirectUser = () => {
-    navigate("/userprofile");
+    const user_id = data._id;
+    console.log(user_id);
+    navigate(`/userprofile/${user_id}`);
+    // console.log(data);
   };
 
   return (
