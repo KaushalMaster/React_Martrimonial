@@ -225,7 +225,7 @@ const UserProfile = () => {
               profilePhoto
             )}
           </div>
-          <h1>HIII</h1>
+
           {/*Photo Modal */}
           <MyVerticallyCenteredModal
             show={modalShow}
