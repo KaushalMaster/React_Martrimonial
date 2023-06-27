@@ -20,13 +20,13 @@ const MessagesComponent = () => {
   const getUserData = async () => {
     const chats = collection(db, "chats");
     const chatSnapshot = await getDocs(chats);
-    const userList = []
-	for (let i = 0; i < chatSnapshot.docs.length; i++) {
-		const user = chatSnapshot.docs[i].data();
-		const id = chatSnapshot.docs[i].id;
-		user.id = id;
-		userList.push(user);
-	}
+    const userList = [];
+    for (let i = 0; i < chatSnapshot.docs.length; i++) {
+      const user = chatSnapshot.docs[i].data();
+      const id = chatSnapshot.docs[i].id;
+      user.id = id;
+      userList.push(user);
+    }
     setUsers(userList);
     return userList;
   };
@@ -54,19 +54,20 @@ const MessagesComponent = () => {
       <div className="profile__messages_messages__header">
         <div className="mprofile__messages_messages__header_details">
           <h3>
-            New Message <span>06</span>
+            Chats
+            {/* <span>06</span> */}
           </h3>
         </div>
-        <button className="messages__view_all" onClick={() => handleViewAll()}>
+        {/* <button className="messages__view_all" onClick={() => handleViewAll()}>
           {openMessages ? "Close All" : "View All"}
-        </button>
+        </button> */}
       </div>
       <div className={messagesClasses}>
         {users.map((user, index) => {
           return (
             <ProfileMessageCard
               key={index}
-			  id = {user.id}
+              id={user.id}
               name={user.name}
               message={
                 JSON.parse(user.messages[user.messages.length - 1]).message

@@ -23,6 +23,7 @@ import { db } from "../../firebase";
 const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [msg, setMsg] = useState([]);
+  const [name, setName] = useState("");
   const location = useLocation();
 
   const getUserData = async () => {
@@ -33,7 +34,8 @@ const Messages = () => {
       const id = chatSnapshot.docs[i].id;
       if (id === location.state.id) {
         setMessages(user.messages);
-
+        setName(user.name);
+        console.log(user.name);
         setMsg(user.messages);
       }
     }
@@ -84,7 +86,7 @@ const Messages = () => {
         <div className="messages_header">
           <div className="messages_header_profile">
             <img src={img1} alt="" />
-            <h3>John Doe</h3>
+            <h3>{name}</h3>
           </div>
           <MoreVertIcon />
         </div>

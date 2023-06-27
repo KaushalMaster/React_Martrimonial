@@ -17,7 +17,7 @@ const ProfileMessageCard = ({ id, name, message, time, length }) => {
       </div>
       <div className="profilemessage__time">
         <p className="profilemessage_day">{time}</p>
-        <p className="profilemessage_unread_messages">{length}</p>
+        {/* <p className="profilemessage_unread_messages">{length}</p> */}
       </div>
     </div>
   );
