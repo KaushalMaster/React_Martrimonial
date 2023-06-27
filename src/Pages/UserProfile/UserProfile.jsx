@@ -215,14 +215,14 @@ const UserProfile = () => {
         <div className="userprofile_profile">
           <div className="userprofile_profile_top">
             {profilePhoto ? (
-              profilePhoto
-            ) : (
               <img
                 src={profilePhoto}
                 alt=""
                 style={{ borderRadius: "100%" }}
                 onClick={() => setModalShow(true)}
               />
+            ) : (
+              profilePhoto
             )}
           </div>
 

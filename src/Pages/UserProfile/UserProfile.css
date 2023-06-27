@@ -261,3 +261,9 @@ img.userprofile_matches_connection {
   font-size: 15.5319px;
   line-height: 16px;
 }
+
+@media (max-width: 426px) {
+  .userprofile {
+    flex-direction: column;
+  }
+}
