@@ -22,6 +22,7 @@ import { db } from "../../firebase";
 
 const Messages = () => {
   const [messages, setMessages] = useState([]);
+  const [msg, setMsg] = useState([]);
   const location = useLocation();
 
   const getUserData = async () => {
@@ -32,6 +33,8 @@ const Messages = () => {
       const id = chatSnapshot.docs[i].id;
       if (id === location.state.id) {
         setMessages(user.messages);
+
+        setMsg(user.messages);
       }
     }
 
@@ -43,9 +46,11 @@ const Messages = () => {
 
     const chats = collection(db, "chats");
     const chatSnapshot = await getDocs(chats);
+
     for (let i = 0; i < chatSnapshot.docs.length; i++) {
       const user = chatSnapshot.docs[i].data();
       const id = chatSnapshot.docs[i].id;
+
       if (id === location.state.id) {
         const tempMessages = {
           message: message,
@@ -58,6 +63,7 @@ const Messages = () => {
           messages: newMessages,
           name: user.name,
         });
+        setMsg(newMessages);
       }
     }
 
@@ -65,8 +71,13 @@ const Messages = () => {
   }
 
   useEffect(() => {
+    setMsg(messages);
+  }, [messages]);
+
+  useEffect(() => {
     getUserData();
   }, []);
+
   return (
     <div className="messages">
       <div className="messages_left">
@@ -79,7 +90,7 @@ const Messages = () => {
         </div>
         <div className="messages_chat_screen">
           <div className="messages_message_panel">
-            {messages.map((message, index) => {
+            {msg.map((message, index) => {
               return (
                 <Message
                   key={index}
