@@ -225,13 +225,12 @@ const UserProfile = () => {
               profilePhoto
             )}
           </div>
-
+          hi
           {/*Photo Modal */}
           <MyVerticallyCenteredModal
             show={modalShow}
             onHide={() => setModalShow(false)}
           />
-
           <div className="userprofile_profile_bottom">
             <div className="userprofile_profile_bottom_detail_wrapper">
               <PhoneOutlined />
