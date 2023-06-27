@@ -34,7 +34,10 @@ const RecentVisitors = ({ recentVisitors }) => {
       );
       console.log(response);
       const recentVisitorsData = response.data.data.recent_visitors;
-      // console.log(recentVisitorsData.length);
+      console.log(recentVisitorsData);
+      const recentVisitorsProfilePhotos =
+        response.data.data.recent_visitors[0].profile[0].profile_photo;
+      console.log(recentVisitorsProfilePhotos);
       setRecentVisitorsData(recentVisitorsData);
       const Data = response.data.data.recent_visitors.length;
       setData(Data);
