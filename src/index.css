@@ -19,3 +19,7 @@ button:hover {
 ul {
   list-style-position: inside;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

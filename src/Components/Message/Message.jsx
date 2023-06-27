@@ -1,19 +1,19 @@
 import React from "react";
 import "./Message.css";
 
-const Message = ({ myMessage, message,time }) => {
+const Message = ({ myMessage, message, time }) => {
   return (
     <div
-      className={
-        myMessage == true
+      className={`${
+        myMessage
           ? "message message_my_message"
           : "message message_other_message"
-      }
+      }`}
     >
       <div
-        className={
-          myMessage == true ? "my_message_wrapper" : "other_message_wrapper"
-        }
+        className={` ${
+          myMessage ? "my_message_wrapper" : "other_message_wrapper"
+        }`}
       >
         <p className="message__message">{message}</p>
         <p
