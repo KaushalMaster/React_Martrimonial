@@ -4,6 +4,7 @@ import img1 from "../../../Assets/signup/img1.png";
 import EditIcon from "@mui/icons-material/Edit";
 import googleAds from "../../../Assets/googleads.png";
 import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../../BASE_URL";
 
 const ProfileDetails = () => {
   const [user_id, setUser_Id] = useState("");
@@ -20,16 +21,13 @@ const ProfileDetails = () => {
 
   const fetchUser = async () => {
     try {
-      const r = await fetch(
-        "https://metrimonial.onrender.com/api/profile/userdetails",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+      const r = await fetch(`${BASE_URL}/api/profile/userdetails`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
 
       if (!r.ok) {
         throw new Error("Request failed");
@@ -93,7 +91,7 @@ const ProfileDetails = () => {
           <div className="profile__card_user">
             {/* <div className="profile__card_name"></div> */}
             <div className="test">
-              <img src={profileData.user_photo} alt="profile_photo" />
+              <img src={profile__photo} alt="profile_photo" />
               <p className="profile__card_status_status mt-2">status</p>
             </div>
             <div className="edit_pencil">

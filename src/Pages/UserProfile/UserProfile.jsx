@@ -43,6 +43,7 @@ import smoke from "../../Assets/userprofile/smoke.png";
 
 import SchoolIcon from "@mui/icons-material/School";
 import { useParams } from "react-router-dom";
+import { BASE_URL } from "../../BASE_URL";
 
 function MyVerticallyCenteredModal(props) {
   return (
@@ -122,7 +123,7 @@ const UserProfile = () => {
   console.log(id);
   const userDetails = async () => {
     const res = await fetch(
-      `https://metrimonial.onrender.com/api/profile/userdetails?user_id=${id}`,
+      `${BASE_URL}/api/profile/userdetails?user_id=${id}`,
       {
         method: "GET",
         headers: {
@@ -169,6 +170,7 @@ const UserProfile = () => {
     setAge(data.data.UserDetails.age);
   };
 
+  console.log(profilePhoto);
   useEffect(() => {
     userDetails();
     updateUserProfile();
