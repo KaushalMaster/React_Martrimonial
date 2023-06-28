@@ -23,7 +23,7 @@ const NewUSER = () => {
     // }
     const userData = {
       user_name: user_name,
-      contact_no: contact_no,
+      contact_no: "+91" + contact_no,
       email: email,
       password: password,
     };

@@ -6,6 +6,7 @@ import "./NewMatches.css";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../../../BASE_URL";
 
 const NewMatches = ({ newMatches }) => {
   const handlePrevClick = () => {
@@ -27,20 +28,20 @@ const NewMatches = ({ newMatches }) => {
   const fetchInvitations = async () => {
     try {
       const response = await axios.get(
-        "https://metrimonial.onrender.com/api/profile/recent_visitor",
+        `${BASE_URL}/api/profile/recent_visitor`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       const Data = response.data.data.new_matches;
       const DataLength = response.data.data.new_matches.length;
       // console.log(recentVisitorsData);
       // console.log(Data.length);
       setNewMatchesData(Data);
-      console.log(DataLength);
+      
       setDataLength(DataLength);
     } catch (error) {
       console.log("Failed !!", error);

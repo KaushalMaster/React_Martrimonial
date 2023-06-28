@@ -32,7 +32,7 @@ const Profile = () => {
     //   })
     //   .then((res) => {
     //     setRecentVisitors(res.data.data.recent_visitors);
-    //     setInvitations(res.data.data.receive_request);
+    //     setInvitations(res.data.data.receive_request); 
     //     setNewMatches(res.data.data.new_matches);
     //     setPremiumMatches(res.data.data.premium_matches);
     //   })

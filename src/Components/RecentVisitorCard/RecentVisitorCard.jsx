@@ -10,7 +10,8 @@ const RecentVisitorCard = ({ rev }) => {
   const navigate = useNavigate(); // Move the useNavigate hook to the top level
 
   const data = rev?.profile?.[0];
-  console.log(data?._id);
+  // console.log(data);
+  // console.log(data?._id);
   if (!data) {
     return null;
   }
@@ -29,7 +30,7 @@ const RecentVisitorCard = ({ rev }) => {
         <h4>{data.home_town}</h4>
         <BoltIcon style={{ color: "#FCF204" }} />
       </div>
-      <img src={data.user_photo} alt="" className="user_image" />
+      <img src={data.profile_photo} alt="" className="user_image" />
       <div className="recentvisitorcard_intro">
         <p>
           {data.user_name},{" "}

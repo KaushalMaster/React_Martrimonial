@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Registration2.css";
 import axios from "axios";
+import { BASE_URL } from "../../BASE_URL";
 
 function Registration2() {
   let navigate = useNavigate();
@@ -18,6 +19,7 @@ function Registration2() {
     company_name: "",
     salary: "",
     designation: "",
+    // profile_photo: "",
   });
 
   console.log(formData);
@@ -81,7 +83,7 @@ function Registration2() {
       console.log(combinedData);
 
       const response = await axios.put(
-        "https://metrimonial.onrender.com/api/profile",
+        `${BASE_URL}/api/profile`,
         combinedData,
         {
           headers: {
@@ -178,6 +180,8 @@ function Registration2() {
             onChange={handleChange}
             required
           />
+
+          {/* <input type="file" name="profile_photo" id="profile_photo" /> */}
 
           <div id="recaptcha"></div>
           <button className="text-light" onClick={handleSubmit}>

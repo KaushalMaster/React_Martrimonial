@@ -52,7 +52,7 @@ const MessagesComponent = () => {
       }
 
       const responseData = await response.json();
-      console.log(responseData);
+
       // console.log(responseData.data[0].profile);
       setReceivedData(responseData.data);
       // console.log(receivedData);

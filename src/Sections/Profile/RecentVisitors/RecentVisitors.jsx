@@ -32,16 +32,16 @@ const RecentVisitors = ({ recentVisitors }) => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       const recentVisitorsData = response.data.data.recent_visitors;
-      console.log(recentVisitorsData);
+      // console.log(recentVisitorsData);
       const recentVisitorsProfilePhotos =
         response.data.data.recent_visitors[0].profile[0].profile_photo;
-      console.log(recentVisitorsProfilePhotos);
+      // console.log(recentVisitorsProfilePhotos);
       setRecentVisitorsData(recentVisitorsData);
       const Data = response.data.data.recent_visitors.length;
       setData(Data);
-      console.log(Data);
+      // console.log(Data);
     } catch (error) {
       console.log("Failed !!", error);
     }

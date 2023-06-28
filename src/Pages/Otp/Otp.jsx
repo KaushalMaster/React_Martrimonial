@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../../BASE_URL";
 
 const Otp = () => {
   const saveUserData = async (userData) => {
     try {
-      const response = await axios.post(
-        "http://15.206.91.12:4000/api/profile",
-        userData
-      );
+      const response = await axios.post(`${BASE_URL}/api/profile`, userData);
       // Handle the response if needed
       console.log(response.data);
     } catch (error) {

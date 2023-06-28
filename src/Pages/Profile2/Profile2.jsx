@@ -29,6 +29,7 @@ import DeclinedRequests from "../../Sections/Profile2/DeclinedRequests/DeclinedR
 import SentRequests from "../../Sections/Profile2/SentRequests/SentRequests";
 
 import Profiles from "../Profiles/Profiles.jsx";
+import { BASE_URL } from "../../BASE_URL";
 
 const Profile2 = () => {
   const [value, setValue] = useState("1");
@@ -42,9 +43,9 @@ const Profile2 = () => {
   const FetchRequest = async (event) => {
     // fetch("https://metrimonial.onrender.com/api/request")
     try {
-      const LURL = process.env.LURL;
+      // const LURL = process.env.LURL;
       // fetch("${LURL}/api/term_and_condition");
-      const response = await fetch("${LURL}/api/request");
+      const response = await fetch(`${BASE_URL}/api/request`);
       if (!response.ok) {
         throw new Error("Request failed");
       }
@@ -60,7 +61,7 @@ const Profile2 = () => {
       <div className="profile2_left">
         <Box sx={{ minWidth: "400px" }}>
           <TabContext value={value}>
-            <Box
+            {/* <Box
               sx={{
                 borderBottom: 1,
                 borderColor: "divider",
@@ -105,7 +106,8 @@ const Profile2 = () => {
                   style={{ minWidth: "150px" }}
                 />
               </TabList>
-            </Box>
+            </Box> */}
+
             <Profiles horizontal={true} setValue={setValue} />
             <TabPanel value="1">
               <ReceivedRequests horizontal={true} setValue={setValue} />

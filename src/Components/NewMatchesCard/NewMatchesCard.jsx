@@ -5,13 +5,14 @@ import img1 from "../../Assets/profile/img1.png";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../BASE_URL";
 
 const NewMatchesCard = ({ data }) => {
   const navigate = useNavigate();
   // console.log(data);
   // console.log(data.user_name);
   // console.log(data.age);
-  console.log(data._id);
+  // console.log(data._id);
   const [isRequestSent, setIsRequestSent] = useState(false);
   // sent request ids
   const [ids, setIds] = useState([]);
@@ -30,7 +31,7 @@ const NewMatchesCard = ({ data }) => {
   const FetchCardData = async () => {
     try {
       const cardData = await axios.get(
-        "https://metrimonial.onrender.com/api/profile/recent_visitor",
+        `${BASE_URL}/api/profile/recent_visitor`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -74,28 +75,25 @@ const NewMatchesCard = ({ data }) => {
 
     // console.log(matchedIDS);
 
-    console.log(ids);
-    console.log(userids);
+    // console.log(ids);
+    // console.log(userids);
     const matched = ids.map((item, index) => {
       return item === userids[index] ? "Match" : "Mismatch";
       setMatchedArray(matched);
     });
 
-    console.log(matchedArray);
+    // console.log(matchedArray);
   };
 
   const FetchDataSentRequest = async () => {
     try {
-      const requests = await fetch(
-        "https://metrimonial.onrender.com/api/request/pending",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"), // Include the token in the Authorization header
-          },
-        }
-      );
+      const requests = await fetch(`${BASE_URL}/api/request/pending`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"), // Include the token in the Authorization header
+        },
+      });
 
       if (!requests.ok) {
         throw new Error("Request failed");
@@ -121,21 +119,18 @@ const NewMatchesCard = ({ data }) => {
 
   const SendRequest = async () => {
     console.log(data._id);
-    const response = await fetch(
-      "https://metrimonial.onrender.com/api/request",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          receiver_id: data._id,
-          request_status: "pending",
-          request_type: "request",
-        }),
-      }
-    );
+    const response = await fetch(`${BASE_URL}/api/request`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        receiver_id: data._id,
+        request_status: "pending",
+        request_type: "request",
+      }),
+    });
     // console.log(response);
     if (response.status == 200) {
       setIsRequestSent(true);

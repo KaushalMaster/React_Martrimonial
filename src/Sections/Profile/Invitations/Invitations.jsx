@@ -38,7 +38,7 @@ const Invitations = ({ invitations }) => {
       setInvitationsData(InvitationsData);
       const Data = response.data.data.receive_request.length;
       setData(Data);
-      console.log(Data);
+      // console.log(Data);
     } catch (error) {
       console.log("Failed !!", error);
     }

@@ -89,7 +89,7 @@ function App() {
         <Route path="/vandor/bid-details" element={<BidDetails />} />
       </Routes>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

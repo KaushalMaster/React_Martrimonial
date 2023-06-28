@@ -37,7 +37,7 @@ const PremiumMatches = ({ premiumMatches }) => {
       const DataLength = response.data.data.premium_matches.length;
       // console.log(Data);
       setPremiumMatchesData(Data);
-      console.log(DataLength);
+      // console.log(DataLength);
       setDataLength(DataLength);
     } catch (error) {
       console.log("Failed !!", error);

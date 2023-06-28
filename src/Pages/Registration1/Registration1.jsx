@@ -5,6 +5,7 @@ import axios from "axios";
 import "./Registration1.css";
 import "../Login/Login.css";
 import { useNavigate } from "react-router-dom";
+import country from "../../country.json";
 
 const Registration1 = () => {
   const Height = [
@@ -59,10 +60,57 @@ const Registration1 = () => {
   ];
 
   let navigate = useNavigate();
+  const [age, setAge] = useState("");
+  const [dob, setDOB] = useState(); // Added age state
+  const [countryid, setCountryid] = useState("");
+  const [state, setState] = useState([]);
+  const [city, setCity] = useState("");
+
+  // Fetching Country from country.json
+  const handlecounty = (e) => {
+    const getcountryId = e.target.value;
+    const getStatedata = country.find(
+      (country) => country.country_id === getcountryId
+    ).states;
+    setState(getStatedata);
+    setCountryid(getcountryId);
+  };
+
+  // Fetching State based on country
+  const handlestate = (e) => {
+    const stateid = e.target.value;
+    console.log(stateid);
+    setCity(stateid); // Set the value of city
+  };
+
+  const calculatedAge = () => {
+    const dob = document.querySelector(".dob").value;
+    setDOB(dob);
+    const today = new Date();
+    const birthDate = new Date(dob);
+    let calculatedAge = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      calculatedAge--;
+    }
+    setAge(calculatedAge.toString()); // Update age state
+  };
+
   const handleNext = () => {
+    // calculating age based on DOB
+    // calculatedAge();
+
+    // getting data to send to API
     const data = {
       gender: document.querySelector(".gender").value,
-      dob: document.querySelector(".dob").value,
+      dob: dob,
+      age: age,
+      country: countryid,
+      state: JSON.stringify(state),
+      city: city,
       height: document.querySelector(".height").value,
       weight: document.querySelector(".weight").value,
       city: document.querySelector(".city").value,
@@ -274,7 +322,14 @@ const Registration1 = () => {
               <option value="Female">Female</option>
             </select>
           </div>
-          <input placeholder="DOB" type="Date" className="dob" />
+          <input
+            placeholder="DOB"
+            type="Date"
+            className="dob"
+            id="dob"
+            onChange={calculatedAge}
+          />
+          <input type="text" name="age" id="age" className="city" value={age} />
           <div className="gender_state">
             <select className="height" required>
               <option value="">Height</option>
@@ -286,6 +341,30 @@ const Registration1 = () => {
             </select>
           </div>
           <input placeholder="Weight" type="text" className="weight" />
+          {/* country */}
+          <div className="gender_state">
+            <select className="gender" onChange={handlecounty}>
+              <option value="">Country</option>
+              {country.map((country, index) => (
+                <option value={country.country_id} key={index}>
+                  {country.country_name}
+                </option>
+              ))}
+              <option value="USA">USA</option>
+            </select>
+          </div>
+          {/* State */}
+          <div className="gender_state">
+            <select className="gender" onChange={handlestate}>
+              <option value="">State</option>
+              {state.map((getstate, index) => (
+                <option value={getstate.stateid} key={index}>
+                  {getstate.state_name}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* city */}
           <input placeholder="City" type="text" className="city" />
           <div className="gender_state">
             <select className="settle-down" required>

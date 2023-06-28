@@ -9,6 +9,7 @@ import { NavigationRounded } from "@mui/icons-material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactDOM from "react-dom";
+import { BASE_URL } from "../../BASE_URL";
 
 const Login = () => {
   const url = process.env.LURL;
@@ -42,19 +43,16 @@ const Login = () => {
     }
     // Rest of your code...
 
-    const res = await fetch(
-      "https://metrimonial.onrender.com/api/profile/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contact_no: formattedContactNo,
-          password: password,
-        }),
-      }
-    );
+    const res = await fetch(`${BASE_URL}/api/profile/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contact_no: formattedContactNo,
+        password: password,
+      }),
+    });
 
     const abc = await res.json();
     console.log(abc);

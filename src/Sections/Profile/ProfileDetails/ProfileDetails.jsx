@@ -35,7 +35,7 @@ const ProfileDetails = () => {
   const fetchAcceptedInvitations = async () => {
     try {
       const response = await axios.get(
-        "https://metrimonial.onrender.com/api/profile/recent_visitor",
+        `${BASE_URL}/api/profile/recent_visitor`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -69,7 +69,7 @@ const ProfileDetails = () => {
       }
 
       const responseData = await response.json();
-      console.log(responseData);
+
       setReceivedData(responseData.data);
 
       const inivitationsDataLength = responseData.data.length;
@@ -90,13 +90,12 @@ const ProfileDetails = () => {
           },
         }
       );
-      console.log(response);
+
       const recentVisitorsData = response.data.data.recent_visitors;
       // console.log(recentVisitorsData.length);
       setRecentVisitorsData(recentVisitorsData);
       const DataLengthVisitors = response.data.data.recent_visitors.length;
       setDataLengthVisitors(DataLengthVisitors);
-      console.log(DataLengthVisitors);
     } catch (error) {
       console.log("Failed !!", error);
     }
