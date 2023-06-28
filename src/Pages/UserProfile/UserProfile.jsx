@@ -117,10 +117,11 @@ const UserProfile = () => {
   const [settleDown, setSettleDown] = useState("");
   const [salary, setSalary] = useState("");
   const [age, setAge] = useState("");
+  const [data, setData] = useState("");
 
   const token = localStorage.getItem("token");
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const userDetails = async () => {
     const res = await fetch(
       `${BASE_URL}/api/profile/userdetails?user_id=${id}`,
@@ -134,11 +135,12 @@ const UserProfile = () => {
     );
     const data = await res.json();
     console.log(data);
+    setData(data);
     setDetails(data.data.UserDetails[0]);
     setFamily(data.data.UserDetails.family[0]);
     setFoodPreference(data.data.UserDetails.preference[0]);
-    console.log(data.data.UserDetails.preference[0]);
-    setReligion(data.data.UserDetails.preference.religion);
+    // console.log(data.data.UserDetails.preference[0]);
+    setReligion(data.data.UserDetails.religion);
     setLanguage(data.data.UserDetails.preference.language);
     setProfilePhotos(data.data.UserDetails.profile_photo);
     setContactNo(data.data.UserDetails.contact_no);
@@ -148,13 +150,13 @@ const UserProfile = () => {
     setMaxAge(data.data.UserDetails.preference.max_age);
     setMinHeight(data.data.UserDetails.preference.min_height);
     setMaxHeight(data.data.UserDetails.preference.max_height);
-    setMaritalStatus(data.data.UserDetails.preference.marital_status);
-    setCountry(data.data.UserDetails.preference.country);
-    setLocation(data.data.UserDetails.preference.location);
-    setAnnualIncome(data.data.UserDetails.preference.annual_income);
-    setFoodPreference(data.data.UserDetails.preference.food_preference);
-    setSmoke(data.data.UserDetails.preference.smoke);
-    setDrink(data.data.UserDetails.preference.drink);
+    setMaritalStatus(data.data.UserDetails.marital_status);
+    setCountry(data.data.UserDetails.country);
+    setLocation(data.data.UserDetails.location);
+    setAnnualIncome(data.data.UserDetails.salary);
+    setFoodPreference(data.data.UserDetails.food_preference);
+    setSmoke(data.data.UserDetails.smoke);
+    setDrink(data.data.UserDetails.drink);
     setUserName(data.data.UserDetails.user_name);
     setHeight(data.data.UserDetails.height);
     setWeight(data.data.UserDetails.weight);
@@ -170,7 +172,9 @@ const UserProfile = () => {
     setAge(data.data.UserDetails.age);
   };
 
-  console.log(profilePhoto);
+  // console.log(data.data.UserDetails.preference.marital_status);
+  console.log(motherTongue);
+  // console.log(profilePhoto);
   useEffect(() => {
     userDetails();
     updateUserProfile();
@@ -253,7 +257,7 @@ const UserProfile = () => {
         </div>
         <div className="userprofile_matches">
           <div className="userprofile_matches_profile_images">
-            <img src={img1} alt="" className="userprofile_matches_me" />
+            <img src={profilePhoto} alt="" className="userprofile_matches_me" />
             <img
               src={connect}
               alt=""

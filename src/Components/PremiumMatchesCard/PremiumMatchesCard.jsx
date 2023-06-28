@@ -3,9 +3,19 @@ import "./PremiumMatchesCard.css";
 import PlaceIcon from "@mui/icons-material/Place";
 import img1 from "../../Assets/profile/img1.png";
 import BoltIcon from "@mui/icons-material/Bolt";
+import { useNavigate } from "react-router-dom";
 
 const PremiumMatchesCard = ({ prem }) => {
   console.log(prem);
+
+  const navigate = useNavigate();
+  const redirectUser = () => {
+    const user_id = prem._id;
+    console.log(user_id);
+    navigate(`/userprofile/${user_id}`);
+    // console.log(data);
+  };
+
   return (
     <div className="premiummatchescard">
       <div className="premiummatchescard_location">
@@ -13,7 +23,7 @@ const PremiumMatchesCard = ({ prem }) => {
         <h4>{prem.home_town}</h4>
         <BoltIcon style={{ color: "#FCF204" }} />
       </div>
-      <img src={img1} alt="" className="premiummatches_profile" />
+      <img src={prem.profile_photo} alt="" className="premiummatches_profile" />
       <div className="premiummatchescard_intro">
         <p>
           {prem.user_name},{" "}
@@ -28,6 +38,12 @@ const PremiumMatchesCard = ({ prem }) => {
         <p>{prem.job_title}</p>
       </div>
       <button className="premiummatchescard_connect_button">Connect</button>
+      <button
+        className="premiummatchescard_connect_button"
+        onClick={redirectUser}
+      >
+        View Profile
+      </button>
     </div>
   );
 };

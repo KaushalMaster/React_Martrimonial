@@ -190,6 +190,15 @@ const NewMatchesCard = ({ data }) => {
         Connect
         {/* {ids.includes(data._id) ? "Sent" : "Connect"} */}
       </button>
+      <button
+        className="newmatchescard_connect_button"
+        id="connect_btn"
+        disabled={isRequestSent}
+        onClick={redirectUser}
+      >
+        View Profile
+        {/* {ids.includes(data._id) ? "Sent" : "Connect"} */}
+      </button>
     </div>
   );
 };
