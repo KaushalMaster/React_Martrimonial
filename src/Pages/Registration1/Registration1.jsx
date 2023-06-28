@@ -329,7 +329,14 @@ const Registration1 = () => {
             id="dob"
             onChange={calculatedAge}
           />
-          <input type="text" name="age" id="age" className="city" value={age} />
+          <input
+            type="text"
+            name="age"
+            id="age"
+            placeholder="Age"
+            className="city"
+            value={age}
+          />
           <div className="gender_state">
             <select className="height" required>
               <option value="">Height</option>

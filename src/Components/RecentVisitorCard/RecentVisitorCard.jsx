@@ -24,7 +24,7 @@ const RecentVisitorCard = ({ rev }) => {
   };
 
   return (
-    <div className="recentvisitorcard" onClick={redirectUser}>
+    <div className="recentvisitorcard">
       <div className="recentvisitorcard_location">
         <PlaceIcon />
         <h4>{data.home_town}</h4>
@@ -43,6 +43,12 @@ const RecentVisitorCard = ({ rev }) => {
         <p>{data.job_title}</p>
       </div>
       <button className="recentvisitorcard_connect_button">Connect</button>
+      <button
+        className="recentvisitorcard_connect_button"
+        onClick={redirectUser}
+      >
+        view Profile
+      </button>
     </div>
   );
 };
