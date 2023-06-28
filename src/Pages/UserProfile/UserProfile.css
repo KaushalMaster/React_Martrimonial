@@ -50,6 +50,10 @@
   box-shadow: 0.978723px 0.978723px 4.89362px rgba(0, 0, 0, 0.15);
   border-radius: 9.78723px;
 }
+/* content inside the bio */
+.content {
+  overflow-wrap: anywhere;
+}
 
 /* basic details  */
 .userprofile_basic_details {
@@ -88,6 +92,7 @@
 
 .userprofile_food_preference_content_wrapper {
   display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 

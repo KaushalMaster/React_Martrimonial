@@ -263,7 +263,11 @@ const UserProfile = () => {
               alt=""
               className="userprofile_matches_connection"
             />
-            <img src={img2} alt="" className="userprofile_matches_user" />
+            <img
+              src={profilePhoto}
+              alt=""
+              className="userprofile_matches_user"
+            />
           </div>
           <div className="userprofile_matches_description">
             <span>You match 8/8 of his</span>
@@ -347,7 +351,7 @@ const UserProfile = () => {
 
           <div className="userprofile_intro_bio">
             <h3>Bio</h3>
-            <p>{bio}</p>
+            <p className="content">{bio}</p>
           </div>
         </div>
         <div className="userprofile_basic_details">
