@@ -173,7 +173,7 @@ const UserProfile = () => {
   };
 
   // console.log(data.data.UserDetails.preference.marital_status);
-  console.log(motherTongue);
+
   // console.log(profilePhoto);
   useEffect(() => {
     userDetails();
@@ -184,7 +184,7 @@ const UserProfile = () => {
     try {
       const token = localStorage.getItem("token");
       // // const userId = "user-id"; // Replace with the actual user ID
-      const url = `https://metrimonial.onrender.com/api/profile`;
+      const url = `${BASE_URL}/api/profile`;
 
       // const data = {
       //   // Replace with the updated user profile data
@@ -297,7 +297,7 @@ const UserProfile = () => {
             <div className="userprofile_matches_content">
               <p>Mother Tongue</p>
               <img src={match} alt="" />
-              <p>{language}</p>
+              <p>{motherTongue}</p>
             </div>
             <div className="userprofile_matches_content">
               <p>Country Living in</p>
@@ -307,12 +307,12 @@ const UserProfile = () => {
             <div className="userprofile_matches_content">
               <p>State Living in</p>
               <img src={match} alt="" />
-              <p>{location}</p>
+              <p>{state}</p>
             </div>
             <div className="userprofile_matches_content">
               <p>Annual I ncome</p>
               <img src={match} alt="" />
-              <p>{annualIncome}</p>
+              <p>{salary}</p>
             </div>
             <div className="userprofile_matches_content">
               <p>Diet</p>
