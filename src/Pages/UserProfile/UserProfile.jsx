@@ -121,7 +121,7 @@ const UserProfile = () => {
 
   const token = localStorage.getItem("token");
   const { id } = useParams();
-  // console.log(id);
+  console.log(id);
   const userDetails = async () => {
     const res = await fetch(
       `${BASE_URL}/api/profile/userdetails?user_id=${id}`,

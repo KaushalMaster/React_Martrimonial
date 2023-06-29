@@ -116,13 +116,12 @@ const ProfileDetails = () => {
       }
 
       const data = await r.json();
-
       const my_data = data.data.UserDetails;
       setProfileData(my_data);
 
       const userName = data?.data?.UserDetails?.user_name || "";
       const user_id = data?.data?.UserDetails[0]?._id;
-
+      localStorage.setItem("userId", my_data._id);
       setUser_Id(user_id);
       setName(userName);
 

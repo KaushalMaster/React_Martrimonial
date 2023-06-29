@@ -29,15 +29,25 @@ const Messages = () => {
   const getUserData = async () => {
     const chats = collection(db, "chats");
     const chatSnapshot = await getDocs(chats);
+    let messages = [];
     for (let i = 0; i < chatSnapshot.docs.length; i++) {
       const user = chatSnapshot.docs[i].data();
       const id = chatSnapshot.docs[i].id;
+      let tempMessages = [];
+
       if (id === location.state.id) {
-        setMessages(user.messages);
+        tempMessages.push(...JSON.parse(user.messages));
         setName(user.name);
-        console.log(user.name);
-        setMsg(user.messages);
       }
+      for (let j = 0; j < user.messages.length; j++) {
+        if (JSON.parse(user.messages[j])["receiverId"] === location.state.id) {
+          tempMessages.push(JSON.parse(user.messages[j]));
+        }
+        console.log(JSON.parse(user.messages[j]));
+      }
+      setMessages(tempMessages);
+      setName(user.name);
+      setMsg(tempMessages);
     }
 
     return messages;
@@ -52,7 +62,6 @@ const Messages = () => {
     for (let i = 0; i < chatSnapshot.docs.length; i++) {
       const user = chatSnapshot.docs[i].data();
       const id = chatSnapshot.docs[i].id;
-
       if (id === location.state.id) {
         const tempMessages = {
           message: message,

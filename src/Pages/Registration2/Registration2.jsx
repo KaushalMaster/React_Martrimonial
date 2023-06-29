@@ -181,6 +181,16 @@ function Registration2() {
             required
           />
 
+          {/* photo upload field */}
+          {/* Add input field for profile photo */}
+          <input
+            type="file"
+            name="profile_photo"
+            id="profile_photo"
+            onChange={handleChange}
+          />
+          {/* <input type="file" name="" id="" /> */}
+
           {/* <input type="file" name="profile_photo" id="profile_photo" /> */}
 
           <div id="recaptcha"></div>

@@ -470,6 +470,7 @@ const Registration1 = () => {
             placeholder="Enter BIO"
             required
           ></textarea>
+
           <div id="recaptcha"></div>
           <button className="btn__next" onClick={handleNext}>
             Next

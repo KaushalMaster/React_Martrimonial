@@ -95,22 +95,26 @@ const MessagesComponent = () => {
       </div>
       <div className={messagesClasses}>
         {users.map((user, index) => {
-          return (
-            <ProfileMessageCard
-              key={index}
-              id={user.id}
-              name={user.name}
-              message={
-                JSON.parse(user.messages[user.messages.length - 1]).message
-              }
-              time={JSON.parse(user.messages[user.messages.length - 1]).time}
-              length={user.messages.length}
-            />
-          );
+          if (user.id !== localStorage.getItem("userId")) {
+            return (
+              <ProfileMessageCard
+                key={index}
+                id={user.id}
+                name={user.name}
+                message={
+                  JSON.parse(user.messages[user.messages.length - 1]).message
+                }
+                time={JSON.parse(user.messages[user.messages.length - 1]).time}
+                length={user.messages.length}
+              />
+            );
+          } else {
+            return null;
+          }
         })}
         {/* <ProfileMessageCard />
-         <ProfileMessageCard />
-         <ProfileMessageCard /> */}
+          <ProfileMessageCard />
+          <ProfileMessageCard /> */}
       </div>
     </div>
   );
