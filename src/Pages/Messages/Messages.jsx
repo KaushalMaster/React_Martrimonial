@@ -29,32 +29,39 @@ const Messages = () => {
   const getUserData = async () => {
     const chats = collection(db, "chats");
     const chatSnapshot = await getDocs(chats);
-    let messages = [];
+    let messagesArr = [];
     for (let i = 0; i < chatSnapshot.docs.length; i++) {
       const user = chatSnapshot.docs[i].data();
       const id = chatSnapshot.docs[i].id;
-      let tempMessages = [];
-
       if (id === location.state.id) {
-        tempMessages.push(...JSON.parse(user.messages));
         setName(user.name);
       }
       for (let j = 0; j < user.messages.length; j++) {
-        if (JSON.parse(user.messages[j])["receiverId"] === location.state.id) {
-          tempMessages.push(JSON.parse(user.messages[j]));
+        console.log(user.messages[j])
+        let temp = JSON.parse(user.messages[j]);
+        if (temp["receiverId"] === location.state.id) {
+          temp["type"] = "received";
+          messagesArr.push(temp);
+        } else if (temp["receiverId"] === localStorage.getItem("userId")) {
+          temp["type"] = "sent";
+          messagesArr.push(temp);
         }
-        console.log(JSON.parse(user.messages[j]));
       }
-      setMessages(tempMessages);
-      setName(user.name);
-      setMsg(tempMessages);
     }
+    messagesArr = messagesArr.sort((a, b) => {
+      let time1 = new Date(a.time);
+      let time2 = new Date(b.time);
+
+      return time1 - time2;
+    });
+    setMessages(messagesArr);
+    setMsg(messagesArr);
 
     return messages;
   };
 
   async function sendMessage(message) {
-    const userDoc = doc(db, "chats", location.state.id);
+    const userDoc = doc(db, "chats", localStorage.getItem("userId"));
 
     const chats = collection(db, "chats");
     const chatSnapshot = await getDocs(chats);
@@ -62,16 +69,19 @@ const Messages = () => {
     for (let i = 0; i < chatSnapshot.docs.length; i++) {
       const user = chatSnapshot.docs[i].data();
       const id = chatSnapshot.docs[i].id;
-      if (id === location.state.id) {
+      if (id === localStorage.getItem("userId")) {
         const tempMessages = {
           message: message,
-          time: new Date().toLocaleTimeString(),
-          type: "sent",
+          time: new Date().toString(),
+          receiverId: location.state.id,
+          type: "received",
         };
-        const newMessages = [...user.messages, JSON.stringify(tempMessages)];
-        setMessages(newMessages);
+        const newMessages = [...msg, tempMessages];
+        const tempMessageArr = newMessages.map((message) =>
+          JSON.stringify(message)
+        );
         await updateDoc(userDoc, {
-          messages: newMessages,
+          messages: tempMessageArr,
           name: user.name,
         });
         setMsg(newMessages);
@@ -105,11 +115,9 @@ const Messages = () => {
               return (
                 <Message
                   key={index}
-                  myMessage={
-                    JSON.parse(message).type === "received" ? false : true
-                  }
-                  message={JSON.parse(message).message}
-                  time={JSON.parse(message).time}
+                  myMessage={message.type === "received" ? true : false}
+                  message={message.message}
+                  time={message.time}
                 />
               );
             })}
