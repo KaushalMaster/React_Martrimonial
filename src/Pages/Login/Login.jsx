@@ -28,6 +28,10 @@ const Login = () => {
   console.log(dell);
 
   const handleSubmit = async () => {
+    if (dell.contact_no.trim() === "" || dell.password.trim() === "") {
+      alert("Please fill in all fields.");
+      return;
+    }
     handleLogin();
   };
 
@@ -35,7 +39,7 @@ const Login = () => {
     const { contact_no, password } = dell;
     const formattedContactNo = "+91" + contact_no;
     console.log(formattedContactNo);
-    if (formattedContactNo.length !== 13) {
+    if (formattedContactNo.length !== 13) { 
       alert("Invalid Mobile Number");
       return;
     } else {
