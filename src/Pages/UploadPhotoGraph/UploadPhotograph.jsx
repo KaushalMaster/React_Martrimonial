@@ -1,118 +1,66 @@
-import {
-  AutoFixOffSharp,
-  Close,
-  FileUploadOutlined,
-} from "@mui/icons-material";
 import React, { useState } from "react";
-import "./UploadPhotograph.css";
-import img1 from "../../Assets/profile2/img1.jpg";
+import { FileUploadOutlined, Close } from "@mui/icons-material";
 import axios from "axios";
 import { BASE_URL } from "../../BASE_URL";
+import "./UploadPhotograph.css";
 
 const UploadPhotograph = () => {
   const [selectedPhotos, setSelectedPhotos] = useState([]);
-  const [formData, setFormData] = useState([]);
   const token = localStorage.getItem("token");
 
-  console.log(formData.user_photo);
-
-  // const uploadPhoto = () => {
-  //   const inputElement = document.getElementById("file-input"); // Replace "file-input" with the ID of your file input element
-  //   const files = inputElement.files;
-
-  //   // const formData = new FormData();
-
-  //   // for (let i = 0; i < files.length; i++) {
-  //   //   const file = files[i];
-  //   //   const reader = new FileReader();
-
-  //   //   reader.onload = (event) => {
-  //   //     const fileContent = event.target.result;
-  //   //     formData.append("user_photo", file.name);
-
-  //   //     if (i === files.length - 1) {
-  //   //       // All files have been appended, make the API call
-  //   //       makeApiCall(formData);
-  //   //     }
-  //   //   };
-
-  //   //   console.log(formData);
-
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  const makeApiCall = (formData) => {
-    const formData1 = new FormData();
-
-    console.log(formData1);
-
-    fetch(`${BASE_URL}/api/profile`, {
-      method: "PUT",
-      headers: {
-        Authorization: token,
-      },
-      body: formData,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Request failed");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Handle the API response data here
-        console.log(data);
-        alert("Photos Uploaded Successfully");
-      })
-      .catch((error) => {
-        // Handle any errors here
-        console.error("Error:", error);
+  const handlePhotoUpload = async () => {
+    try {
+      const formData = new FormData();
+      selectedPhotos.forEach((photo) => {
+        formData.append("user_photo", photo);
       });
+
+      console.log(formData);
+      const response = await axios.put(`${BASE_URL}/api/profile`, formData, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log(response.data);
+      alert("Photos Uploaded Successfully");
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
-  const handleOptionChange = (event) => {
-    const { name, value, files } = event.target;
+  const handleFileChange = (event) => {
+    const { files } = event.target;
+    const uploadedPhotos = Array.from(files);
+    setSelectedPhotos(uploadedPhotos);
+  };
 
-    if (name === "user_photo") {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        [name]: event.target.files,
-      }));
-    }
-    console.log(formData);
+  const handleRemovePhoto = (index) => {
+    const updatedPhotos = [...selectedPhotos];
+    updatedPhotos.splice(index, 1);
+    setSelectedPhotos(updatedPhotos);
   };
 
   return (
     <div className="upload_photographs">
-      <h2>Upload Your Photo</h2>
+      <h2>Upload Your Photos</h2>
       <div className="upload__photo_wrapper">
         <div className="upload_photographs__upload_photo">
           <FileUploadOutlined />
           <p>Upload your photographs here</p>
           <div className="signup__upload_button__wrapper">
-            <form action="post">
-              <input
-                type="file"
-                placeholder="yuvraj"
-                style={{ width: "100px" }}
-                className="photos"
-                id="file-input"
-                multiple
-                onChange={handleOptionChange}
-                name="user_photo"
-              />
-              {/* {(e) => {
-                  const files = Array.from(e.target.files);
-                  setSelectedPhotos(files);
-                }} */}
-            </form>
-            {/* <button className="signup__upload_button">Browse</button> */}
-            <p>supported files : png, jpg, jepg</p>
+            <input
+              type="file"
+              multiple
+              onChange={handleFileChange}
+              accept=".png, .jpg, .jpeg"
+              className="photos"
+            />
+            <p>supported files: png, jpg, jpeg</p>
           </div>
         </div>
         <div className="upload_photographs_selected_photos">
-          {/* Show selected Phtoos */}
           {selectedPhotos.map((photo, index) => (
             <div
               className="upload_photographs_uploaded_image_wrapper"
@@ -123,59 +71,15 @@ const UploadPhotograph = () => {
                 alt=""
                 className="upload_photographs_uploaded_image"
               />
-              <Close className="upload_photographs_uploaded_image_close_icon" />
+              <Close
+                className="upload_photographs_uploaded_image_close_icon"
+                onClick={() => handleRemovePhoto(index)}
+              />
             </div>
           ))}
-
-          {/* Selected photos  */}
-          {/* <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div> */}
         </div>
       </div>
-
-      <button className="upload_photographs_save" onClick={makeApiCall}>
+      <button className="upload_photographs_save" onClick={handlePhotoUpload}>
         Save
       </button>
     </div>
