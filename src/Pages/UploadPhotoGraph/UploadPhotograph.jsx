@@ -14,37 +14,73 @@ const UploadPhotograph = () => {
   const [formData, setFormData] = useState([]);
   const token = localStorage.getItem("token");
 
-  const uploadPhoto = () => {
-    const formData = new FormData();
+  console.log(formData.user_photo);
 
-    // Append each selected photo to the FormData object
-    selectedPhotos.forEach((photo) => {
-      console.log("Appending photo:", photo);
-      const res = formData.append("photos[]", photo);
-      console.log(res);
-      setFormData(res);
-    });
+  // const uploadPhoto = () => {
+  //   const inputElement = document.getElementById("file-input"); // Replace "file-input" with the ID of your file input element
+  //   const files = inputElement.files;
 
-    console.log(formData);
-    // set the headers only the authenticated can save the photos
-    const headers = {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "multipart/form-data", // Set the appropriate content type
-    };
+  //   // const formData = new FormData();
 
-    // Make an API call using Axios or any other library
-    console.log("123");
-    axios
-      .put(`${BASE_URL}/api/profile`, selectedPhotos, { headers })
+  //   // for (let i = 0; i < files.length; i++) {
+  //   //   const file = files[i];
+  //   //   const reader = new FileReader();
+
+  //   //   reader.onload = (event) => {
+  //   //     const fileContent = event.target.result;
+  //   //     formData.append("user_photo", file.name);
+
+  //   //     if (i === files.length - 1) {
+  //   //       // All files have been appended, make the API call
+  //   //       makeApiCall(formData);
+  //   //     }
+  //   //   };
+
+  //   //   console.log(formData);
+
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  const makeApiCall = (formData) => {
+    const formData1 = new FormData();
+
+    console.log(formData1);
+
+    fetch(`${BASE_URL}/api/profile`, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+      },
+      body: formData,
+    })
       .then((response) => {
-        // Handle the API response
-        console.log(response.data);
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+        return response.json();
       })
-
+      .then((data) => {
+        // Handle the API response data here
+        console.log(data);
+        alert("Photos Uploaded Successfully");
+      })
       .catch((error) => {
-        // Handle any errors
+        // Handle any errors here
         console.error("Error:", error);
       });
+  };
+
+  const handleOptionChange = (event) => {
+    const { name, value, files } = event.target;
+
+    if (name === "user_photo") {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: event.target.files,
+      }));
+    }
+    console.log(formData);
   };
 
   return (
@@ -61,12 +97,15 @@ const UploadPhotograph = () => {
                 placeholder="yuvraj"
                 style={{ width: "100px" }}
                 className="photos"
+                id="file-input"
                 multiple
-                onChange={(e) => {
+                onChange={handleOptionChange}
+                name="user_photo"
+              />
+              {/* {(e) => {
                   const files = Array.from(e.target.files);
                   setSelectedPhotos(files);
-                }}
-              />
+                }} */}
             </form>
             {/* <button className="signup__upload_button">Browse</button> */}
             <p>supported files : png, jpg, jepg</p>
@@ -136,7 +175,7 @@ const UploadPhotograph = () => {
         </div>
       </div>
 
-      <button className="upload_photographs_save" onClick={uploadPhoto}>
+      <button className="upload_photographs_save" onClick={makeApiCall}>
         Save
       </button>
     </div>

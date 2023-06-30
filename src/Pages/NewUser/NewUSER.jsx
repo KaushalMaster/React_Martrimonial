@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./NewUSER.css";
 
 const NewUSER = () => {
   const [user_name, setuser_name] = useState("");
