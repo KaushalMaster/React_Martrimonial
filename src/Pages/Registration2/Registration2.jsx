@@ -74,20 +74,27 @@ function Registration2() {
         alert("Please fill in all the fields.");
         return;
       }
-      // Combine the data and form data
-      const combinedData = {
-        ...data,
-        ...formData,
-      };
 
-      console.log(combinedData);
+      // Create a new FormData object
+      const combinedFormData = new FormData();
+
+      // Append the data from `data` object
+      Object.entries(data).forEach(([key, value]) => {
+        combinedFormData.append(key, value);
+      });
+
+      // Append the data from `formData` object
+      Object.entries(formData).forEach(([key, value]) => {
+        combinedFormData.append(key, value);
+      });
 
       const response = await axios.put(
         `${BASE_URL}/api/profile`,
-        combinedData,
+        combinedFormData,
         {
           headers: {
             Authorization: token,
+            "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
           },
         }
       );
