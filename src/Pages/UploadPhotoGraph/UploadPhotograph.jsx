@@ -1,53 +1,52 @@
-import { Close, FileUploadOutlined } from "@mui/icons-material";
-import React from "react";
+import {
+  AutoFixOffSharp,
+  Close,
+  FileUploadOutlined,
+} from "@mui/icons-material";
+import React, { useState } from "react";
 import "./UploadPhotograph.css";
-import { useNavigate } from "react-router-dom";
 import img1 from "../../Assets/profile2/img1.jpg";
-import { useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../../BASE_URL";
 
 const UploadPhotograph = () => {
-  const navigate = useNavigate();
+  const [selectedPhotos, setSelectedPhotos] = useState([]);
+  const [formData, setFormData] = useState([]);
   const token = localStorage.getItem("token");
-  const [userPhotos, setUserPhotos] = useState([]);
 
-  const handleBrowse = (event) => {
-    const files = event.target.files;
-    const selectedPhotos = Array.from(files).map((file) =>
-      URL.createObjectURL(file)
-    );
-    setUserPhotos(selectedPhotos);
-  };
+  const uploadPhoto = () => {
+    const formData = new FormData();
 
-  const handleRemovePhoto = (index) => {
-    const updatedPhotos = [...userPhotos];
-    updatedPhotos.splice(index, 1);
-    setUserPhotos(updatedPhotos);
-  };
+    // Append each selected photo to the FormData object
+    selectedPhotos.forEach((photo) => {
+      console.log("Appending photo:", photo);
+      const res = formData.append("photos[]", photo);
+      console.log(res);
+      setFormData(res);
+    });
 
-  const uploadPhotos = async () => {
-    try {
-      const response = await fetch("http://15.206.91.12:4000/api/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-        body: JSON.stringify({
-          // profile_photo: profilePhoto,
-          // user_photo: userPhoto,
-        }),
+    console.log(formData);
+    // set the headers only the authenticated can save the photos
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data", // Set the appropriate content type
+    };
+
+    // Make an API call using Axios or any other library
+    console.log("123");
+    axios
+      .put(`${BASE_URL}/api/profile`, selectedPhotos, { headers })
+      .then((response) => {
+        // Handle the API response
+        console.log(response.data);
+      })
+
+      .catch((error) => {
+        // Handle any errors
+        console.error("Error:", error);
       });
-      if (response == 200) {
-        navigate("/");
-      } else {
-        alert("Something went wrong");
-      }
-      // Handle the response as needed
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
   };
+
   return (
     <div className="upload_photographs">
       <h2>Upload Your Photo</h2>
@@ -56,68 +55,88 @@ const UploadPhotograph = () => {
           <FileUploadOutlined />
           <p>Upload your photographs here</p>
           <div className="signup__upload_button__wrapper">
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              id="browse-input"
-              style={{ display: "none" }}
-              onChange={handleBrowse}
-            />
-            <label htmlFor="browse-input">
-              <button className="signup__upload_button">Browse</button>
-            </label>
-            <p>Supported files: png, jpg, jpeg</p>
+            <form action="post">
+              <input
+                type="file"
+                placeholder="yuvraj"
+                style={{ width: "100px" }}
+                className="photos"
+                multiple
+                onChange={(e) => {
+                  const files = Array.from(e.target.files);
+                  setSelectedPhotos(files);
+                }}
+              />
+            </form>
+            {/* <button className="signup__upload_button">Browse</button> */}
+            <p>supported files : png, jpg, jepg</p>
           </div>
         </div>
         <div className="upload_photographs_selected_photos">
-          {userPhotos.map((photo, index) => (
+          {/* Show selected Phtoos */}
+          {selectedPhotos.map((photo, index) => (
             <div
               className="upload_photographs_uploaded_image_wrapper"
               key={index}
             >
               <img
-                src={photo}
+                src={URL.createObjectURL(photo)}
                 alt=""
                 className="upload_photographs_uploaded_image"
               />
-              <Close
-                className="upload_photographs_uploaded_image_close_icon"
-                onClick={() => handleRemovePhoto(index)}
-              />
+              <Close className="upload_photographs_uploaded_image_close_icon" />
             </div>
           ))}
+
+          {/* Selected photos  */}
+          {/* <div className="upload_photographs_uploaded_image_wrapper">
+            <img
+              src={img1}
+              alt=""
+              className="upload_photographs_uploaded_image"
+            />
+            <Close className="upload_photographs_uploaded_image_close_icon" />
+          </div>
+
+          <div className="upload_photographs_uploaded_image_wrapper">
+            <img
+              src={img1}
+              alt=""
+              className="upload_photographs_uploaded_image"
+            />
+            <Close className="upload_photographs_uploaded_image_close_icon" />
+          </div>
+
+          <div className="upload_photographs_uploaded_image_wrapper">
+            <img
+              src={img1}
+              alt=""
+              className="upload_photographs_uploaded_image"
+            />
+            <Close className="upload_photographs_uploaded_image_close_icon" />
+          </div>
+
+          <div className="upload_photographs_uploaded_image_wrapper">
+            <img
+              src={img1}
+              alt=""
+              className="upload_photographs_uploaded_image"
+            />
+            <Close className="upload_photographs_uploaded_image_close_icon" />
+          </div>
+
+          <div className="upload_photographs_uploaded_image_wrapper">
+            <img
+              src={img1}
+              alt=""
+              className="upload_photographs_uploaded_image"
+            />
+            <Close className="upload_photographs_uploaded_image_close_icon" />
+          </div> */}
         </div>
-        {/* <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-
-          <div className="upload_photographs_uploaded_image_wrapper">
-            <img
-              src={img1}
-              alt=""
-              className="upload_photographs_uploaded_image"
-            />
-            <Close className="upload_photographs_uploaded_image_close_icon" />
-          </div>
-        </div> */}
       </div>
 
-      <button className="upload_photographs_save" onClick={uploadPhotos}>
+      <button className="upload_photographs_save" onClick={uploadPhoto}>
         Save
       </button>
     </div>

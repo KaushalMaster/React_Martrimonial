@@ -6,6 +6,10 @@
   gap: 30px;
 }
 
+.photos {
+  display: block !important;
+}
+
 .upload_photographs > h2 {
   font-weight: 400;
   font-size: 50px;
