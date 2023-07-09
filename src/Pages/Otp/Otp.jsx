@@ -2,8 +2,34 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../BASE_URL";
+import { auth } from "../../firebase";
+import { RecaptchaVerifier } from "firebase/auth";
 
 const Otp = () => {
+  const captchaVerify = () => {
+    const recaptchaVerifier = new RecaptchaVerifier(
+      "recaptcha-container",
+      {
+        size: "invisible",
+        callback: (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          onSignup();
+          console.log("Recaptcha resolved");
+        },
+        defaultCountry: "IN",
+      },
+      auth
+    );
+  };
+
+  const onSignup = () => {
+    captchaVerify();
+
+    const phoneNumber = "+91" + location.state?.userData?.phone;
+    console.log(phoneNumber);
+    const appVerifier = window.recaptchaVerifier;
+
+  };
   const saveUserData = async (userData) => {
     try {
       const response = await axios.post(`${BASE_URL}/api/profile`, userData);
