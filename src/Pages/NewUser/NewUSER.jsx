@@ -1,17 +1,52 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./NewUSER.css";
+import { auth } from "../../firebase";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+// import { Toaster, toast } from "react-hot-toast";
 
 const NewUSER = () => {
   const [user_name, setuser_name] = useState("");
   const [contact_no, setcontact_no] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+  // const [error, setError] = useState("");
 
   const navigate = useNavigate();
+
+  // Captcha Verification
+  // function onCaptchaVerify() {
+  //   if (!window.reCaptchaVerifier) {
+  //     window.recaptchaVerifier = new RecaptchaVerifier(
+  //       "recaptcha-container",
+  //       {
+  //         size: "invisible",
+  //         callback: (response) => {
+  //           onRegister();
+  //         },
+  //         "expired-callback": () => {},
+  //       },
+  //       auth
+  //     );
+  //   }
+  // }
+
+  // function onRegister() {
+  //   onCaptchaVerify();
+
+  //   console.log("called on button click");
+
+  //   const appVerifier = window.recaptchaVerifier;
+  //   signInWithPhoneNumber(auth, contact_no, appVerifier)
+  //     .then((confirmationResult) => {
+  //       window.confirmationResult = confirmationResult;
+  //       toast.success("OTP Sent Successfully");
+  //     })
+  //     .catch((error) => {
+  //       console.log("ERROR: ", error);
+  //     });
+  // }
 
   const handleSubmit = () => {
     // if (!user_name || !contact_no || !email || !password || !confirmPassword) {
@@ -22,6 +57,7 @@ const NewUSER = () => {
     //   return;
     // } else {
     // }
+
     const userData = {
       user_name: user_name,
       contact_no: "+91" + contact_no,

@@ -6,30 +6,15 @@ import { auth } from "../../firebase";
 import { RecaptchaVerifier } from "firebase/auth";
 
 const Otp = () => {
-  const captchaVerify = () => {
-    const recaptchaVerifier = new RecaptchaVerifier(
-      "recaptcha-container",
-      {
-        size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          onSignup();
-          console.log("Recaptcha resolved");
-        },
-        defaultCountry: "IN",
-      },
-      auth
-    );
-  };
+  const navigate = useNavigate();
 
-  const onSignup = () => {
-    captchaVerify();
+  const location = useLocation();
+  const [otp, setOtp] = useState("");
 
-    const phoneNumber = "+91" + location.state?.userData?.phone;
-    console.log(phoneNumber);
-    const appVerifier = window.recaptchaVerifier;
+  // Data from the user Registration page
+  const data = location.state?.userData;
+  console.log(data);
 
-  };
   const saveUserData = async (userData) => {
     try {
       const response = await axios.post(`${BASE_URL}/api/profile`, userData);
@@ -40,10 +25,6 @@ const Otp = () => {
       console.error(error);
     }
   };
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [otp, setOtp] = useState("");
 
   const handleOtpVerification = () => {
     // Perform OTP verification logic
@@ -63,6 +44,7 @@ const Otp = () => {
       <div className="login__wrapepr">
         <div className="login OTP_input">
           <h2>Enter OTP</h2>
+          <input type="text" value={data.contact_no} style={{ width: 220 }} />
           <input
             type="tel"
             maxLength="4"
